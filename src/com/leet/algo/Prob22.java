@@ -12,16 +12,22 @@ import java.util.stream.Collectors;
 public class Prob22 {
   public List<String> generateParenthesis(int n) {
     List<String> result = new ArrayList<>();
-    if(n == 0) return result;
-    if(n == 1) {
-      result.add("()");
-      return result;
-    }
-    List<String> subResult = generateParenthesis(n - 1);
-    Set<String> set = new HashSet<>();
-    for(String st : subResult){
+    if(n <= 0) return result;
+    backtrack(result, "", 0, 0, n);
+    return result;
+  }
 
+  private void backtrack(List<String> list, String str, int opened, int closed, int max){
+    if(str.length() == 2 * max){
+      list.add(str);
+      return;
     }
-    return new ArrayList<>(set);
+    if(opened < max) backtrack(list, str + "(", opened + 1, closed, max);
+    if(closed < opened) backtrack(list, str + ")", opened, closed + 1, max);
+  }
+
+  public static void main(String[] args){
+    Prob22 prob22 = new Prob22();
+    System.out.println(prob22.generateParenthesis(3));
   }
 }
