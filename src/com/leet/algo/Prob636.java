@@ -11,28 +11,18 @@ import java.util.Stack;
 public class Prob636 {
   public int[] exclusiveTime(int n, List<String> logs) {
     if(logs == null || logs.size() < 2) return new int[0];
-    Stack<String> stack = new Stack<>();
-    int[] result = new int[logs.size() / 2];
+    Stack<Integer> stack = new Stack<>();
+    int[] result = new int[n];
+    int previousTime = 0;
     for(String st : logs){
-      if(!st.contains(":end:")){
-        if(stack.isEmpty()) stack.push(st);
-        else {
-          String[] peekStr = stack.peek().split(":");
-          String[] arr = st.split(":");
-          stack.push(peekStr[0] + ":end:" + (Integer.valueOf(arr[2]) - 1));
-          stack.push(st);
-
-        }
+      String[] parts = st.split(":");
+      if(!stack.isEmpty()) result[stack.peek()] += Integer.valueOf(parts[2]) - previousTime;
+      previousTime = Integer.valueOf(parts[2]);
+      if(parts[1].equals("start")){
+        stack.push(Integer.parseInt(parts[0]));
       } else {
-        String[] arrEnd = st.split(":");
-        String[] arrStart = stack.pop().split(":");
-        result[Integer.parseInt(arrEnd[0])] += Integer.valueOf(arrEnd[2]) - Integer.valueOf(arrStart[2]) + 1;
-        if(!stack.isEmpty()){
-          String[] peekStr = stack.peek().split(":");
-          String[] arr = st.split(":");
-          stack.push(peekStr[0] + ":end:" + (Integer.valueOf(arr[2]) - 1));
-          stack.push(st);
-        }
+        result[stack.pop()]++;
+        previousTime++;
       }
     }
     return result;

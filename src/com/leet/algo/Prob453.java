@@ -6,19 +6,13 @@ package com.leet.algo;
 public class Prob453 {
   public int minMoves(int[] nums) {
     if(nums == null || nums.length < 2) return 0;
+    int sum = 0;
     int min = Integer.MAX_VALUE;
-    long sum = 0l;
-    for(int i = 0; i < nums.length; i++){
-      if(nums[i] < min) min = nums[i];
+    for(int i = 0; i < nums.length; i++) {
       sum += nums[i];
+      min = Math.min(min, nums[i]);
     }
-    int move = 0;
-    while(sum != nums.length * min){
-      sum += (nums.length - 1);
-      min++;
-      move++;
-    }
-    return move;
+    return sum - nums.length * min;
   }
 
   public static void main(String[] args){
