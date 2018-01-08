@@ -6,18 +6,18 @@ package com.leet.algo;
 public class Prob687 {
   public int longestUnivaluePath(TreeNode root) {
     if(root == null) return 0;
-    int path1Val = longestUnivaluePath(root, root.val);
-    int leftPathVal = longestUnivaluePath(root.left);
-    int rightPathVal = longestUnivaluePath(root.right);
-    if(path1Val > leftPathVal && path1Val > rightPathVal) return path1Val;
-    if(leftPathVal > rightPathVal) return leftPathVal;
-    return rightPathVal;
+    int[] res = new int[1];
+    dfs(root, res);
+    return res[0];
   }
 
-  public int longestUnivaluePath(TreeNode root, int val) {
-    int result = 0;
-    if(root.val == val) return 0;
-    if(root.val == val) result++;
-    return result - 1;
+  private int dfs(TreeNode root, int[] res){
+    int left = 0, right = 0;
+    if(root.left != null) left = dfs(root.left, res);
+    if(root.right != null) right = dfs(root.right, res);
+    left = (root.left != null && root.val == root.left.val) ? left + 1 : 0;
+    right = (root.right != null && root.val == root.right.val) ?  right + 1 : 0;
+    res[0] = Math.max(res[0], left + right);
+    return Math.max(left, right);
   }
 }
