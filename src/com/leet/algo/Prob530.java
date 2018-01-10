@@ -4,25 +4,22 @@ package com.leet.algo;
  * Created by ayanc on 9/15/17.
  */
 public class Prob530 {
-  private Integer lastViewed = null;
-  private Integer minDiff = null;
   public int getMinimumDifference(TreeNode root) {
-    if(root == null) return 0;
-    trav(root);
-    return minDiff;
-  }
-
-  private void trav(TreeNode root){
-    if(root.left != null) trav(root.left);
-    if(lastViewed == null){
-      lastViewed = root.val;
-    }else {
-      int diff = Math.abs(root.val - lastViewed);
-      if(minDiff == null || minDiff > diff){
-        minDiff = diff;
-      }
+    if(root.left == null && root.right == null) return Integer.MAX_VALUE;
+    int diff = Integer.MAX_VALUE;
+    if(root.left != null) {
+      int subDiff = getMinimumDifference(root.left);
+      TreeNode node = root.left;
+      while(node.right != null) node = node.right;
+      diff = Math.min(subDiff, Math.abs(node.val - root.val));
     }
-    if(root.right != null) trav(root.right);
+    if(root.right != null) {
+      diff = Math.min(diff, getMinimumDifference(root.right));
+      TreeNode node = root.right;
+      while(node.left != null) node = node.left;
+      diff = Math.min(diff, Math.abs(node.val - root.val));
+    }
+    return diff;
   }
 
   class TreeNode {
@@ -34,12 +31,12 @@ public class Prob530 {
 
   public static void main(String[] args){
     Prob530 prob530 = new Prob530();
-    TreeNode one = prob530.new TreeNode(1);
-    TreeNode three = prob530.new TreeNode(3);
-    TreeNode two = prob530.new TreeNode(2);
-    one.right = three;
-    three.left = two;
-    System.out.println(prob530.getMinimumDifference(one));
+    TreeNode five = prob530.new TreeNode(5);
+    TreeNode four = prob530.new TreeNode(4);
+    TreeNode seven = prob530.new TreeNode(7);
+    five.right = seven;
+    five.left = four;
+    System.out.println(prob530.getMinimumDifference(five));
   }
 
 
