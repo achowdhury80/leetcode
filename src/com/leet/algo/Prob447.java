@@ -1,7 +1,9 @@
 package com.leet.algo;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -10,27 +12,17 @@ import java.util.Set;
 public class Prob447 {
   public int numberOfBoomerangs(int[][] points) {
     if(points == null || points.length < 3) return 0;
-    double[][] distances = new double[points.length][points.length];
+    int result = 0;
     for(int i = 0; i < points.length; i++){
+      Map<Integer, Integer> map = new HashMap<>();
       for( int j = 0; j < points.length; j++){
         int xDif = points[i][0] - points[j][0];
-          int yDif = points[i][1] - points[j][1];
-          distances[i][j] = Math.sqrt(xDif * xDif + yDif * yDif);
-          distances[j][i] = distances[i][j];
+        int yDif = points[i][1] - points[j][1];
+        int distance =xDif * xDif + yDif * yDif;
+        map.put(distance, map.getOrDefault(distance, 0) + 1);
       }
-    }
-    for(int i = 0; i < distances.length; i++){
-      for(int j = 0; j < distances.length; j++){
-        System.out.print(distances[i][j] + " ");
-      }
-      System.out.println();
-    }
-    int result = 0;
-    for(int i = 0; i < distances.length; i++){
-      Set<Double> set = new HashSet<>();
-      for(int j = 0; j < points.length; j++){
-        if(set.contains(distances[i][j])) result += 2;
-        else set.add(distances[i][j]);
+      for(int val : map.values()){
+        result += val * (val - 1);
       }
     }
     return result;
