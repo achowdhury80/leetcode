@@ -8,61 +8,25 @@ import java.util.List;
  */
 public class Prob241 {
   public List<Integer> diffWaysToCompute(String input) {
-    List<String> list = new ArrayList<>();
-    int lastIndex = -1;
-    String s;
-    while((s = next(input, lastIndex)) != null){
-      lastIndex += s.length();
-      list.add(s);
-    }
-    return evaluate(list, 0);
-  }
-
-  private List<Integer> evaluate(List<String> list, int start){
     List<Integer> result = new ArrayList<>();
-    int first = Integer.parseInt(list.get(start));
-    if(list.size() == start + 1) {
-      result.add(first);
-      return result;
-    }
-    int second = Integer.parseInt(list.get(start + 2));
-    String op = list.get(start + 1);
-    int firstN2nd = evaluate(first, op, second);
-    if(list.size() == start + 3) {
-      result.add(firstN2nd);
-      return result;
-    }
-    List<Integer> result1 = evaluate(list, start + 2);
-    List<Integer> result2 = evaluate(list, start + 4);
-    for(int r : result1){
-      result.add(evaluate(first, op, r));
-    }
-    for(int r : result2){
-      result.add(evaluate(firstN2nd, list.get(start + 3), r));
-    }
-    return result;
-  }
-
-
-
-  private Integer evaluate(int first, String op, int last){
-    if(op.equals("+")) return first + last;
-    if(op.equals("*")) return first * last;
-    return first - last;
-  }
-
-  private String next(String input, int lastIndex){
-    if(lastIndex == input.length() - 1) return null;
-    String result = "";
-    for(int i = lastIndex + 1; i < input.length() ; i++){
+    for(int i = 0; i < input.length(); i++){
       char c = input.charAt(i);
       if(c == '+' || c == '-' || c == '*'){
-        if(result.equals("")) return "" + c;
-        else return result;
-      } else result += c;
+        List<Integer> left = diffWaysToCompute(input.substring(0, i));
+        List<Integer> right = diffWaysToCompute(input.substring(i + 1));
+        for (Integer i1 : left){
+          for (Integer i2 : right){
+            if(c == '+') result.add(i1 + i2);
+            else if(c == '-') result.add(i1 - i2);
+            else result.add(i1 * i2);
+          }
+        }
+      }
     }
+    if (result.size() < 1) result.add(Integer.parseInt(input));
     return result;
   }
+
 
   public static void main(String[] args){
     Prob241 prob241 = new Prob241();
