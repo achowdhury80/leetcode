@@ -8,44 +8,16 @@ import java.util.Stack;
 public class Prob456 {
   public boolean find132pattern(int[] nums) {
     if(nums == null || nums.length < 3) return false;
+    int s3 = Integer.MIN_VALUE;
     Stack<Integer> stack = new Stack<>();
-    stack.push(nums[0]);
-    boolean minPushed = true;
-    for(int i = 2; i < nums.length; i++){
-      int num = nums[i];
-      if(stack.size() == 1){
-        if(num > stack.peek()) stack.push(num);
-        else if(num < stack.peek()) {
-          stack.pop();
-          stack.push(num);
-        }
-      } else {
-        if(minPushed){
-          if(num > stack.peek()) {
-            stack.push(num);
-            minPushed = false;
-          } else if(num < stack.peek()){
-            stack.pop();
-            stack.push(num);
-          }
-        } else {
-          if(num > stack.peek()){
-            stack.pop();
-            stack.push(num);
-          } else if(num < stack.peek()){
-            stack.push(num);
-            minPushed = true;
-          }
-        }
-
+    for (int i = nums.length - 1; i > -1; i--){
+      if(s3 > nums[i] && !stack.isEmpty()) return true;
+      else while(!stack.isEmpty() && nums[i] > stack.peek()){
+        s3 = stack.peek();
+        stack.pop();
       }
+      stack.push(nums[i]);
     }
-
-    while(stack.size() > 2) {
-      int last = stack.pop();
-      int seconLast = stack.pop();
-      int thirdLast = stack.pop();
-    }
-    return true;
+    return false;
   }
 }
