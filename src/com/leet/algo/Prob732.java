@@ -1,65 +1,23 @@
 package com.leet.algo;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 /**
  * Created by ayanc on 1/26/18.
  */
 public class Prob732 {
-  private int result = 0;
-  private ListNode root = null;
+  Map<Integer, Integer> timeLine = new TreeMap<>();
   public Prob732() {
-
+    timeLine = new TreeMap<>();
   }
-
   public int book(int start, int end) {
-    if(root == null) {
-      root = new ListNode(start, end);
-      result = 1;
-      return result;
-    }
-    if(end <= root.start){
-      ListNode newNode = new ListNode(start, end);
-      newNode.next = root;
-      root.parent = newNode;
-      root = newNode;
-      return result;
-    }
-    ListNode current = root;
-    ListNode last = current;
-    while(current.end <= start){
-      last = current;
-      current = current.next;
-    }
-    if(current == null){
-      ListNode newNode = new ListNode(start, end);
-      newNode.parent = last;
-      last.next = newNode;
-      return result;
-    }
-    ListNode startNode = current;
-    if(start <= current.start){
-      ListNode newNode = new ListNode(start, current.start);
-      if(current.parent == null){
-        newNode.next = current;
-        current.parent = newNode;
-        root = newNode;
-      } else {
-        current.parent.next = newNode;
-        newNode.parent = current.parent;
-        newNode.next = current;
-        current.parent = newNode;
-      }
-      start = current.start;
-    }
-    return 0;
+    timeLine.put(start, timeLine.getOrDefault(start, 0) + 1);
+    timeLine.put(end, timeLine.getOrDefault(end, 0) - 1);
+    int k = 0, ongoing = 0;
+    for(int val : timeLine.values()) k = Math.max(k, ongoing += val);
+    return k;
   }
 
-  class ListNode{
-    int start, end, count = 1;
-    ListNode next;
-    ListNode parent;
-    ListNode(int start, int end){
-      this.start = start;
-      this.end = end;
-    }
-  }
+
 }
