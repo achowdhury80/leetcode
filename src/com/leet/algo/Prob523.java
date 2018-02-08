@@ -1,22 +1,27 @@
 package com.leet.algo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by ayanc on 12/23/17.
  */
 public class Prob523 {
   public boolean checkSubarraySum(int[] nums, int k) {
     int n;
-    if(nums == null || (n = nums.length) < 2) return false;
-    int[][] dp = new int[n + 1][n + 1];
-    for(int i = 1; i <= n; i++){
-      dp[i][i] = nums[i - 1];
-    }
-    for(int j = 1; j < n; j++){
-      for(int i = 1; i < n; i++){
-        if(i + j > n) break;
-        dp[i][i + j] = nums[i - 1] + dp[i + 1][i + j];
-        if((k != 0 && dp[i][i + j] % k == 0) || (k == 0 && dp[i][i + j] == k)) return true;
+    if(nums == null || (n = nums.length) < 2 ) return false;
+    Map<Integer, Integer> map = new HashMap<>();
+    map.put(0, -1);
+    int sum = 0;
+    if (k < 1) k = -k;
+    for (int i = 0; i < n; i++) {
+      sum += nums[i];
+      if (k != 0) sum %= k;
+      Integer prev = map.get(sum);
+      if (prev != null) {
+        if (i - prev > 1) return true;
       }
+      else map.put(sum, i);
     }
     return false;
 

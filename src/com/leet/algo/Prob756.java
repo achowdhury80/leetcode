@@ -16,50 +16,43 @@ public class Prob756 {
     if(allowed == null || allowed.size() < 1 || bottom == null || bottom.length() < 2) return false;
     int numberOfLevels = bottom.length();
     Map<String, List<String>> map = generateOneLevelUp(allowed);
-    List<String> currentLevel = new ArrayList<>();
-    currentLevel.add(bottom);
-    for(int i = 1; i < numberOfLevels && currentLevel.size() > 0; i++){
-      List<String> nextLevels = new ArrayList<>();
-      for(String s : currentLevel){
-        List<String> nextlevel = nextLevels(s, map);
-        if(!nextlevel.isEmpty())
-          nextLevels.addAll(nextlevel);
+    Map<String, Boolean> resolvedMap = new HashMap<>();
+    for (String key : map.keySet()) resolvedMap.put(key, true);
+    return pyramidTransition(bottom, map, resolvedMap);
+  }
+
+  public boolean pyramidTransition(String bottom, Map<String, List<String>> map, Map<String, Boolean> resolvedMap) {
+    if (bottom.length() == 1) return true;
+    if (resolvedMap.containsKey(bottom)) return resolvedMap.get(bottom);
+    for (int i = 0; i < bottom.length() - 1; i++) {
+      if (!map.containsKey(bottom.substring(i, i + 2))) {
+        resolvedMap.put(bottom, false);
+        return false;
       }
-      currentLevel = nextLevels;
     }
-    return currentLevel.size() > 0;
-
+    List<String> nextLevels = nextLevels(bottom, 0, map, new ArrayList<>());
+    for (String st : nextLevels) {
+      if (pyramidTransition(st, map, resolvedMap)) {
+        resolvedMap.put(bottom, true);
+        return true;
+      }
+    }
+    resolvedMap.put(bottom, false);
+    return false;
   }
 
-  private List<String> nextLevels(String upperLevel, Map<String, List<String>> map){
+  private List<String> nextLevels(String bottom, int index, Map<String, List<String>> map, List<String> list) {
+    if (index == bottom.length() - 1) return list;
     List<String> result = new ArrayList<>();
-    if(upperLevel.length() == 2){
-      if(map.containsKey(upperLevel)) result.addAll(map.get(upperLevel));
-      return result;
-    } else if(upperLevel.length() == 3){
-      String left = upperLevel.substring(0,2);
-      String right = upperLevel.substring(1,3);
-      if(!map.containsKey(left) || !map.containsKey(right)) return result;
-      List<String> leftList = map.get(left);
-      List<String> rightList = map.get(right);
-      result.addAll(merge(leftList, rightList));
-      return result;
+    for (String s : map.get(bottom.substring(index, index + 2))) {
+      if (list.isEmpty()) result.add(s);
+      else {
+        for (String s1 : list) {
+          result.add(s1 + s);
+        }
+      }
     }
-    else {
-      String left = upperLevel.substring(0,upperLevel.length() / 2 + 1);
-      String right = upperLevel.substring(upperLevel.length() / 2, upperLevel.length());
-      List<String> leftList = nextLevels(left, map);
-      List<String> rightList = nextLevels(right, map);
-      if(!leftList.isEmpty() && !rightList.isEmpty())result.addAll(merge(leftList, rightList));
-      return result;
-    }
-  }
-
-  private List<String> merge(List<String> list1, List<String> list2){
-    List<String> result = new ArrayList<>();
-    if(list1.isEmpty() || list2.isEmpty()) return result;
-    for(String l : list1) for(String r : list2) result.add(l + r);
-    return result;
+    return nextLevels(bottom, index + 1, map, result);
   }
 
   private Map<String, List<String>> generateOneLevelUp(List<String> allowed){

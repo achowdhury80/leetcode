@@ -13,25 +13,24 @@ import java.util.stream.IntStream;
 public class Prob406 {
   public int[][] reconstructQueue(int[][] people) {
     if(people == null || people.length < 2) return people;
-    Object[] objects = Arrays.stream(people).map(x -> new Integer[]{x[0], x[1]}).sorted((a, b) -> {
-      if(a[0] == b[0]){
-        return Integer.valueOf(a[1]).compareTo(b[1]);
-      }
-      return Integer.valueOf(b[0]).compareTo(a[0]);
-    }).toArray();
-    List<Integer[]> list = new ArrayList<>();
-    for(Object obj : objects){
-      Integer[] intArr = (Integer[]) obj;
-      list.add(intArr[1], intArr);
+    Arrays.sort(people, (int[]x, int[]y) -> {
+      if (y[0] == x[0]) return x[1] - y[1];
+      return y[0] - x[0];
+    });
+    List<int[]> list = new ArrayList<>();
+    for (int i = 0; i < people.length; i++) {
+//      if (list.isEmpty() || people[i][1] > list.size()) list.add(people[i]);
+//      else
+      list.add(people[i][1], people[i]);
     }
-    int[][] result = new int[people.length][2];
-    IntStream.range(0, list.size()).forEach(idx -> result[idx] = new int[]{list.get(idx)[0], list.get(idx)[1]});
-    return result;
+    IntStream.range(0, list.size()).forEach(id -> people[id] = list.get(id));
+    return people;
   }
 
   public static void main(String[] args){
     Prob406 prob406 = new Prob406();
-    int[][] result = prob406.reconstructQueue(new int[][]{{7,0}, {4,4}, {7,1}, {5,0}, {6,1}, {5,2}});
+//    int[][] result = prob406.reconstructQueue(new int[][]{{7,0}, {4,4}, {7,1}, {5,0}, {6,1}, {5,2}});
+    int[][] result = prob406.reconstructQueue(new int[][]{{9,0},{7,0},{1,9},{3,0},{2,7},{5,3},{6,0},{3,4},{6,2},{5,2}});
     Arrays.stream(result).forEach(x -> System.out.print("(" + x[0] + ", " + x[1] + "), "));
   }
 }

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 import java.util.stream.IntStream;
@@ -16,172 +17,41 @@ import java.util.stream.IntStream;
  */
 public class Prob743 {
   public int networkDelayTime(int[][] times, int N, int K) {
-    MinHeap minHeap = new MinHeap(N);
-    Map<Integer, List<int[]>> map = new HashMap<>();
-    Arrays.stream(times).forEach(intArr -> {
-      List<int[]> list;
-      if(map.containsKey(intArr[0])){
-        list = map.get(intArr[0]);
-      } else list = new ArrayList<int[]>();
-      list.add(new int[]{intArr[1], intArr[2]});
-      map.put(intArr[0], list);
-    });
-    Set<Integer> explored = new HashSet<>();
-    if(!map.containsKey(K)) return -1;
-    explored.add(K);
-    addVertexToHeap(map, new Node(K, 0), explored, minHeap);
-    int result = Integer.MIN_VALUE;
-    while(explored.size() < N){
-      if(minHeap.isEmpty()) return -1;
-      Node node = minHeap.extractMin();
-      result = Math.max(result, node.value);
-      explored.add(node.vertex);
-      minHeap.deleteNode(node.vertex);
-      addVertexToHeap(map, node, explored, minHeap);
+    if (times == null || times.length < 1) return 0;
+    Map<Integer, Map<Integer, Integer>> path = new HashMap<>();
+    for (int i = 0; i < times.length; i++) {
+      if (!path.containsKey(times[i][0])) path.put(times[i][0], new HashMap<>());
+      path.get(times[i][0]).put(times[i][1], times[i][2]);
     }
-    return result;
-  }
-
-  private void addVertexToHeap(Map<Integer, List<int[]>> map, Node source, Set<Integer> explored, MinHeap minHeap){
-    if(!map.containsKey(source.vertex)) return;
-    List<int[]> edges = map.get(source.vertex);
-    for(int[] edge : edges){
-      if(explored.contains(edge[0])) continue;
-      if(minHeap.contains(edge[0])){
-        minHeap.update(edge[0], source.value + edge[1]);
-      } else {
-        minHeap.insert(new Node(edge[0], source.value + edge[1]));
-      }
-    }
-  }
-
-  class MinHeap {
-    Node[] nodes;
-    int last = -1;
-    int[] loc;
-    MinHeap(int n){
-      nodes = new Node[n];
-      loc = new int[n + 1];
-      IntStream.range(0, n + 1).forEach(x -> loc[x] = -1);
-    }
-
-    void delete(int index){
-      if(index > last) return;
-      loc[nodes[index].vertex] = -1;
-      if(last == index) {
-        last--;
-        return;
-      }
-      nodes[index] = nodes[last--];
-      loc[nodes[index].vertex] = index;
-      if(index == 0){
-        goDown(index);
-        return;
-      }
-      int parent = (index - 1) / 2;
-      if(nodes[index].value > nodes[parent].value){
-        goUp(index);
-        return;
-      }
-      else {
-        goDown(index);
+    Map<Integer, Integer> distanceMap = new HashMap<>();
+    distanceMap.put(K, 0);
+    PriorityQueue<int[]> heap = new PriorityQueue<>((x, y) -> x[1] - y[1]);
+    heap.add(new int[]{K, 0});
+    while (!heap.isEmpty()) {
+      int[] current = heap.poll();
+      if (distanceMap.containsKey(current[0]) && distanceMap.get(current[0]) < current[1]) continue;
+      Map<Integer, Integer> next = path.get(current[0]);
+      if (next == null) continue;
+      for (Map.Entry<Integer, Integer> entry : next.entrySet()) {
+        if (distanceMap.containsKey(entry.getKey()) && distanceMap.get(entry.getKey()) <= entry.getValue() + current[1])
+          continue;
+        distanceMap.put(entry.getKey(), entry.getValue() + current[1]);
+        heap.offer(new int[]{entry.getKey(), entry.getValue() + current[1]});
       }
     }
 
-    void insert(Node node){
-      if(last == 14){
-        System.out.println("hellow");
-      }
-      nodes[++last] = node;
-      loc[node.vertex] = last;
-      goUp(last);
-    }
-
-    void goUp(int index){
-      Node node = nodes[index];
-      int parent = (index - 1) / 2;
-      int current = index;
-      while(parent > -1){
-        if(nodes[parent].value <= node.value) return;
-        swap(parent, current);
-        current = parent;
-        parent = (parent - 1) / 2;
-      }
-    }
-
-    void goDown(int index){
-      int left = 2 * index + 1;
-      int right = 2 * index + 2;
-      int current = index;
-      while(left <= last){
-        int min = left;
-        if(right >= last){
-          min = nodes[left].value < nodes[right].value ? left : right;
-        }
-        if(nodes[min].value < nodes[current].value) {
-          swap(min, current);
-        } else return;
-        current = min;
-        left = 2 * current + 1;
-        right = 2 * current + 2;
-        current = min;
-      }
-    }
-
-    Node extractMin(){
-      Node node = nodes[0];
-      delete(0);
-      return node;
-    }
-
-    boolean isEmpty(){
-      return last == -1;
-    }
-
-    void swap(int i, int j){
-      loc[nodes[i].vertex] = j;
-      loc[nodes[j].vertex] = i;
-      Node temp = nodes[i];
-      nodes[i] = nodes[j];
-      nodes[j] = temp;
-    }
-
-    void update(int vertex, int newValue){
-      if(isEmpty()) return;
-      if(loc[vertex] < 0) return;
-      if(nodes[loc[vertex]].value <= newValue) return;
-      delete(loc[vertex]);
-      insert(new Node(vertex, newValue));
-    }
-
-    boolean contains(int vertex){
-      return loc[vertex] > -1;
-    }
-
-    void deleteNode(int vertex){
-      if(!contains(vertex)) return;
-      delete(loc[vertex]);
-    }
-
-  }
-
-  class Node {
-    public Node(int vertex, int value) {
-      this.vertex = vertex;
-      this.value = value;
-    }
-
-    int vertex;
-    int value;
+    int max = Integer.MIN_VALUE;
+    for (Integer key : distanceMap.keySet()) max = Math.max(max, distanceMap.get(key));
+    return distanceMap.size() < N ? -1 : max;
 
   }
 
   public static void main(String[] args){
     Prob743 prob743 = new Prob743();
-//    System.out.println(prob743.networkDelayTime(new int[][]{{2,1,1},{2,3,1},{3,4,1}}, 4, 2));
-    System.out.println(prob743.networkDelayTime(new int[][]{{4,2,76},{1,3,79},{3,1,81},{4,3,30},{2,1,47},{1,5,61},
-        {1,4,99},{3,4,68},{3,5,46},{4,1,6},{5,4,7},{5,3,44},{4,5,19},{2,3,13},{3,2,18},{1,2,0},{5,1,25},{2,5,58},
-        {2,4,77},{5,2,74}}, 5, 3));
+    System.out.println(prob743.networkDelayTime(new int[][]{{2,1,1},{2,3,1},{3,4,1}}, 4, 2));
+//    System.out.println(prob743.networkDelayTime(new int[][]{{4,2,76},{1,3,79},{3,1,81},{4,3,30},{2,1,47},{1,5,61},
+//        {1,4,99},{3,4,68},{3,5,46},{4,1,6},{5,4,7},{5,3,44},{4,5,19},{2,3,13},{3,2,18},{1,2,0},{5,1,25},{2,5,58},
+//        {2,4,77},{5,2,74}}, 5, 3));
 
 //    System.out.println(prob743.networkDelayTime(new int[][]{{15,8,1},{7,10,41},{7,9,34},{9,4,31},{12,13,50},{14,3,52},
 //        {4,11,99},{4,7,86},{10,13,57},{9,6,10},{1,7,51},{7,15,38},{1,9,11},{12,7,94},{9,13,34},{11,7,79},{7,6,28},

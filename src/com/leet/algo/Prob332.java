@@ -1,6 +1,7 @@
 package com.leet.algo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,26 +12,40 @@ import java.util.TreeSet;
  */
 public class Prob332 {
   public List<String> findItinerary(String[][] tickets) {
-    Map<String, TreeSet<String>> map = new HashMap<>();
+    Map<String, List<String>> map = new HashMap<>();
     for(String[] ticket : tickets){
-      if(!map.containsKey(ticket[0])) map.put(ticket[0], new TreeSet<>());
+      if(!map.containsKey(ticket[0])) map.put(ticket[0], new ArrayList<>());
       map.get(ticket[0]).add(ticket[1]);
+      Collections.sort(map.get(ticket[0]));
     }
-
-    return null;
+    List<String> response = new ArrayList<>();
+    response.add("JFK");
+    dfs("JFK", map, response);
+    return response;
   }
 
-  private List<String> dfs(Map<String, TreeSet<String>> map, String start, int numberOfTickets){
-    List<String> path = new ArrayList<>();
-    path.add(start);
-    if(path.size() == numberOfTickets + 1) return path;
-    if(map.get(start).size() == 0) return null;
-    else {
-      for(String next : map.get(start)){
-        List<String> nextPaths = dfs(map, next, numberOfTickets);
-        if(nextPaths == null) continue;
-      }
+  private boolean dfs(String start, Map<String, List<String>> map, List<String> response) {
+    if (map.isEmpty()) return true;
+    if (!map.containsKey(start) || map.get(start).isEmpty()) return false;
+    List<String> nextList = map.get(start);
+
+    for(int i = 0; i < nextList.size(); i++) {
+      String next = nextList.get(i);
+      response.add(next);
+      nextList.remove(i);
+      if (nextList.size() == 0) map.remove(start);
+      if (dfs(next, map, response)) return true;
+      nextList.add(i, next);
+      if (!map.containsKey(start)) map.put(start, nextList);
+      response.remove(response.size() - 1);
     }
-    return null;
+    return false;
+  }
+
+  public static void main(String[] args) {
+    Prob332 prob332 = new Prob332();
+    System.out.println(prob332.findItinerary(new String[][]{{"MUC", "LHR"}, {"JFK", "MUC"}, {"SFO", "SJC"}, {"LHR", "SFO"}}));
+    System.out.println(prob332.findItinerary(new String[][]{{"JFK","SFO"}, {"JFK","ATL"}, {"SFO","ATL"}, {"ATL","JFK"}, {"ATL","SFO"}}));
+    System.out.println(prob332.findItinerary(new String[][]{{"JFK","KUL"}, {"JFK","NRT"}, {"NRT","JFK"}}));
   }
 }

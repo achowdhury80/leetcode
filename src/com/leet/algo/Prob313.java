@@ -1,6 +1,7 @@
 package com.leet.algo;
 
 import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.stream.IntStream;
 
 /**
@@ -9,27 +10,36 @@ import java.util.stream.IntStream;
 public class Prob313 {
   public int nthSuperUglyNumber(int n, int[] primes) {
     if(n == 1) return 1;
-    long[] next = new long[primes.length];
-    IntStream.range(0, primes.length).forEach(x -> next[x] = primes[x]);
-    int result = -1;
+    int[] ugly = new int[n];
+    PriorityQueue<Num> heap = new PriorityQueue<>();
+    ugly[0] = 1;
+    for (int i = 0; i < primes.length; i++) heap.offer(new Num(primes[i], 1, primes[i]));
     for (int i = 1; i < n; i++) {
-      Arrays.sort(next);
-      long min = next[0] == 1 ? next[1] : next[0];
-      for (int j = 0; j < primes.length; j++) {
-        if (min == next[j]) next[j] = findNext(min, primes);
+      ugly[i] = heap.peek().val;
+      while (heap.peek().val <= ugly[i]) {
+        Num num = heap.poll();
+        heap.offer(new Num(num.p * ugly[num.id], num.id + 1, num.p));
       }
-      result = (int)min;
     }
-    return result;
+    return ugly[n - 1];
   }
 
-  private long findNext(long last, int[] primes) {
-    long min = Integer.MAX_VALUE;
-    for (int i = 0; i < primes.length; i++) {
-      if (primes[i] != 1) min = Math.min(min, last * primes[i]);
+  class Num implements Comparable<Num>{
+    int val;
+    int id;
+    int p;
+    Num(int val, int id, int p) {
+      this.val = val;
+      this.id = id;
+      this.p = p;
     }
-    return min;
+    @Override
+    public int compareTo(Num other) {
+      return this.val - other.val;
+    }
   }
+
+
 
   public static void main(String[] args) {
     Prob313 prob313 = new Prob313();

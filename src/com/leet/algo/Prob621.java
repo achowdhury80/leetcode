@@ -1,53 +1,51 @@
 package com.leet.algo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.stream.IntStream;
 
 /**
  * Created by ayanc on 12/6/17.
  */
 public class Prob621 {
   public int leastInterval(char[] tasks, int n) {
-    if(tasks == null || tasks.length == 0) return 0;
+    int totalTaskCount;
+    if(tasks == null || (totalTaskCount = tasks.length) == 0) return 0;
+    int[] taskCount = new int[26];
+    IntStream.range(0, tasks.length).forEach(idx -> taskCount[tasks[idx] - 'A']++);
     int count = 0;
-    Queue<Character> lastRunQ = new LinkedList<>();
-    Queue<Character> taskQ = new LinkedList<>();
-    for(int i = 0; i < tasks.length; i++){
-      taskQ.add(tasks[i]);
-    }
-    while(!taskQ.isEmpty()){
-      boolean ran = false;
-      for(int i = 0; i < taskQ.size(); i++){
-        if(!lastRunQ.contains(taskQ.peek())){
-          char c = taskQ.remove();
-          System.out.print(c + "->");
-          count++;
-          ran = true;
-          addToLastRunQ(lastRunQ, c, n);
-          break;
-        } else {
-          char c = taskQ.remove();
-          taskQ.add(c);
-        }
+    List<Character> taskToBeIgnored = new ArrayList<>();
+    while (totalTaskCount > 0) {
+      Character nextTask = findNextTask(taskCount, taskToBeIgnored);
+      count++;
+      if (nextTask == null) {
+        taskToBeIgnored.add((char)('A' - 1));
       }
-      if(!ran){
-        count++;
-        System.out.print("Idle->");
-        addToLastRunQ(lastRunQ, '0', n);
+      else {
+        totalTaskCount--;
+        taskCount[nextTask - 'A']--;
+        if (n > 0) taskToBeIgnored.add(nextTask);
       }
+      if (taskToBeIgnored.size() > n) taskToBeIgnored.remove(0);
     }
-    System.out.println();
     return count;
   }
 
-  public void addToLastRunQ(Queue<Character> lastRunQ, char c, int n){
-    if(lastRunQ.size() < n){
-      lastRunQ.add(c);
-    }else{
-      lastRunQ.add(c);
-      lastRunQ.remove();
+  private Character findNextTask(int[] taskCount, List<Character> taskToBeIgnored) {
+    Character next = null;
+    int maxCount = 0;
+    for (int i = 0; i < 26; i++) {
+      if (taskCount[i] != 0 && !taskToBeIgnored.contains((char)(i + 'A'))) {
+        if (maxCount < taskCount[i]) {
+          maxCount = taskCount[i];
+          next = (char)(i + 'A');
+        }
+      }
     }
+    return next;
   }
 
   public static void main(String[] args){
