@@ -8,28 +8,20 @@ import java.util.Set;
  */
 public class Prob467 {
   public int findSubstringInWraproundString(String p) {
-    if (p == null) return 0;
+    if (p == null || p.equals("")) return 0;
     int n;
     if ((n = p.length()) < 2) return 1;
-    char[] chars = p.toCharArray();
-    boolean[][] dp = new boolean[n][n];
-    Set<String> unique = new HashSet<>();
-    for (int i = 0; i < n; i++) {
-      dp[i][i] = true;
-      unique.add(p.charAt(i) + "");
+    int[] count = new int[26];
+    int maxSubstringCount = 0;
+    for (int i = 0; i < p.length(); i++) {
+      if (i > 0 && (p.charAt(i) - p.charAt(i - 1) == 1 || p.charAt(i - 1) - p.charAt(i) == 25)) maxSubstringCount++;
+      else maxSubstringCount = 1;
+      count[p.charAt(i) - 'a'] = Math.max(count[p.charAt(i) - 'a'], maxSubstringCount);
     }
-    for (int i = 1; i < n; i++) {
-      for (int j = 0; j < n - i; j++) {
-        if (dp[j][j + i - 1]) {
-          char c = chars[j + i - 1];
-          if (c == 'z' && chars[j + i] == 'a' || c + 1 == chars[j + i]) {
-            dp[j][j + i] = true;
-            unique.add(p.substring(j, j + i + 1));
-          }
-        }
-      }
-    }
-    return unique.size();
+
+    int sum = 0;
+    for (int i = 0; i < 26; i++) sum += count[i];
+    return sum;
 
   }
 
