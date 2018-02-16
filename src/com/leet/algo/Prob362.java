@@ -1,24 +1,47 @@
 package com.leet.algo;
 
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Created by ayanc on 2/11/18.
  */
 public class Prob362 {
+  private Map<Integer, Integer> map;
   /** Initialize your data structure here. */
   public Prob362() {
-
+    map = new ConcurrentHashMap<>();
   }
 
   /** Record a hit.
    @param timestamp - The current timestamp (in seconds granularity). */
   public void hit(int timestamp) {
-
+    map.put(timestamp, map.getOrDefault(timestamp, 0) + 1);
   }
 
   /** Return the number of hits in the past 5 minutes.
    @param timestamp - The current timestamp (in seconds granularity). */
   public int getHits(int timestamp) {
-    return 0;
+    int start = timestamp - 300;
+    int result = 0;
+    for (int key : map.keySet()) {
+      if (key > start) result += map.get(key);
+      else map.remove(key);
+    }
+    return result;
+  }
+
+  public static void main(String[] args) {
+    Prob362 prob362 = new Prob362();
+    prob362.hit(1);
+    prob362.hit(2);
+    prob362.hit(3);
+    System.out.println(prob362.getHits(4));
+    prob362.hit(300);
+    System.out.println(prob362.getHits(300));
+    System.out.println(prob362.getHits(301));
+
   }
 }
 /**
