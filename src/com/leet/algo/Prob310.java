@@ -21,10 +21,31 @@ public class Prob310 {
       map.get(edge[0]).add(edge[1]);
       map.get(edge[1]).add(edge[0]);
     }
-    Set<Integer>[] dp = new Set[n];
-    for (int i = 0; i < n; i++) {
-      
+    Map<Integer, Integer> heightMap = new HashMap<>();
+    int minHeight = Integer.MAX_VALUE;
+    for (int key : map.keySet()) {
+      minHeight = Math.min(minHeight, findMinHeightTrees(map, heightMap, key));
     }
-    return null;
+    for (int key : heightMap.keySet()) {
+      if (heightMap.get(key) == minHeight) result.add(key);
+    }
+    return result;
   }
+
+  public int findMinHeightTrees(Map<Integer, Set<Integer>> map, Map<Integer, Integer> heightMap, int key) {
+    if (heightMap.containsKey(key)) return heightMap.get(key);
+    int height = 0;
+    heightMap.put(key, height);
+    for (int next : map.get(key)) {
+      height =  Math.max(height, 1 + findMinHeightTrees(map, heightMap, next));
+    }
+    heightMap.put(key, height);
+    return height;
+  }
+
+  public static void main(String[] args) {
+    Prob310 prob310 = new Prob310();
+    System.out.println(prob310.findMinHeightTrees(4, new int[][]{{1, 0}, {1, 2}, {1, 3}}));
+  }
+
 }

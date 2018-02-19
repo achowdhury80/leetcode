@@ -11,27 +11,35 @@ import java.util.Queue;
 public class Prob545 {
   public List<Integer> boundaryOfBinaryTree(TreeNode root) {
     List<Integer> result = new ArrayList<>();
-    List<Integer> rightList = new ArrayList<>();
     if (root == null) return result;
-    Queue<TreeNode> queue = new LinkedList<>();
-    queue.offer(root);
-    while (!queue.isEmpty()) {
-      Queue<TreeNode> temp = new LinkedList<>();
-      boolean leftTaken = false;
-      while (!queue.isEmpty()) {
-        TreeNode node = queue.poll();
-        if (!leftTaken) {
-          result.add(node.val);
-          leftTaken = true;
-        } else {
-          if (queue.isEmpty()) rightList.add(0, node.val);
-        }
-        if (node.left != null) temp.add(node.left);
-        if (node.right != null) temp.add(node.right);
-      }
-      queue = temp;
-    }
-    result.addAll(rightList);
+    result.add(root.val);
+    leftBoundary(root.left, result);
+    leaves(root.left, result);
+    leaves(root.right, result);
+    rightBoundary(root.right, result);
     return result;
   }
+
+  private void leftBoundary(TreeNode root, List<Integer> result) {
+    if (root == null || (root.left == null && root.right == null)) return;
+    result.add(root.val);
+    if (root.left != null) leftBoundary(root.left, result);
+    else leftBoundary(root.right, result);
+  }
+
+  private void rightBoundary(TreeNode root, List<Integer> result) {
+    if (root == null || (root.left == null && root.right == null)) return;
+    if (root.right != null) rightBoundary(root.right, result);
+    else rightBoundary(root.left, result);
+    result.add(root.val);
+  }
+
+  private void leaves(TreeNode node, List<Integer> result) {
+    if (node == null) return;
+    if (node.left == null && node.right == null) result.add(node.val);
+    leaves(node.left, result);
+    leaves(node.right, result);
+  }
+
+
 }

@@ -10,48 +10,32 @@ import java.util.stream.IntStream;
  */
 public class Prob351 {
   public int numberOfPatterns(int m, int n) {
-    List<List<Integer>>[] dp = new List[n];
-    dp[0] = new ArrayList<>();
-    IntStream.range(1, 10).forEach(num -> {
-      dp[0].add(Arrays.asList(num));
-    });
-    for (int i = 1; i < n; i++) {
-      List<List<Integer>> prev = dp[i - 1];
-      dp[i] = new ArrayList<>();
-      for (List<Integer> list : prev) {
-       for (int num : list) {
-          List<Integer> nextPosList = nextPositions(num);
-         for (int nextPos : nextPosList){
-           if (!list.contains(nextPos)) {
-             List<Integer> newList = new ArrayList<>(list);
-             newList.add(nextPos);
-             dp[i].add(newList);
-           }
-         }
-       }
-      }
-    }
+    int[][] skip = new int[10][10];
+    skip[1][3] = skip[3][1] = 2;
+    skip[1][7] = skip[7][1] = 4;
+    skip[3][9] = skip[9][3] = 6;
+    skip[7][9] = skip[9][7] = 8;
+    skip[1][9] = skip[9][1] = skip[2][8] = skip[8][2] = skip[3][7] = skip[7][3] = skip[4][6] = skip[6][4] = 5;
+    boolean[] vis = new boolean[10];
     int result = 0;
-    for (int i = m - 1; i < n; i++) result += dp[i].size();
+    for (int i = m; i <= n; i++) {
+      result += dfs(vis, skip, 1, i - 1) * 4;
+      result += dfs(vis, skip, 2, i - 1) * 4;
+      result += dfs(vis, skip, 5, i - 1);
+    }
     return result;
   }
 
-  private List<Integer> nextPositions(int num) {
-    List<Integer> result = new ArrayList<>();
-    if ((num - 1) % 3 != 0) {
-      result.add(num - 1);
-      if (num > 4) result.add(num - 4);
-      if (num < 7) result.add(num + 2);
+  private int dfs(boolean[] vis, int[][] skip, int cur, int remain) {
+    if (remain < 0) return 0;
+    if (remain == 0) return 1;
+    vis[cur] = true;
+    int res = 0;
+    for (int i = 1; i < 10; i++) {
+      if (!vis[i] && (skip[cur][i] == 0 || vis[skip[cur][i]])) res += dfs(vis, skip, i, remain - 1);
     }
-    if (num % 3 != 0) {
-      if (num < 9) result.add(num + 1);
-      if (num < 6) result.add(num + 4);
-      if (num > 3) result.add(num - 2);
-    }
-    if (num - 3 > 0) result.add(num - 3);
-    if (num + 3 < 10) result.add(num + 3);
-
-    return result;
+    vis[cur] = false;
+    return res;
   }
 
   public static void main(String[] args) {
