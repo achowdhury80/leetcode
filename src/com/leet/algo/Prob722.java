@@ -12,65 +12,34 @@ public class Prob722 {
   public List<String> removeComments(String[] source) {
     List<String> result = new ArrayList<>();
     if(source == null || source.length == 0) return result;
-    boolean blockCommentStart = false;
-    boolean singleLineCommentStart = false;
-    for(String st : source){
-      Map<String, List<Integer>> locationMap = findIndices(st);
-      if(!blockCommentStart){
-        if(locationMap.get("//").size() > 0){
-          if(locationMap.get("/*").size() < 1){
-            st = st.substring(locationMap.get("//").get(0));
-          } else {
-            if(locationMap.get("//").get(0) > locationMap.get("/*").get(0)){
-              st = st.substring(locationMap.get("//").get(0));
-            } else {
-
-            }
+    StringBuilder sb = new StringBuilder();
+    boolean open = false;
+    for (String s : source) {
+      for (int i = 0; i < s.length(); i++) {
+        if (open) {
+          if (s.charAt(i) == '*' && i < s.length() - 1 && s.charAt(i + 1) == '/') {
+            open = false;
+            i++;
           }
+        } else {
+          if (s.charAt(i) == '/' && i < s.length() - 1 && s.charAt(i + 1) == '/') break;
+          else if (s.charAt(i) == '/' && i < s.length() - 1 && s.charAt(i + 1) == '*') {
+            open = true;
+            i++;
+          } else sb.append(s.charAt(i));
         }
-      } else {
-
+      }
+      if (!open && sb.length() > 0) {
+        result.add(sb.toString());
+        sb = new StringBuilder();
       }
     }
-    return null;
+    return result;
   }
 
-  private Map<String, List<Integer>> findIndices(String st){
-    Map<String, List<Integer>> map = new HashMap<>();
-
-    map.put("//", new ArrayList<>());
-    map.put("/*", new ArrayList<>());
-    map.put("*/", new ArrayList<>());
-    int start = 0;
-    String temp = st;
-    int i;
-    while(temp.length() > 1 &&(i = temp.indexOf("//")) > -1){
-      map.get("//").add(i);
-      temp = temp.substring(i + 2);
-    }
-    temp = st;
-    while(temp.length() > 1 && (i = temp.indexOf("/*")) > -1){
-      map.get("/*").add(i);
-      temp = temp.substring(i + 2);
-    }
-    temp = st;
-    while(temp.length() > 1 && (i = temp.indexOf("*/")) > -1){
-      if(temp.indexOf("/*/") == i) {
-        temp = temp.substring(i + 3);
-        continue;
-      }
-      map.get("*/").add(i);
-      temp = temp.substring(i + 2);
-    }
-    return map;
-  }
 
   public static void main(String[] args){
-    String st = "helo / is  // this is a comment";
-    System.out.println(st.indexOf("//"));
-
-    String s = "hello//";
-    s = s.substring(s.indexOf("//") + 2);
-    System.out.println(s);
+    Prob722 prob722 = new Prob722();
+    System.out.println(prob722.removeComments(new String[]{"/*Test program */", "int main()", "{ ", "  // variable declaration ", "int a, b, c;", "/* This is a test", "   multiline  ", "   comment for ", "   testing */", "a = b + c;", "}"}));
   }
 }

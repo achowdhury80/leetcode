@@ -5,47 +5,28 @@ package com.leet.algo;
  */
 public class Prob639 {
   public int numDecodings(String s) {
+    final int MOD = (int)Math.pow(10, 9) + 7;
     if(s == null || s.length() == 0) {
       return 0;
     }
-    int n = s.length();
-    long[] dp = new long[n+1];
-    dp[0] = 1;
-    dp[1] = s.charAt(0) == '0' ? 0 : (s.charAt(0) == '*' ? 9 : 1);
-    for(int i = 2; i <= n; i++) {
-      if(s.charAt(i - 1) == '*'){
-        dp[i] += 9 * dp[i - 1];
+    long e0 = 1, e1 = 0, e2 = 0;
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
+      long f0, f1, f2;
+      if (c == '*') {
+        f0 = e0 * 9 + e1 * 9 + e2 * 6;
+        f1 = e0;
+        f2 = e0;
       } else {
-        int first = Integer.valueOf(s.substring(i - 1, i));
-        if (first >= 1 && first <= 9) {
-          dp[i] += dp[i - 1];
-        }
+        f0 = ((c - '0' == 0) ? 0 : e0) + e1 + (c - '0' < 7 ? e2 : 0);
+        f1 = ((c - '0' == 1) ? e0 : 0);
+        f2 = ((c - '0') == 2 ? e0 : 0);
       }
-      char firstChar = s.charAt(i - 2);
-      char secondChar = s.charAt(i - 1);
-      if(firstChar == '*' && secondChar == '*'){
-        dp[i] += 15 * dp[i - 2];
-      } else if(firstChar == '*'){
-          if(secondChar < '7'){
-            dp[i] += 2 * dp[i - 2];
-          } else {
-            dp[i] += dp[i - 2];
-          }
-      } else if(secondChar == '*'){
-          if(firstChar == 1){
-            dp[i] += 9 * dp[i - 2];
-          } else if(firstChar == 2){
-            dp[i] += 6 * dp[i - 2];
-          }
-      } else {
-        int second = Integer.valueOf(s.substring(i - 2, i));
-        if (second >= 10 && second <= 26) {
-          dp[i] += dp[i - 2];
-        }
-      }
-      dp[i] %= 1000000007;
+      e0 = f0 % MOD;
+      e1 = f1;
+      e2 = f2;
     }
-    return Long.valueOf(dp[n] % 1000000007).intValue();
+    return (int)e0;
   }
 
   public static void main(String[] arhs){

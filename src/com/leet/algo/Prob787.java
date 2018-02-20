@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 /**
  * Created by ayanc on 2/17/18.
@@ -18,33 +19,25 @@ public class Prob787 {
       if (!map.containsKey(flights[i][0])) map.put(flights[i][0], new ArrayList<>());
       map.get(flights[i][0]).add(new int[]{flights[i][1], flights[i][2]});
     }
-    for (int key : map.keySet()) {
-      Collections.sort(map.get(key), (x, y) -> x[1] - y[1]);
-    }
-    boolean[] vis = new boolean[n];
-    vis[src] = true;
-    return findCheapestPrice(src, dst, K, map, 0, vis);
-  }
-
-  private int findCheapestPrice(int start, int end, int k, Map<Integer, List<int[]>> map, int price, boolean[] vis) {
-    if (start == end) return price;
-    if (!map.containsKey(start) || k < 0) return -1;
-    List<int[]> nextDestinations = map.get(start);
-    boolean found = false;
-    int result = -1;
-    for (int[] next : nextDestinations) {
-      if (found && next[1] >= result - price || vis[next[0]]) continue;
-      vis[next[0]] = true;
-      int res = findCheapestPrice(next[0], end, k - 1, map, price + next[1], vis);
-      if (res != -1) {
-        if (!found) {
-          found = true;
-          result = res;
-        } else result = Math.min(result, res);
+    PriorityQueue<int[]> heap = new PriorityQueue<>((x, y) -> x[1] - y[1]);
+    heap.offer(new int[]{src, 0, 0});
+    boolean[] explored = new boolean[n];
+    //explored[src] = true;
+    while (!heap.isEmpty()) {
+      int[] path = heap.poll();
+      if (explored[path[0]]) continue;
+      explored[path[0]] = true;
+      if (path[0] == dst && path[2] <= K + 1) return path[1];
+      if (path[2] == K + 1) continue;
+      if (map.containsKey(path[0])) {
+        for (int[] next : map.get(path[0])) {
+          if (explored[next[0]]) continue;
+          heap.offer(new int[]{next[0], path[1] + next[1], path[2] + 1});
+        }
       }
-      vis[next[0]] = false;
+
     }
-    return result;
+    return -1;
   }
 
   public static void main(String[] args) {
