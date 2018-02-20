@@ -41,6 +41,5 @@ public class Prob57 {
 
   public static void main(String[] args) {
     Prob57 prob57 = new Prob57();
-    prob57.insert()
   }
 }
