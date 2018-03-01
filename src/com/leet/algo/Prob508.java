@@ -14,47 +14,31 @@ import java.util.Set;
  */
 public class Prob508 {
   public int[] findFrequentTreeSum(TreeNode root) {
-    if(root == null) return new int[]{};
-    Map<Integer, Integer> map = new HashMap<>();
-    List<Integer> sums = findSums(root);
-    sums.stream().forEach(System.out::println);
-    Set<Integer> uniques = new HashSet<>(sums);
-    List<Integer> list = new ArrayList<>();
-    int currFreq = 0;
-    for(Integer i : uniques){
-      int freq = Collections.frequency(sums, i);
-      if(freq > currFreq){
-        list.clear();
-        list.add(i);
-        currFreq = freq;
-      } else if(freq == currFreq){
-        list.add(i);
-      }
-    }
-    int[] result = new int[list.size()];
-    for(int i = 0; i < list.size(); i++){
-      result[i] = list.get(i);
-    }
-    return result;
+    if (root == null) return new int[0];
+    List<int[]> result = new ArrayList<>();
+    findSum(root, new HashMap<>(), result);
+    int[] arr = new int[result.size()];
+    for (int i = 0; i < result.size(); i++) arr[i] = result.get(i)[0];
+    return arr;
   }
 
-  public List<Integer> findSums(TreeNode root){
-    List<Integer> results = new ArrayList<>();
-    List<Integer> leftSums = null;
-    Integer thisSum = root.val;
-    if(root.left != null) {
-      leftSums = findSums(root.left);
-      thisSum += leftSums.get(0);
+  private int findSum(TreeNode root, Map<Integer, Integer> map, List<int[]> list) {
+    int sum = root.val;
+    if (root.left != null) {
+      sum += findSum(root.left, map, list);
     }
-    List<Integer> rightSums = null;
-    if(root.right != null) {
-      rightSums = findSums(root.right);
-      thisSum += rightSums.get(0);
+    if (root.right != null) sum += findSum(root.right, map, list);
+    int freq = map.getOrDefault(sum, 0);
+    if (list.isEmpty()) list.add(new int[]{sum, freq + 1});
+    else {
+      if (list.get(0)[1] == freq + 1) list.add(new int[]{sum, freq + 1});
+      else if (list.get(0)[1] < freq + 1) {
+        list.clear();
+        list.add(new int[]{sum, freq + 1});
+      }
     }
-    results.add(thisSum);
-    if(leftSums != null) results.addAll(leftSums);
-    if(rightSums != null) results.addAll(rightSums);
-    return results;
+    map.put(sum, freq + 1);
+    return sum;
   }
 
   public static void main(String[] arhs){

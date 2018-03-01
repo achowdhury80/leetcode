@@ -8,27 +8,9 @@ import java.util.List;
  */
 public class Prob235 {
   public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-    List<TreeNode> pPath =  new ArrayList<>();
-    findPath(root, p, pPath);
-    List<TreeNode> qPath =  new ArrayList<>();
-    findPath(root, q, qPath);
-    TreeNode last = null;
-    for(int i = 0; i < pPath.size(); i++){
-      if(pPath.get(i) != qPath.get(i)){
-        break;
-      }
-      last = pPath.get(i);
-    }
-    return last;
-  }
-
-  private void findPath(TreeNode root, TreeNode p, List<TreeNode> list){
-    list.add(root);
-    if(root == p){
-      return;
-    }
-    if(root.val > p.val) findPath(root.left, p, list);
-    else findPath(root.right, p, list);
+    int temp = (root.val - p.val) * (root.val - q.val);
+    if (temp <= 0) return root;
+    return p.val > root.val ? lowestCommonAncestor(root.right, p, q) : lowestCommonAncestor(root.left, p, q);
   }
   class TreeNode {
     int val;

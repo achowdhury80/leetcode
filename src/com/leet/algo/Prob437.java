@@ -6,12 +6,8 @@ package com.leet.algo;
 public class Prob437 {
   public int pathSum(TreeNode root, int sum) {
     if(root == null) return 0;
-    int result = 0;
-    if(root.val == sum) result++;
-    else result += (pathSum(root.left, sum - root.val) + pathSum(root.right, sum - root.val));
-    result += pathSum(root.left, sum);
-    result += pathSum(root.right, sum);
-    return result;
+    return (root.val == sum ? 1 : 0) + pathSum(root.left, sum - root.val) + pathSum(root.right, sum - root.val)
+        + pathSum(root.left, sum) + pathSum(root.right, sum);
   }
 
   class TreeNode {

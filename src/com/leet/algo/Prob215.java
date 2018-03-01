@@ -1,6 +1,7 @@
 package com.leet.algo;
 
 import java.util.Arrays;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 /**
@@ -8,69 +9,47 @@ import java.util.stream.IntStream;
  */
 public class Prob215 {
   public int findKthLargest(int[] nums, int k) {
-    MaxHeap heap = new MaxHeap(nums.length);
-    Arrays.stream(nums).forEach(x -> heap.add(x));
-    IntStream.range(0, k - 1).forEach(x -> heap.remove());
-    return heap.remove();
-
-  }
-
-  class MaxHeap {
-    int n = 0;
-    int[] arr = null;
-    MaxHeap(int size){
-      arr = new int[size];
-    }
-
-    public void add(int i){
-      arr[n] = i;
-      int k = n;
-      n++;
-      while (k > 0) {
-        int parent = (k - 1) / 2;
-        if (arr[parent] < arr[k]) {
-          swap(parent, k);
-          k = parent;
-        } else break;
-      }
-    }
-    private void swap(int i, int j){
-      int temp = arr[i];
-      arr[i] = arr[j];
-      arr[j] = temp;
-    }
-    public int remove(){
-      int result = arr[0];
-      arr[0] = arr[n - 1];
-      n--;
-      int k = 0;
-      while(k < n){
-        int left = 2 * k + 1;
-        int right = left + 1;
-        if(left < n && right < n){
-          int max = left;
-          if(arr[max] < arr[right]) max = right;
-          if(arr[k] > arr[max]) break;
-          swap(k, max);
-          k = max;
-        } else if(left >= n && right >= n) break;
-        else if(left < n){
-          if(arr[k] > arr[left]) break;
-          else {
-            swap(k, left);
-            k = left;
-          }
-        } else {
-          if(arr[k] > arr[right]) break;
-          else {
-            swap(k, right);
-            k = right;
-          }
-        }
-      }
-      return result;
+    shuffle(nums);
+    k = nums.length - k;
+    int lower = 0;
+    int higher = nums.length - 1;
+    while (true) {
+      int i = partition(nums, lower, higher);
+      if (i == k) return nums[k];
+      if (i > k) higher = i - 1;
+      else lower = i + 1;
     }
   }
+
+  private int partition(int[] arr, int low, int high) {
+    if (low == high) return low;
+    int pivot = arr[low];
+    int i = low, j = low;
+    while (j < high) {
+      j++;
+      if (arr[j] <= pivot) {
+        i++;
+        exchange(arr, i, j);
+      }
+    }
+    exchange(arr, low, i);
+    return i;
+  }
+
+  private void shuffle(int[] arr) {
+    Random random = new Random();
+    for (int i = 1; i < arr.length; i++) {
+      int r = random.nextInt(i + 1);
+      exchange(arr, i, r);
+    }
+  }
+
+  private void exchange(int[] arr, int i, int j) {
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+
 
   public static void main(String[] args){
     Prob215 prob215 = new Prob215();

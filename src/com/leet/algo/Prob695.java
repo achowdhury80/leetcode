@@ -10,41 +10,20 @@ public class Prob695 {
     int result = 0;
     for(int i = 0; i < m; i++){
       for(int j = 0; j < n; j++){
-        if(grid[i][j] == 1) {
-          result = Math.max(result, findArea(grid, i, j, m, n));
-        }
+        if(grid[i][j] == 1) result = Math.max(result, maxAreaOfIsland(grid, i, j));
       }
     }
     return result;
   }
 
-  private int findArea(int[][] grid, int i, int j, int m, int n){
-    int result = 0;
-    if(grid[i][j] == 1) result++;
-    grid[i][j] = 0;
-    if(i + 1 < m){
-      if(grid[i + 1][j] == 1) {
-        result += findArea(grid, i + 1, j, m, n);
-      }
+  private int maxAreaOfIsland(int[][] grid, int i, int j) {
+    if (i >= 0 && i < grid.length && j >= 0 && j < grid[0].length && grid[i][j] == 1) {
+      grid[i][j] = 0;
+      return 1 + maxAreaOfIsland(grid, i - 1, j) + maxAreaOfIsland(grid, i + 1, j) + maxAreaOfIsland(grid, i, j - 1)
+          + maxAreaOfIsland(grid, i, j + 1);
     }
-    if(i - 1 > -1){
-      if(grid[i - 1][j] == 1) {
-        result += findArea(grid, i - 1, j, m, n);
-      }
-    }
-    if(j + 1 < n){
-      if(grid[i][j + 1] == 1) {
-        result += findArea(grid, i, j + 1, m, n);
-      }
-    }
-    if(j - 1 > - 1){
-      if(grid[i][j - 1] == 1) {
-        result += findArea(grid, i, j - 1, m, n);
-      }
-    }
-    return result;
+    return 0;
   }
-
 
   public static void main(String[] args){
     Prob695 prob695 = new Prob695();

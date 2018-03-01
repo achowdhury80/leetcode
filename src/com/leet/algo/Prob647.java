@@ -5,26 +5,22 @@ package com.leet.algo;
  */
 public class Prob647 {
   public int countSubstrings(String s) {
-    int length = -1;
-    if(s == null || (length = s.length()) == 0) return 0;
-    int[][] counts = new int[length][length];
     int result = 0;
-    for(int i = 0; i < length; i++){
-      counts[i][i] = 1;
-      result++;
-      for(int j = i + 1; j < length; j++){
-        if(isPalindrom(s, i, j)) {
-          counts[i][j] = counts[i][j - 1] + 1;
+    boolean[][] dp = new boolean[s.length()][s.length()];
+    for (int i = 0; i < s.length(); i++) {
+      for (int j = i; j > -1; j--) {
+        if (i == j) {
           result++;
+          dp[i][j] = true;
+        } else {
+          if ((i - j < 2 || dp[j + 1][i - 1]) && s.charAt(i) == s.charAt(j)) {
+            result++;
+            dp[j][i] = true;
+          }
         }
       }
     }
     return result;
-  }
-
-  private boolean isPalindrom(String s, int i, int j){
-    String actual = s.substring(i, j + 1);
-    return actual.equals(new StringBuilder(actual).reverse().toString());
   }
 
   public static void main(String[] args){

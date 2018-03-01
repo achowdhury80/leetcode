@@ -5,7 +5,7 @@ package com.leet.algo;
  */
 public class Prob712 {
   public int minimumDeleteSum(String s1, String s2) {
-    int dp[][] = new int[s1.length() + 1][s2.length() + 1];
+    int dp[][] = new int[s1.length()][s2.length()];
     dp[0][0] = 0;
     for(int i = 1; i < dp.length; i++){
       dp[i][0] = dp[i - 1][0] + s1.charAt(i - 1);

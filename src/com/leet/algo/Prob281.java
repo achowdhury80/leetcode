@@ -2,6 +2,7 @@ package com.leet.algo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -9,49 +10,22 @@ import java.util.StringJoiner;
  * Created by ayanc on 2/11/18.
  */
 public class Prob281 {
-  private List<List<Integer>> lists;
-  private int[] current = null;
+  private List<Iterator<Integer>> lists;
   public Prob281(List<Integer> v1, List<Integer> v2) {
-    List<List<Integer>> lists = new ArrayList<>();
-    if (!v1.isEmpty()) {
-      lists.add(v1);
-      current = new int[2];
-    }
-    if (!v2.isEmpty()){
-      lists.add(v2);
-      if(current == null) current = new int[2];
-    }
-    this.lists = lists;
-
-  }
-
-  public Prob281(List<List<Integer>> lists) {
-    this.lists = lists;
-  }
-
-  public int next() {
-    int result = lists.get(current[0]).get(current[1]);
-    current = nextPosition();
-    return result;
-  }
-
-  private int[] nextPosition(){
-    int[] nextRowColumn = findNextRowNColumn(current);
-    while (nextRowColumn[0] != current[0]) {
-      if(lists.get(nextRowColumn[0]).size() > nextRowColumn[1]) return nextRowColumn;
-      nextRowColumn = findNextRowNColumn(nextRowColumn);
-    }
-    if (lists.get(nextRowColumn[0]).size() > nextRowColumn[1]) return nextRowColumn;
-    return null;
-  }
-
-  private int[] findNextRowNColumn(int[] current){
-    if (current[0] + 1 == lists.size()) return new int[]{0, current[1] + 1};
-    return new int[] {current[0] + 1, current[1]};
+    lists = new ArrayList<>();
+    if (v1.iterator().hasNext()) lists.add(v1.iterator());
+    if (v2.iterator().hasNext()) lists.add(v2.iterator());
   }
 
   public boolean hasNext() {
-    return current != null;
+    return !lists.isEmpty();
+  }
+
+  public int next() {
+    Iterator<Integer> itr = lists.remove(0);
+    int result = itr.next();
+    if (itr.hasNext()) lists.add(lists.size(), itr);
+    return result;
   }
 
   public static void main(String[] args) {

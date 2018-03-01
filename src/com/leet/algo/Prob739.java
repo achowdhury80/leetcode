@@ -8,27 +8,30 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * Created by ayanc on 12/7/17.
  */
 public class Prob739 {
   public int[] dailyTemperatures(int[] temperatures) {
-    if(temperatures == null || temperatures.length < 1) return temperatures;
     int[] result = new int[temperatures.length];
-    Map<Integer, Integer> temperatureLocation = new HashMap<>();
-    for(int i = temperatures.length - 1; i > -1; i--){
-      List<Integer> list = new ArrayList<>();
-      for(int j = temperatures[i] + 1; j <= 100; j++){
-        if(temperatureLocation.containsKey(j)){
-          list.add(temperatureLocation.get(j));
+    Stack<Integer> stack = new Stack<>();
+    for (int i = temperatures.length - 1; i > - 1; i--) {
+      if (stack.isEmpty()){
+        stack.push(i);
+        result[i] = 0;
+      } else {
+        while (!stack.isEmpty() && temperatures[stack.peek()] <= temperatures[i]) {
+          stack.pop();
         }
+        if (stack.isEmpty()) {
+          result[i] = 0;
+        } else {
+          result[i] = stack.peek() - i;
+        }
+        stack.push(i);
       }
-      if(!list.isEmpty()){
-        Collections.sort(list);
-        result[i] = list.get(0) - i;
-      }
-      temperatureLocation.put(temperatures[i], i);
     }
     return result;
   }

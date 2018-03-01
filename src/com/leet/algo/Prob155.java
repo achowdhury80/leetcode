@@ -2,58 +2,39 @@ package com.leet.algo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by ayanc on 9/18/17.
  */
 public class Prob155 {
-  private Integer minElement = null;
-  List<Long> list = new ArrayList();
+  private Stack<Integer> stack = null;
+  private Stack<Integer> minStack = null;
 
   /** initialize your data structure here. */
   public Prob155() {
-
+    stack = new Stack<>();
+    minStack = new Stack<>();
   }
 
   public void push(int x) {
-    if(minElement == null){
-      list.add(Long.valueOf(x));
-      minElement = x;
-    }else{
-      if(x >= minElement){
-        list.add(0,Long.valueOf(x));
-      } else{
-        list.add(0, ((2 + 0l) * x) - minElement);
-        minElement = x;
-      }
+    stack.push(x);
+    if (minStack.isEmpty() || minStack.peek() >= x){
+      minStack.push(x);
     }
   }
 
   public void pop() {
-    if(minElement == null) throw new IllegalArgumentException();
-    long x = list.get(0);
-    if(x >= minElement) list.remove(0);
-    else {
-      minElement = Long.valueOf((2 + 0l) * minElement - x).intValue();
-      list.remove(0);
-    }
-    if(list.size() == 0) minElement = null;
+    int x = stack.pop();
+    if (x == minStack.peek()) minStack.pop();
   }
 
   public int top() {
-    if(list.size() > 0){
-      long x = list.get(0);
-      if(x >= minElement) return Long.valueOf(list.get(0)).intValue();
-      else return minElement;
-    }
-    throw new IllegalArgumentException();
+    return stack.peek();
   }
 
   public int getMin() {
-    if(minElement == null){
-      throw new IllegalArgumentException();
-    }
-    return minElement;
+    return minStack.peek();
   }
 
   public static void main(String[] args){
@@ -74,17 +55,17 @@ public class Prob155 {
 //    System.out.println("output:" + prob155.getMin());
 //    prob155.pop();
 //    System.out.println(prob155.list + " - " + prob155.minElement);
-    prob155.push(2147483647);
-    System.out.println(prob155.list + " - " + prob155.minElement);
-    System.out.println("output:" + prob155.top());
-    System.out.println("output:" + prob155.getMin());
-    prob155.push(-2147483648);
-    System.out.println(prob155.list + " - " + prob155.minElement);
-    System.out.println("output:" + prob155.top());
-    System.out.println("output:" + prob155.getMin());
-    prob155.pop();
-    System.out.println(prob155.list + " - " + prob155.minElement);
-    System.out.println("output:" + prob155.getMin());
+//    prob155.push(2147483647);
+//    //System.out.println(prob155.list + " - " + prob155.minElement);
+//    System.out.println("output:" + prob155.top());
+//    System.out.println("output:" + prob155.getMin());
+//    prob155.push(-2147483648);
+//    //System.out.println(prob155.list + " - " + prob155.minElement);
+//    System.out.println("output:" + prob155.top());
+//    System.out.println("output:" + prob155.getMin());
+//    prob155.pop();
+//    //System.out.println(prob155.list + " - " + prob155.minElement);
+//    System.out.println("output:" + prob155.getMin());
 
 
 //    prob155.push(-2);

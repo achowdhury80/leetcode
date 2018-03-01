@@ -1,54 +1,45 @@
 package com.leet.algo;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Created by ayanc on 2/10/18.
  */
 public class Prob604 {
-  private String compressedString;
-  private char currentChar = ' ';
-  private int currentCount = -1;
-  private int nextIndex = -1;
+  private Queue<int[]> q;
 
   public Prob604(String compressedString) {
-    this.compressedString = compressedString;
-    int[] nextChar = find(compressedString, 0);
-    currentChar = (char)nextChar[0];
-    currentCount = nextChar[1];
-    nextIndex = nextChar[2];
+    q = new LinkedList<>();
+    if (compressedString == null || compressedString.equals("")) return;
+    Character lastChar = null;
+    for (int i = 0; i < compressedString.length(); i++) {
+      if (compressedString.charAt(i) - 'A' >= 0) {
+        lastChar = compressedString.charAt(i);
+      } else {
+        int j = i + 1;
+        while (j < compressedString.length() && compressedString.charAt(j) - 'A' < 0){
+          j++;
+        }
+        q.add(new int[]{lastChar, Integer.parseInt(compressedString.substring(i, j))});
+        i = j -1;
+      }
+    }
   }
 
   public char next() {
-    if (currentCount == 0) return ' ';
-    if (currentCount > 1) {
-      currentCount--;
-      return currentChar;
+    if (q.isEmpty()) return ' ';
+    int[] ints = q.peek();
+    char c = (char)ints[0];
+    if (ints[1] == 1) {
+      q.poll();
     }
-    char c = currentChar;
-    currentCount--;
-    if (nextIndex != -1) {
-      int[] nextChar = find(compressedString, nextIndex);
-      currentChar = (char) nextChar[0];
-      currentCount = nextChar[1];
-      nextIndex = nextChar[2];
-    }
+    else ints[1]--;
     return c;
   }
 
   public boolean hasNext() {
-    return currentCount != 0;
-  }
-
-  private int[] find(String compressedString, int nextIndex){
-    int[] result = new int[3];
-    result[0] = compressedString.charAt(nextIndex);
-    String countStr = "";
-    int i = nextIndex + 1;
-    for (; i < compressedString.length() && Character.isDigit(compressedString.charAt(i)); i++) {
-      countStr = countStr + compressedString.charAt(i);
-    }
-    result[1] = Integer.parseInt(countStr);
-    result[2] = (i == compressedString.length()) ? -1 : i;
-    return result;
+    return !q.isEmpty();
   }
 
   public static void main(String[] args) {

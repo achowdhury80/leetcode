@@ -4,7 +4,22 @@ package com.leet.algo;
  * Created by ayanc on 11/13/17.
  */
 public class Prob338 {
+
   public int[] countBits(int num) {
+    if(num < 0) return null;
+    int[] result = new int[num + 1];
+    result[0] = 0;
+    if(num == 0) return result;
+    result[1] = 1;
+    for(int i = 2; i <= num; i=i*2){
+      for (int j = 0; i + j < 2 * i && i + j <= num; j++) {
+        result[i + j] = 1 + result[j];
+      }
+    }
+    return result;
+  }
+
+  public int[] countBits1(int num) {
     if(num < 0) return null;
     int[] result = new int[num + 1];
     result[0] = 0;

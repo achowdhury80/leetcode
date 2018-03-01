@@ -5,26 +5,17 @@ package com.leet.algo;
  */
 public class Prob413 {
   public int numberOfArithmeticSlices(int[] A) {
-    int length = -1;
-    if(A == null || (length = A.length) == 0) return 0;
+    int length;
+    if(A == null || (length = A.length) < 3) return 0;
     int result = 0;
-    boolean[][] ap = new boolean[length][length];
-    for(int i = 0; i < length - 2; i++){
-      for(int j = i + 2; j < length; j++){
-        if(j - i == 2){
-          ap[i][j] = isNext3InAP(A, i);
-        } else if(ap[i][j - 1]){
-            ap[i][j] = isNext3InAP(A, j - 2);
-          }
-        if(ap[i][j]) result++;
-        }
-      }
-
+    int cur = 0;
+    for (int i = 2; i < length; i++) {
+      if (A[i - 1] - A[i - 2] == A[i] - A[i - 1]) {
+        cur++;
+        result += cur;
+      } else cur = 0;
+    }
     return result;
-  }
-
-  public boolean isNext3InAP(int[] A, int start){
-    return A[start + 2] - A[start + 1] == A[start + 1] - A[start];
   }
 
   public static void main(String[] arhs){
