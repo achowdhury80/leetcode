@@ -42,5 +42,4 @@ public class TargetNumberUsingArithmetic {
     return result;
   }
 
-  public static void main(String[] args)
 }
