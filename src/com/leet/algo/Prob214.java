@@ -6,19 +6,12 @@ package com.leet.algo;
 public class Prob214 {
   public String shortestPalindrome(String s) {
     if (s == null || s.length() < 2) return s;
-    int i = (s.length() - 1) / 2;
-    int j = s.length() / 2;
-    boolean flag = true;
-    while (i < j) {
-      if (s.charAt(i) != s.charAt(j)) {
-        flag = false;
-        break;
-      }
+    String r = new StringBuilder(s).reverse().toString();
+    for (int i = 0; i < r.length(); i++) {
+      if (s.startsWith(r.substring(i))) return r.substring(0, i) + s;
     }
-    if (flag) return s;
-    String result = "";
-    int mid = (s.length() - 1) / 2;
-    if (s.length() % 2 == 1) mid--;
-    return "";
+    return r + s;
   }
+
+
 }
