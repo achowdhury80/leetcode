@@ -7,21 +7,14 @@ public class Prob156 {
   public TreeNode upsideDownBinaryTree(TreeNode root) {
     if (root == null) return null;
     if(root.left == null) return root;
-    TreeNode tempLeft = root.left;
-    TreeNode tempRight = root.right;
-    root.left = null;
+    TreeNode node = upsideDownBinaryTree(root.left);
+    TreeNode rightMost = node;
+    while (rightMost.right != null) rightMost = rightMost.right;
+    rightMost.left = root.right;
     root.right = null;
-    return upsideDownBinaryTree(tempLeft, tempRight, root);
-  }
-
-  private TreeNode upsideDownBinaryTree(TreeNode left, TreeNode right, TreeNode parent) {
-    TreeNode tempLeft = left.left;
-    TreeNode tempRight = left.right;
-    TreeNode newNode = left;
-    newNode.left = right;
-    newNode.right = parent;
-    if(tempLeft != null) return upsideDownBinaryTree(tempLeft, tempRight, newNode);
-    return newNode;
+    rightMost.right = root;
+    root.left = null;
+    return node;
   }
 
   public static void main(String[] args) {

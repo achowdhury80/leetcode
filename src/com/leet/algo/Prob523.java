@@ -7,6 +7,7 @@ import java.util.Map;
  * Created by ayanc on 12/23/17.
  */
 public class Prob523 {
+  //O(n)
   public boolean checkSubarraySum(int[] nums, int k) {
     int n;
     if(nums == null || (n = nums.length) < 2 ) return false;

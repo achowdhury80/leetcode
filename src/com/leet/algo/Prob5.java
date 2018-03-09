@@ -4,35 +4,55 @@ package com.leet.algo;
  * Created by ayanc on 12/29/17.
  */
 public class Prob5 {
+
+  //O(n2) O(n2)
   public String longestPalindrome(String s) {
+    boolean[][] dp = new boolean[s.length()][s.length()];
     if(s == null || s.length() == 0) return "";
     if(s.length() == 1) return s;
-    boolean[][] dp = new boolean[s.length() + 1][s.length() + 1];
     String result = s.charAt(0) + "";
-    for(int i = 1; i <= s.length(); i++){
-      dp[i][i] = true;
-    }
-    for(int j = 1; j < s.length(); j++){
-      for(int i = 1; i < s.length(); i++){
-        if(i + j > s.length()) continue;
-        if(s.charAt(i - 1) == s.charAt(i + j - 1)){
-          if(j == 1 || dp[i + 1][i + j - 1]) {
+    for (int j = 0; j < s.length(); j++) {
+      for (int i = 0; i + j < s.length(); i++) {
+        if (j == 0) dp[i][i] = true;
+        else {
+          if (s.charAt(i) == s.charAt(i + j) && (j < 3 || dp[i + 1][i + j - 1])) {
             dp[i][i + j] = true;
-            if(j + 1 > result.length()){
-              result = s.substring(i - 1, i + j);
-            }
-          } else {
-            dp[i][i + j] = false;
+            if (j + 1 > result.length()) result = s.substring(i, i + j + 1);
           }
-
-        } else {
-          dp[i][i + j] = false;
         }
       }
     }
-    //String result = longestPalindrome(dp, s, 0, s.length() - 1);
     return result;
   }
+//  public String longestPalindrome(String s) {
+//    if(s == null || s.length() == 0) return "";
+//    if(s.length() == 1) return s;
+//    boolean[][] dp = new boolean[s.length() + 1][s.length() + 1];
+//    String result = s.charAt(0) + "";
+//    for(int i = 1; i <= s.length(); i++){
+//      dp[i][i] = true;
+//    }
+//    for(int j = 1; j < s.length(); j++){
+//      for(int i = 1; i < s.length(); i++){
+//        if(i + j > s.length()) continue;
+//        if(s.charAt(i - 1) == s.charAt(i + j - 1)){
+//          if(j == 1 || dp[i + 1][i + j - 1]) {
+//            dp[i][i + j] = true;
+//            if(j + 1 > result.length()){
+//              result = s.substring(i - 1, i + j);
+//            }
+//          } else {
+//            dp[i][i + j] = false;
+//          }
+//
+//        } else {
+//          dp[i][i + j] = false;
+//        }
+//      }
+//    }
+//    //String result = longestPalindrome(dp, s, 0, s.length() - 1);
+//    return result;
+//  }
 
 //  private String longestPalindrome(String[][]dp, String s, int start, int end){
 //    if(start == end){

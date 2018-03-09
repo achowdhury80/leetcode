@@ -8,33 +8,18 @@ public class Prob74 {
     int m, n;
     if(matrix == null || (m = matrix.length) < 1 || (n = matrix[0].length) < 1) return false;
     if(m == 1 && n == 1) return matrix[0][0] == target;
-    int startRow = 0, endRow = m - 1;
-    while (startRow < endRow){
-      int midRow = (startRow + endRow) / 2;
-      if(matrix[midRow][0] == target) return true;
-      if(matrix[midRow][0] < target){
-        startRow = midRow;
-        if(matrix[midRow + 1][0] == target) return true;
-        if(matrix[midRow + 1][0] < target) startRow = midRow + 1;
-        else endRow = midRow;
-      } else {
-        endRow = midRow - 1;
-      }
+    int l = 0;
+    int h = m * n - 1;
+    while (l < h) {
+      int mid = l + (h - l) / 2;
+      int r = mid / n;
+      int c = mid % n;
+      if (matrix[r][c] == target) return true;
+      if (matrix[r][c] > target) h = mid - 1;
+      else l = mid + 1;
     }
-    if(endRow >= m || startRow < 0) return false;
-    int startCol = 0, endCol = n - 1;
-    while(startCol < endCol){
-      int midCol = (startCol + endCol) / 2;
-      if(matrix[startRow][midCol] == target) return true;
-      if(matrix[startRow][midCol] < target){
-        startCol = midCol + 1;
-      } else {
-        endCol = midCol - 1;
-      }
-    }
-    if(startCol == endCol && matrix[startRow][startCol] == target) return true;
+    if (l == h) return matrix[l/n][l%n] == target;
     return false;
-
   }
 
   public static void main(String[] args){

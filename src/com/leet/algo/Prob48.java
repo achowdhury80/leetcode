@@ -7,30 +7,36 @@ public class Prob48 {
   public void rotate(int[][] matrix) {
     int n;
     if(matrix == null || (n = matrix.length) < 2) return;
-    int width = n;
-    int r = 0;
-    int c = 0;
-
-    while(width > 1){
-      int[] firstLoc = new int[]{r, c};
-      int[] secondLoc = new int[]{r, c + width -1};
-      int[] thirdLoc = new int[]{r + width - 1, c + width -1};
-      int[] fourthLoc = new int[]{r + width - 1, c};
-      for(int i = 0; i < width - 1; i++){
-        int temp = matrix[firstLoc[0]][firstLoc[1]];
-        matrix[firstLoc[0]][firstLoc[1]] = matrix[fourthLoc[0]][fourthLoc[1]];
-        matrix[fourthLoc[0]][fourthLoc[1]] = matrix[thirdLoc[0]][thirdLoc[1]];
-        matrix[thirdLoc[0]][thirdLoc[1]] = matrix[secondLoc[0]][secondLoc[1]];
-        matrix[secondLoc[0]][secondLoc[1]] = temp;
-        firstLoc[1] = firstLoc[1] + 1;
-        secondLoc[0] = secondLoc[0] + 1;
-        thirdLoc[1] = thirdLoc[1] - 1;
-        fourthLoc[0] = fourthLoc[0] - 1;
-      }
-      width -= 2;
-      r++;
-      c++;
+    int i = 0, j = n - 1;
+    while (i < j){
+      for (int k = 0; k < n; k++) swap(matrix, i, k, j, k);
+      i++;
+      j--;
     }
-
+    for (i = 0; i < n; i++){
+      for (j = i; j < n; j++) {
+        swap(matrix, i, j, j, i);
+      }
+    }
   }
+
+  private void swap(int[][] matrix, int i, int j, int k, int l){
+    int temp = matrix[i][j];
+    matrix[i][j] = matrix[k][l];
+    matrix[k][l] = temp;
+  }
+
+  public static void main(String[] args) {
+    Prob48 prob48 = new Prob48();
+    int[][] matrix;
+    matrix = new int[][]{{1,2,3},{4,5,6},{7,8,9}};
+    prob48.rotate(matrix);
+    for (int i = 0; i < matrix.length; i++) {
+      for (int j = 0; j < matrix[0].length; j++) {
+        System.out.print(matrix[i][j] + " ");
+      }
+      System.out.println();
+    }
+  }
+
 }

@@ -6,7 +6,47 @@ import java.util.Objects;
  * Created by ayanc on 2/14/18.
  */
 public class Prob333 {
+
   public int largestBSTSubtree(TreeNode root) {
+    if (root == null) return 0;
+    int[] result = new int[1];
+    isBst(root, result);
+    return result[0];
+  }
+
+  private int[] isBst(TreeNode root, int[] result) {
+    if (root.left == null && root.right == null) {
+      result[0] = Math.max(result[0], 1);
+      return new int[]{1, root.val, root.val};
+    }
+    int[] left = null;
+    if (root.left != null) {
+      left = isBst(root.left, result);
+    }
+    int[] right = null;
+    if (root.right != null) {
+      right = isBst(root.right, result);
+    }
+    int[] r = new int[]{1, root.val, root.val};
+    if (root.left != null){
+      if(left == null || left[2] >= root.val) return null;
+      else {
+        r[1] = left[1];
+        r[0] += left[0];
+      }
+    }
+    if (root.right != null){
+      if(right == null || right[1] <= root.val) return null;
+      else {
+        r[2] = right[2];
+        r[0] += right[0];
+      }
+    }
+    result[0] = Math.max(result[0], r[0]);
+    return r;
+  }
+
+  /*public int largestBSTSubtree(TreeNode root) {
     if (root == null) return 0;
     if (root.left == null && root.right == null) return 1;
     return (Integer)helper(root)[1];
@@ -31,7 +71,7 @@ public class Prob333 {
         && root.val > root.left.val && (Integer)rightLargest[2] > root.val && (Integer) leftLargest[3] < root.val)
       return new Object[]{root, (Integer)leftLargest[1] + (Integer)rightLargest[1] + 1, leftLargest[2], rightLargest[3]};
     return (Integer)leftLargest[1] > (Integer)rightLargest[1] ? leftLargest : rightLargest;
-  }
+  }*/
 
   public static void main(String[] args) {
     Prob333 prob333 = new Prob333();

@@ -4,13 +4,51 @@ package com.leet.algo;
  * Created by ayanc on 1/5/18.
  */
 public class Prob148 {
+
+  public ListNode sortList(ListNode head) {
+    if (head == null || head.next == null) return head;
+    ListNode slow = head, fast = head;
+    while (fast.next != null && fast.next.next != null) {
+      slow = slow.next;
+      fast = fast.next.next;
+    }
+    ListNode list2 = sortList(slow.next);
+    slow.next = null;
+    ListNode list1 = sortList(head);
+    return merge(list1, list2);
+  }
+
+  private ListNode merge(ListNode list1, ListNode list2) {
+    if (list1 == null) return list2;
+    if (list2 == null) return list1;
+    ListNode head = new ListNode(-1);
+    ListNode cur = head;
+    while (list1 != null && list2 != null) {
+      if (list1.val <= list2.val) {
+        cur.next = list1;
+        list1 = list1.next;
+      } else {
+        cur.next = list2;
+        list2 = list2.next;
+      }
+      cur = cur.next;
+    }
+    if (list1 != null) {
+      cur.next = list1;
+    }
+    if (list2 != null){
+      cur.next = list2;
+    }
+    return head.next;
+  }
+
   /**
    * merge sort bottom to up
    * start with two elements sort them then 4...so on
    * @param head
    * @return
    */
-  public ListNode sortList(ListNode head) {
+  /*public ListNode sortList(ListNode head) {
     if(head == null || head.next == null) return head;
     ListNode dummy = new ListNode(0);
     dummy.next = head;
@@ -92,5 +130,20 @@ public class Prob148 {
       }
     }
     return new ListNode[]{dummy.next, last};
+  } */
+
+
+  public static void main(String[] args) {
+    Prob148 prob148 = new Prob148();
+    ListNode root = null;
+    root = new ListNode(3);
+    root.next = new ListNode(4);
+    root.next.next = new ListNode(1);
+    ListNode result = prob148.sortList(root);
+    ListNode cur = result;
+    while (cur != null) {
+      System.out.print(cur.val + ",");
+      cur = cur.next;
+    }
   }
 }

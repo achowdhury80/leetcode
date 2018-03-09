@@ -7,9 +7,9 @@ import java.util.Stack;
  * Created by ayanc on 1/3/18.
  */
 public class Prob331 {
+
   public boolean isValidSerialization(String preorder) {
     if(preorder == null || preorder.length() == 0) return true;
-    Stack<String> stack = new Stack<>();
     String[] arr = preorder.split(",");
     Integer result = validate(arr, 0);
     return result != null && result == arr.length;

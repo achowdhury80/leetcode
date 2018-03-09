@@ -7,30 +7,17 @@ import java.util.Arrays;
  */
 public class Prob80 {
   public int removeDuplicates(int[] nums) {
-    if(nums == null || nums.length == 0) return 0;
-    if(nums.length == 1) return 1;
-    int cur = 2;
-    int next = 2;
-
-    while (next < nums.length){
-      boolean change = nums[cur - 1] == nums[cur - 2];
-      if(change && nums[next] == nums[cur -1]){
-        next = findNextPos(nums, next, nums[cur - 1]);
-        if(next == -1) return cur;
-      }
-      nums[cur] = nums[next];
-      cur++;
-      next++;
+    if(nums == null) return 0;
+    if(nums.length < 3) return nums.length;
+    int cur = 1;
+    for (int i = 2; i < nums.length; i++) {
+      if (nums[i] == nums[cur - 1]) continue;
+      nums[++cur] = nums[i];
     }
-    return cur;
+    return cur + 1;
   }
 
-  private int findNextPos(int[] nums, int last, int lastVal){
-    for(int i = last + 1; i < nums.length; i++){
-      if(nums[i] != lastVal) return i;
-    }
-    return -1;
-  }
+
 
   public static void main(String[] args){
     int[] nums;

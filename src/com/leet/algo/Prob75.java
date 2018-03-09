@@ -6,43 +6,34 @@ import java.util.Arrays;
  * Created by ayanc on 1/21/18.
  */
 public class Prob75 {
+
   public void sortColors(int[] nums) {
     if(nums == null || nums.length < 2) return;
-    int cur = -1;
-    for(int i = 0; i < 2; i++){
-      int nextNonI = nextNonColor(i, cur, nums);
-      while(nextNonI > -1) {
-        int nextI = nextPos(i, nextNonI, nums);
-        if (nextI == -1) break;
-        swap(nums, nextNonI, nextI);
-        cur = nextNonI;
-        nextNonI = nextNonColor(i, nextNonI, nums);
-      }
-      if(cur == -1 && nextNonI > -1){
-        cur = nextNonI - 1;
-      }
+    int[] bkt = new int[3];
+    for (int i = 0; i < nums.length; i++) bkt[nums[i]]++;
+    int last = -1;
+    for (int i = 0; i < bkt.length; i++) {
+      for (int j = 0; j < bkt[i]; j++) nums[++last] = i;
     }
   }
 
-  private void swap(int[] nums, int i, int j){
-    int temp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = temp;
-  }
+//  public void sortColors(int[] nums) {
+//    if(nums == null || nums.length < 2) return;
+//    int j = -1, k = nums.length;
+//    for (int i = 0; i < k; i++) {
+//      if (nums[i] == 0) {
+//        swap(nums, ++j, i);
+//      } else if (nums[i] == 2) swap(nums, i--, --k);
+//    }
+//  }
 
-  private int nextPos(int color, int cur, int[] nums){
-    for(int i = cur + 1; i < nums.length; i++){
-      if(nums[i] == color) return i;
-    }
-    return -1;
-  }
+//  private void swap(int[] nums, int i, int j){
+//    int temp = nums[i];
+//    nums[i] = nums[j];
+//    nums[j] = temp;
+//  }
 
-  private int nextNonColor(int color, int cur, int[] nums){
-    for(int i = cur + 1; i < nums.length; i++){
-      if(nums[i] != color) return i;
-    }
-    return -1;
-  }
+
 
   public static void main(String[] args){
     Prob75 prob75 = new Prob75();

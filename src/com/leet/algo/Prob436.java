@@ -3,12 +3,28 @@ package com.leet.algo;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by ayanc on 1/18/18.
  */
 public class Prob436 {
   public int[] findRightInterval(Interval[] intervals) {
+    if (intervals == null || intervals.length < 1) return new int[0];
+    if (intervals.length < 2) return new int[]{-1};
+    int[] result = new int[intervals.length];
+    TreeMap<Integer, Integer> treeMap = new TreeMap<>();
+    for(int i = 0; i < intervals.length; i++){
+      treeMap.put(intervals[i].start, i);
+    }
+    for (int i = 0; i < intervals.length; i++) {
+      Map.Entry<Integer, Integer> entry = treeMap.ceilingEntry(intervals[i].end);
+      if (entry != null) result[i] = entry.getValue();
+      else result[i] = -1;
+    }
+    return result;
+  }
+  /*public int[] findRightInterval(Interval[] intervals) {
     if(intervals == null || intervals.length < 1) return new int[0];
     if(intervals.length < 2) return new int[]{-1};
     Map<Integer, Integer> map = new HashMap<>();
@@ -42,7 +58,7 @@ public class Prob436 {
     }
     if(start == end && arr[end] >= target) return end;
     return -1;
-  }
+  }*/
 
   static class Interval {
     int start;

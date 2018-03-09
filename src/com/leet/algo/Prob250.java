@@ -5,20 +5,25 @@ package com.leet.algo;
  */
 public class Prob250 {
   public int countUnivalSubtrees(TreeNode root) {
-    return helper(root)[0];
+    int[] count = new int[1];
+    helper(root, count);
+    return count[0];
   }
 
-  public int[] helper(TreeNode root){
-    if (root == null) return new int[]{0, 0};
-    if (root.left == null && root.right == null) return new int[]{1, 1};
-    int[] leftResult = helper(root.left);
-    int[] rightResult = helper(root.right);
-    int isUnival = 0;
-    if ((leftResult[0] == 0 && rightResult[0] == 0)
-        || (leftResult[0] == 0 && rightResult[1] == 1 && root.val == root.right.val)
-        || (rightResult[0] == 0 && leftResult[1] == 1 && root.val == root.left.val)
-        || (leftResult[1] == 1 && rightResult[1] == 1 && root.val == root.right.val && root.val == root.left.val)) isUnival = 1;
-    return new int[]{leftResult[0] + rightResult[0] + isUnival, 0 + isUnival};
+  public boolean helper(TreeNode root, int[] count){
+    if (root == null) return true;
+    if (root.left == null && root.right == null) {
+      count[0]++;
+      return true;
+    }
+    // check not short-circuit and
+    if (helper(root.left, count) & helper(root.right, count)){
+      if ((root.left == null || root.val == root.left.val) && (root.right == null || root.val == root.right.val)) {
+        count[0]++;
+        return true;
+      }
+    }
+    return false;
   }
 
   public static void main(String[] args) {

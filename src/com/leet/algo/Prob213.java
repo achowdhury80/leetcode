@@ -4,6 +4,9 @@ package com.leet.algo;
  * Created by ayanc on 12/24/17.
  */
 public class Prob213 {
+
+
+
   public int rob(int[] nums) {
     int n;
     if(nums == null ||(n = nums.length) == 0) return 0;
@@ -26,6 +29,8 @@ public class Prob213 {
 
   public static void main(String[] args){
     Prob213 prob213 = new Prob213();
-    System.out.println(prob213.rob(new int[]{1,1,1,1}));
+//    System.out.println(prob213.rob(new int[]{1,1,1,1}));
+//    System.out.println(prob213.rob(new int[]{1,3,1}));
+    System.out.println(prob213.rob(new int[]{2, 2,4,3,2,5}));
   }
 }

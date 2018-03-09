@@ -3,6 +3,7 @@ package com.leet.algo;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 import java.util.StringJoiner;
 
 /**
@@ -10,6 +11,38 @@ import java.util.StringJoiner;
  */
 public class Prob135 {
   public int candy(int[] ratings) {
+    int n;
+    if (ratings == null || (n = ratings.length) < 1) return 0;
+    int[] candies = new int[n];
+    Arrays.fill(candies, 1);
+    int sum = n;
+    Stack<Integer> stack = new Stack<>();
+    for (int i = 0; i < ratings.length; i++) {
+      if (stack.isEmpty() || ratings[stack.peek()] > ratings[i]) stack.push(i);
+      else {
+        sum += clear(stack, ratings, candies);
+        stack.push(i);
+      }
+    }
+    sum += clear(stack, ratings, candies);
+    return sum;
+  }
+
+  private int clear(Stack<Integer> stack, int[] ratings, int[] candies){
+    int sum = 0;
+    while (!stack.isEmpty()) {
+      int index = stack.pop();
+      if (index > 0 && ratings[index] > ratings[index - 1] && candies[index - 1] >= candies[index]) {
+        candies[index] = candies[index - 1] + 1;
+      }
+      if (index < ratings.length - 1 && ratings[index] > ratings[index + 1] && candies[index] <= candies[index + 1]) {
+        candies[index] = candies[index + 1] + 1;
+      }
+      sum += (candies[index] - 1);
+    }
+    return sum;
+  }
+  public int candy1(int[] ratings) {
     int n;
     if (ratings == null || (n = ratings.length) < 1) return 0;
     int[] candies = new int[n];

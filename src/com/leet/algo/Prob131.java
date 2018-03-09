@@ -10,25 +10,33 @@ public class Prob131 {
   public List<List<String>> partition(String s) {
     List<List<String>> result = new ArrayList<>();
     if (s == null || s.length() < 1) return result;
-    List<List<String>>[] dp = new List[s.length() + 1];
-    dp[0] = new ArrayList<>();
-    dp[0].add(new ArrayList<>());
-    boolean[][] pal = new boolean[s.length()][s.length()];
-    for (int i = 0; i < s.length(); i++) {
-      dp[i + 1] = new ArrayList<>();
-      for (int left = 0; left <= i; left++) {
-        if (s.charAt(left) == s.charAt(i) && (i - left < 2 || pal[left + 1][i - 1])) {
-          pal[left][i] = true;
-          String st = s.substring(left, i + 1);
-          for (List<String> palList : dp[left]) {
-            List<String> newList = new ArrayList<>(palList);
-            newList.add(st);
-            dp[i + 1].add(newList);
-          }
-        }
+    partition(result, s, 0, new ArrayList<>());
+    return result;
+  }
+
+  private void partition(List<List<String>> result, String s, int start, List<String> temp){
+    if (start == s.length()) {
+      result.add(new ArrayList<>(temp));
+      return;
+    }
+    for (int i = start; i < s.length(); i++){
+      String sub = s.substring(start, i + 1);
+      if (isPal(sub)) {
+        temp.add(sub);
+        partition(result, s, i + 1, temp);
+        temp.remove(temp.size() - 1);
       }
     }
-    return dp[s.length()];
+  }
+
+  private boolean isPal(String s) {
+    int i = 0, j = s.length() - 1;
+    while (i < j){
+      if (s.charAt(i) != s.charAt(j)) return false;
+      i++;
+      j--;
+    }
+    return true;
   }
 
   public static void main(String[] args) {

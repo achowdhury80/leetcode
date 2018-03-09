@@ -15,11 +15,12 @@ public class Prob71 {
     for(int i = 0; i < arr.length; i++){
       if(arr[i].trim().equals("") || arr[i].equals(".")) continue;
       if(arr[i].equals("..")) {
-        ignoreCount++;
-        if(ignoreCount > 0){
-          if(stack.isEmpty()) ignoreCount--;
-          else stack.pop();
-        }
+        if (!stack.isEmpty()) stack.pop();
+//        ignoreCount++;
+//        if(ignoreCount > 0){
+//          if(stack.isEmpty()) ignoreCount--;
+//          else stack.pop();
+//        }
       } else stack.add(arr[i]);
     }
     String result = "";

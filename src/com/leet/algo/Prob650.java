@@ -4,6 +4,9 @@ package com.leet.algo;
  * Created by ayanc on 12/11/17.
  */
 public class Prob650 {
+
+
+
   public int minSteps(int n) {
     int result = 0;
     if(n == 1) return 0;
@@ -26,5 +29,6 @@ public class Prob650 {
   public static void main(String[] arhs){
     Prob650 prob650 = new Prob650();
     System.out.println(prob650.minSteps(50));
+    System.out.println(prob650.minSteps(3));
   }
 }

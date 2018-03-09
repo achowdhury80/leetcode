@@ -9,33 +9,28 @@ import java.util.stream.IntStream;
  * Created by ayanc on 1/20/18.
  */
 public class Prob216 {
+
   public List<List<Integer>> combinationSum3(int k, int n) {
     List<List<Integer>> result = new ArrayList<>();
     if(k > 9 || k < 1) return result;
-    List<Integer> nums = new ArrayList<>();
-    IntStream.range(1, 10).forEach(x -> nums.add(x));
-    return combinationSum3(k, n, nums, 0);
+    combinationSum3(result, k, n, new ArrayList<>(), 1);
+    return result;
   }
 
-  private List<List<Integer>> combinationSum3(int k, int n, List<Integer> nums, int start){
-    List<List<Integer>> result = new ArrayList<>();
-    if(k == 1){
-      if(!nums.subList(start, nums.size()).contains(n)) return result;
-      List<Integer> list = new ArrayList<>();
-      list.add(n);
-      result.add(list);
-      return result;
+  private void combinationSum3(List<List<Integer>> result, int k, int n, List<Integer> temp, int start){
+    if (n == 0 && k == 0){
+      result.add(new ArrayList<>(temp));
+      return;
     }
-    for(int i = start; i < nums.size(); i++){
-      int a = nums.get(i);
-      if(a >= n) continue;
-      List<List<Integer>> subResult = combinationSum3(k - 1, n - a, nums, i + 1);
-      if(!subResult.isEmpty()){
-        subResult.forEach(x -> x.add(a));
+    if (n == 0 || k == 0) return;
+    for (int i = start; i <= 9; i++) {
+      if (n < i) {
+        break;
       }
-      result.addAll(subResult);
+      temp.add(i);
+      combinationSum3(result, k - 1, n - i, temp, i + 1);
+      temp.remove(temp.size() - 1);
     }
-    return result;
   }
 
   public static void main(String[] args){

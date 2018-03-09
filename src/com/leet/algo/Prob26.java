@@ -5,15 +5,12 @@ package com.leet.algo;
  */
 public class Prob26 {
   public int removeDuplicates(int[] nums) {
-    int length = nums.length;
-    for (int j = nums.length - 1; j > 0; j--) {
-      if (nums[j] == nums[j - 1]){
-        for (int i = j; i < length; i++) {
-          nums[i] = nums[i + 1];
-        }
-        length--;
-      }
+    if (nums == null) return 0;
+    int cur = 0;
+    for (int i = 1; i < nums.length; i++) {
+      if (nums[i] == nums[cur]) continue;
+      nums[++cur] = nums[i];
     }
-    return length;
+    return cur + 1;
   }
 }

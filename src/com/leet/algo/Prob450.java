@@ -4,7 +4,26 @@ package com.leet.algo;
  * Created by ayanc on 1/5/18.
  */
 public class Prob450 {
+
   public TreeNode deleteNode(TreeNode root, int key) {
+    if(root == null) return root;
+    if (key < root.val) root.left = deleteNode(root.left, key);
+    else if (key > root.val) root.right = deleteNode(root.right, key);
+    else {
+      if (root.left == null) return root.right;
+      else if (root.right == null) return root.left;
+      else {
+        TreeNode min = root.right;
+        while (min.left != null) min = min.left;
+        root.val = min.val;
+        root.right = deleteNode(root.right, min.val);
+      }
+    }
+    return root;
+  }
+
+
+  /*public TreeNode deleteNode(TreeNode root, int key) {
     if(root == null) return root;
     TreeNode parent = null, taregetNode = null;
     TreeNode temp = root;
@@ -63,7 +82,7 @@ public class Prob450 {
   private TreeNode findSmallest(TreeNode treeNode){
     while(treeNode.left != null) treeNode = treeNode.left;
     return treeNode;
-  }
+  }*/
 
   public static void main(String[] args){
     Prob450 prob450 = new Prob450();

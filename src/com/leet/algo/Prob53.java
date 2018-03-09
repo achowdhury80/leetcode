@@ -6,12 +6,11 @@ package com.leet.algo;
 public class Prob53 {
   public int maxSubArray(int[] nums) {
     if (nums == null) return 0;
-    int sum = 0, minSum = 0;
-    int result = 0;
-    for (int i = 0; i < nums.length; i++) {
-      sum += nums[i];
-      minSum = Math.min(minSum, sum);
-      result = Math.max(result, sum - minSum);
+    int result = nums[0];
+    int sum = nums[0];
+    for (int i = 1; i < nums.length; i++) {
+      sum = sum <= 0 ? nums[i] : sum + nums[i];
+      result = Math.max(result, sum);
     }
     return result;
   }

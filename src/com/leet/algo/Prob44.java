@@ -4,6 +4,7 @@ package com.leet.algo;
  * Created by ayanc on 2/20/18.
  */
 public class Prob44 {
+  //O(s.Length * p.Length)
   public boolean isMatch(String s, String p) {
     int sp = 0, pp = 0, match = -1, startIdx = -1;
     while(sp < s.length()) {

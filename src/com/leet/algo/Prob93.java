@@ -9,11 +9,27 @@ import java.util.stream.Collectors;
  */
 public class Prob93 {
   public List<String> restoreIpAddresses(String s) {
-    if(s == null || s.length() < 4 || s.length() > 12) return new ArrayList<>();
-    List<String> result = restoreIpAddresses(s, 4);
-    if(result == null) return new ArrayList<>();
+    List<String> result = new ArrayList<>();
+    if(s == null || s.length() < 4 || s.length() > 12) return result;
+//    List<String> result = restoreIpAddresses(s, 4);
+//    if(result == null) return new ArrayList<>();
+    restoreIpAddresses2(result, s, 4, "");
     return result;
   }
+  private void restoreIpAddresses2(List<String> result, String s, int blockCount, String str){
+    if (s.equals("") && blockCount == 0) {
+      result.add(str.substring(0, str.length() - 1));
+    }
+    if (blockCount == 0 || s.equals("") || blockCount > s.length() || s.length() > blockCount * 3) return;
+
+    for (int i = 1; i <= s.length() && i < 4; i++) {
+      String sub = s.substring(0, i);
+      if ((sub.length() < 2  || !sub.startsWith("0")) && !sub.equals("") && Integer.parseInt(sub) < 256)
+        restoreIpAddresses2(result, s.substring(i), blockCount - 1, str + sub + ".");
+    }
+
+  }
+
   private List<String> restoreIpAddresses(String s, int blockCount){
     int length = s.length();
     if(length < blockCount || length > blockCount * 3 || blockCount == 0 || length == 0) return null;
@@ -42,6 +58,8 @@ public class Prob93 {
     return result;
 
   }
+
+
 
   public static void main(String[] args){
     Prob93 prob93 = new Prob93();

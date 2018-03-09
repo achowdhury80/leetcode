@@ -6,26 +6,23 @@ package com.leet.algo;
 public class Prob109 {
   public TreeNode sortedListToBST(ListNode head) {
     if(head == null) return null;
-    int count = 0;
-    ListNode node = head;
-    while(node != null){
-      count++;
-      node = node.next;
+    if (head.next == null) return new TreeNode(head.val);
+    ListNode fast = head;
+    ListNode slow = head;
+    ListNode last = null;
+    while (fast.next != null && fast.next.next != null){
+      fast = fast.next.next;
+      last = slow;
+      slow = slow.next;
     }
-    return sortedListToBST(head, count);
-  }
-
-  private TreeNode sortedListToBST(ListNode head, int size) {
-    if(size == 1) return new TreeNode(head.val);
-    int mid = size / 2;
-    ListNode midNode = head;
-    for(int i = 0; i < mid; i++){
-      midNode = midNode.next;
+    TreeNode root = new TreeNode(slow.val);
+    root.right = sortedListToBST(slow.next);
+    if (last != null) {
+      last.next = null;
+      root.left = sortedListToBST(head);
+      last.next = slow;
     }
-    TreeNode root = new TreeNode(midNode.val);
-    root.left = sortedListToBST(head, size / 2);
-    int rightSize = size - size / 2 - 1;
-    if(rightSize > 0) root.right = sortedListToBST(midNode.next, rightSize);
     return root;
   }
+
 }

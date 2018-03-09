@@ -13,21 +13,20 @@ public class Prob47 {
     if(nums == null || nums.length < 1) return result;
     Arrays.sort(nums);
     boolean[] used = new boolean[nums.length];
-    dfs(result, nums, used, new ArrayList<>());
+    permuteUnique(result, nums, used, new ArrayList<>());
     return result;
   }
 
-  public void dfs(List<List<Integer>> lists, int[] nums, boolean[] used, List<Integer> list) {
+  public void permuteUnique(List<List<Integer>> lists, int[] nums, boolean[] used, List<Integer> list) {
     if (list.size() == nums.length) {
       lists.add(new ArrayList<>(list));
       return;
     }
     for (int i = 0; i < nums.length; i++) {
-      if (used[i]) continue;
-      if (i > 0 && nums[i - 1] == nums[i] && !used[i - 1]) continue;
+      if (used[i] || i > 0 && nums[i - 1] == nums[i] && !used[i - 1]) continue;
       used[i] = true;
       list.add(nums[i]);
-      dfs(lists, nums, used, list);
+      permuteUnique(lists, nums, used, list);
       used[i] = false;
       list.remove(list.size() - 1);
     }

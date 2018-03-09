@@ -1,6 +1,7 @@
 package com.leet.algo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -11,50 +12,23 @@ public class Prob40 {
   public List<List<Integer>> combinationSum2(int[] candidates, int target) {
     List<List<Integer>> result = new ArrayList<>();
     if(candidates == null || candidates.length < 1) return result;
-    return combinationSum2(candidates, target, 0);
+    Arrays.sort(candidates);
+    combinationSum2(result, candidates, target, 0, new ArrayList<>());
+    return result;
   }
 
-  private List<List<Integer>> combinationSum2(int[] candidates, int target, int start){
-    List<List<Integer>> result = new ArrayList<>();
-    if(start == candidates.length) return result;
-    if(start == candidates.length - 1){
-      if(candidates[start] == target){
-        List<Integer> list = new ArrayList<>();
-        list.add(candidates[start]);
-        result.add(list);
-      }
-      return result;
+  private void combinationSum2(List<List<Integer>> result, int[] candidates, int target, int start, List<Integer> list){
+    if(target < 0) return;
+    if (target == 0) {
+      result.add(new ArrayList<>(list));
+      return;
     }
-    if(candidates[start] <= target){
-      if(candidates[start] == target){
-        List<Integer> list = new ArrayList<>();
-        list.add(candidates[start]);
-        result.add(list);
-      } else {
-        List<List<Integer>> sub = combinationSum2(candidates, target - candidates[start], start + 1);
-        if(!sub.isEmpty()){
-          for(List<Integer> list : sub){
-            list.add(candidates[start]);
-          }
-          result.addAll(sub);
-        }
-      }
+    for (int i = start; i < candidates.length; i++) {
+      if (i > start && candidates[i - 1] == candidates[i]) continue;
+      list.add(candidates[i]);
+      combinationSum2(result, candidates, target - candidates[i], i + 1, list);
+      list.remove(list.size() - 1);
     }
-    List<Integer> newCandidates = new ArrayList<>();
-    for(int i = start + 1; i < candidates.length; i++){
-      if(candidates[i] != candidates[start]){
-        newCandidates.add(candidates[i]);
-      }
-    }
-    if(newCandidates.size() > 0){
-      int[] newCandidateArr = new int[newCandidates.size()];
-      IntStream.range(0, newCandidateArr.length).forEach(i -> newCandidateArr[i] = newCandidates.get(i));
-      List<List<Integer>> sub = combinationSum2(newCandidateArr, target, 0);
-      if(!sub.isEmpty()){
-        result.addAll(sub);
-      }
-    }
-    return result;
   }
 
   public static void main(String[] args){

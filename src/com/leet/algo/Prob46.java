@@ -3,6 +3,7 @@ package com.leet.algo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by ayanc on 11/10/17.
@@ -11,32 +12,20 @@ public class Prob46 {
   public List<List<Integer>> permute(int[] nums) {
     List<List<Integer>> result = new ArrayList<>();
     if(nums == null || nums.length < 1) return result;
-    return  permute(nums, 0);
+    permute(result, nums, new ArrayList<>());
+    return  result;
   }
 
-  public List<List<Integer>> permute(int[] nums, int startIndex) {
-    List<List<Integer>> result = new ArrayList<>();
-    if(nums.length == startIndex + 1) {
-      result.add(Arrays.asList(new Integer[]{nums[startIndex]}));
-      return result;
+  public void permute(List<List<Integer>> result, int[] nums, List<Integer> list) {
+    if(nums.length == list.size()) {
+      result.add(new ArrayList<>(list));
     }
-    Integer firstNumber = nums[startIndex];
-    List<List<Integer>> partialResult = permute(nums, startIndex + 1);
-    for(List<Integer> list : partialResult){
-      for(int i = 0; i < list.size(); i++){
-        result.add(addNCreateNewList(list, firstNumber, i));
-      }
-      List<Integer> newList = new ArrayList<>(list);
-      newList.add(firstNumber);
-      result.add(newList);
+    for (int i = 0; i < nums.length; i++) {
+      if (list.contains(nums[i])) continue;
+      list.add(nums[i]);
+      permute(result, nums, list);
+      list.remove(list.size() - 1);
     }
-    return result;
-  }
-
-  public List<Integer> addNCreateNewList(List<Integer> list, Integer number, int index){
-    List<Integer> result = new ArrayList<>(list);
-    result.add(index, number);
-    return result;
   }
 
   public static void main(String[] args){

@@ -11,30 +11,17 @@ public class Prob78 {
   public List<List<Integer>> subsets(int[] nums) {
     List<List<Integer>> result = new ArrayList<>();
     if(nums == null || nums.length == 0) return result;
-    List<Integer> list = new ArrayList<>();
-    for(int i = 0; i < nums.length; i++){
-      list.add(nums[i]);
-    }
-    result.add(new ArrayList<>());
-    result.addAll(subsets(list));
+    subsets(result, new ArrayList<Integer>(), nums, 0);
     return result;
   }
 
 
-  public List<List<Integer>> subsets(List<Integer> nums) {
-    List<List<Integer>> result = new ArrayList<>();
-    if(nums == null || nums.size() == 0) return result;
-    Integer i = nums.get(0);
-    result.add(Arrays.asList(new Integer[]{i}));
-    if(nums.size() > 1){
-      List<Integer> sublist2 = new ArrayList<Integer>(nums.subList(1, nums.size()));
-      List<List<Integer>> subset1 = subsets(sublist2);
-      result.addAll(subset1);
-      for(int j = 0; j < subset1.size();j++){
-        List<Integer> list = new ArrayList<>(subset1.get(j));
-        list.add(i);
-        result.add(list);
-      }
+  public List<List<Integer>> subsets(List<List<Integer>> result, List<Integer> list, int[] nums, int start) {
+    result.add(new ArrayList<Integer>(list));
+    for (int i = start; i < nums.length; i++) {
+      list.add(nums[i]);
+      subsets(result, list, nums, i + 1);
+      list.remove(list.size() - 1);
     }
     return result;
   }

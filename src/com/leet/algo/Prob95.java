@@ -1,12 +1,16 @@
 package com.leet.algo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by ayanc on 12/22/17.
  */
 public class Prob95 {
+
+
+  // O(n^2) O(n ^2)
   public List<TreeNode> generateTrees(int n) {
     List<TreeNode> result = new ArrayList<>();
     if(n < 1) return result;

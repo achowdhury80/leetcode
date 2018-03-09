@@ -28,14 +28,16 @@ public class Prob61 {
 
   public static void main(String[] args){
     Prob61 prob61 = new Prob61();
-    int[] arr = new int[]{1, 2, 3, 4, 5};
+    //int[] arr = new int[]{1, 2, 3, 4, 5};
+    int[] arr = new int[]{1, 2};
     ListNode dummy = new ListNode(0);
     ListNode node = dummy;
     for(int i = 0; i < arr.length; i++){
       node.next = new ListNode(arr[i]);
       node = node.next;
     }
-    ListNode result = prob61.rotateRight(dummy.next, 2);
+    //ListNode result = prob61.rotateRight(dummy.next, 2);
+    ListNode result = prob61.rotateRight(dummy.next, 3);
     while(result != null){
       System.out.print(result.val + ",");
       result = result.next;

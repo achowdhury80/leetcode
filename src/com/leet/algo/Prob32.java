@@ -6,6 +6,7 @@ import java.util.Stack;
  * Created by ayanc on 2/28/18.
  */
 public class Prob32 {
+  //O(n)
   public int longestValidParentheses(String s) {
     if (s == null || s.length() < 2) return 0;
     Stack<Integer> stack = new Stack<>();
