@@ -1,18 +1,9 @@
 package com.leet.algo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by ayanc on 2/27/18.
+ * Created by ayanc on 3/17/18.
  */
-public class Test {
-
-  public static void main(String[] args) {
-    System.out.println(Integer.toHexString(15));
-    System.out.println(Integer.parseInt("ff", 16));
-  }
-
+public class Prob206 {
   public ListNode reverseList(ListNode head) {
     if (head == null) return null;
     if (head.next == null) return head;

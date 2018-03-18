@@ -2,15 +2,58 @@ package com.leet.algo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 /**
  * Created by ayanc on 1/16/18.
  */
 public class Prob210 {
+
   public int[] findOrder(int numCourses, int[][] prerequisites) {
+    if(numCourses <= 0) return new int[0];
+    if(numCourses == 1){
+      int[] result = new int[1];
+      result[0] = 0;
+    }
+    int[] result = new int[numCourses];
+    if(prerequisites == null || prerequisites.length < 1) {
+      for(int i = 0; i < result.length; i++){
+        result[i] = i;
+      }
+      return result;
+    }
+    Map<Integer, Integer> indegree = new HashMap<>();
+    Map<Integer, Set<Integer>> map = new HashMap<>();
+    for (int i = 0; i < numCourses; i++) indegree.put(i, 0);
+    for (int[] pair : prerequisites) {
+      indegree.put(pair[0], indegree.getOrDefault(pair[0], 0) + 1);
+      if (!map.containsKey(pair[1])) map.put(pair[1], new HashSet<>());
+      map.get(pair[1]).add(pair[0]);
+    }
+    Queue<Integer> q = new LinkedList<>();
+    for (int key : indegree.keySet()) {
+      if (indegree.get(key) == 0) q.add(key);
+    }
+    int i = 0;
+    while (!q.isEmpty()) {
+      int c = q.poll();
+      result[i++] = c;
+      if (map.containsKey(c)) {
+        for (int key : map.get(c)) {
+          indegree.put(key, indegree.get(key) - 1);
+          if (indegree.get(key) == 0) q.add(key);
+        }
+      }
+    }
+    return i == result.length ? result : new int[0];
+  }
+  public int[] findOrder1(int numCourses, int[][] prerequisites) {
     if(numCourses <= 0) return new int[0];
     if(numCourses == 1){
       int[] result = new int[1];

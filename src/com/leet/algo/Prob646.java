@@ -11,6 +11,22 @@ public class Prob646 {
     if(pairs == null || (n = pairs.length) == 0) return 0;
     if(n == 1) return 1;
     Arrays.sort(pairs, (x, y) -> x[1] - y[1]);
+    int count = 0;
+    int curEnd = pairs[0][1];
+    for (int i = 1; i < pairs.length; i++) {
+      if (curEnd < pairs[i][0]) {
+        count++;
+        curEnd = pairs[i][1];
+      }
+    }
+    count++;
+    return count;
+  }
+  public int findLongestChain1(int[][] pairs) {
+    int n;
+    if(pairs == null || (n = pairs.length) == 0) return 0;
+    if(n == 1) return 1;
+    Arrays.sort(pairs, (x, y) -> x[1] - y[1]);
     int[][] dp = new int[n][n];
     for(int i = 0; i < n; i++){
       dp[i][i] = 1;

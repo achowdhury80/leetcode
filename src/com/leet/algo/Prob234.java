@@ -6,6 +6,44 @@ package com.leet.algo;
 public class Prob234 {
 
   public boolean isPalindrome(ListNode head) {
+    if(head == null || head.next == null) return true;
+    ListNode fast = head;
+    ListNode slow = head;
+    while (fast.next != null && fast.next.next != null) {
+      fast = fast.next.next;
+      slow = slow.next;
+    }
+    ListNode reversed = reverse(slow.next);
+    boolean result = true;
+    ListNode l1 = head;
+    ListNode l2 = reversed;
+    while (l2 != null) {
+      if (l1.val != l2.val) {
+        result = false;
+        break;
+      }
+      l1 = l1.next;
+      l2 = l2.next;
+    }
+    slow.next = reverse(reversed);
+    return result;
+  }
+
+  private ListNode reverse(ListNode head) {
+    if (head == null || head.next == null) return head;
+    ListNode cur = head;
+    ListNode next = head.next;
+    cur.next = null;
+    while (next != null) {
+      ListNode temp = next;
+      next = next.next;
+      temp.next = cur;
+      cur = temp;
+    }
+    return cur;
+  }
+
+  public boolean isPalindrome1(ListNode head) {
     if(head.next == null) return true;
     int totalCount = 1;
     ListNode start = head;

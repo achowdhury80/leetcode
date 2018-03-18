@@ -9,6 +9,7 @@ import java.util.Stack;
  * Created by ayanc on 1/2/18.
  */
 public class Prob636 {
+
   public int[] exclusiveTime(int n, List<String> logs) {
     if(logs == null || logs.size() < 2) return new int[0];
     Stack<Integer> stack = new Stack<>();

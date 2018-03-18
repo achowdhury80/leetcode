@@ -17,7 +17,7 @@ public class Prob543 {
     two.right = five;
     System.out.println(prob543.diameterOfBinaryTree(root));
   }
-  public int diameterOfBinaryTree(TreeNode root) {
+  public int diameterOfBinaryTree1(TreeNode root) {
     if(root == null) return 0;
     if(root.left == null && root.right == null) return 0;
     int leftChildDiameter = diameterOfBinaryTree(root.left);
@@ -36,6 +36,20 @@ public class Prob543 {
     int rightDepth = maxDepth(root.right);
     if(leftDepth > rightDepth) return  leftDepth + 1;
     return rightDepth + 1;
+  }
+
+  public int diameterOfBinaryTree(TreeNode root) {
+    int[] result = new int[1];
+    maxHeight(root, result);
+    return result[0];
+  }
+
+  private int maxHeight(TreeNode root, int[] max) {
+    if (root == null) return -1;
+    int left = maxHeight(root.left, max);
+    int right = maxHeight(root.right, max);
+    max[0] = Math.max(max[0], left + right + 2);
+    return 1 + Math.max(left, right);
   }
 
   static class TreeNode {

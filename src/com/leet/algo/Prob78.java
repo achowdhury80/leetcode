@@ -15,8 +15,17 @@ public class Prob78 {
     return result;
   }
 
+  public void subsets(List<List<Integer>> result, List<Integer> list, int[] nums, int start) {
+    result.add(new ArrayList<>(list));
+    for (int i = start; i < nums.length; i++) {
+      list.add(nums[i]);
+      subsets(result, list, nums, i + 1);
+      list.remove(list.size() - 1);
+    }
+  }
 
-  public List<List<Integer>> subsets(List<List<Integer>> result, List<Integer> list, int[] nums, int start) {
+
+  public List<List<Integer>> subsets1(List<List<Integer>> result, List<Integer> list, int[] nums, int start) {
     result.add(new ArrayList<Integer>(list));
     for (int i = start; i < nums.length; i++) {
       list.add(nums[i]);
