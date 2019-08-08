@@ -1,57 +1,23 @@
 package com.leet.algo;
-
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * Created by ayanc on 1/19/18.
- */
+import java.util.*;
 public class Prob472 {
-  private TrieNode root = new TrieNode();
-  public List<String> findAllConcatenatedWordsInADict(String[] words) {
-    for(String word : words) addWord(word);
-    List<String> list = new ArrayList<>();
-    for (String word : words){
-      if(isConcatenated(word)) list.add(word);
+	public List<String> findAllConcatenatedWordsInADict(String[] words) {
+       List<String> result = new ArrayList<>();
+       Set<String> cache = new HashSet<>();
+       cache.addAll(Arrays.asList(words));
+       for (String word : words) {
+    	   if (substringExists(word, 0, cache, false)) result.add(word);
+       }
+       return result;
     }
-    return list;
-  }
-
-  private void addWord(String word) {
-    if(word == null || word.length() < 1) return;
-    char[] chars = word.toCharArray();
-    TrieNode node = root;
-    for(char c : chars){
-      if(node.arr[c - 'a'] == null){
-        node.arr[c - 'a'] = new TrieNode();
-      }
-      node = node.arr[c - 'a'];
-    }
-    node.endWord = true;
-  }
-
-  private boolean isConcatenated(String word){
-    if(word == null || word.length() < 1) return false;
-    char[] chars = word.toCharArray();
-    TrieNode node = root;
-    int endWordCount = 0;
-    for(char c : chars){
-      node = node.arr[c - 'a'];
-      if (node.endWord) {
-        endWordCount++;
-        if(endWordCount > 1) return true;
-      }
-    }
-    return false;
-  }
-
-  class TrieNode {
-    TrieNode[] arr = new TrieNode[26];
-    boolean endWord;
-  }
-
-  public static void main(String[] args){
-    Prob472 prob472 = new Prob472();
-    System.out.println(prob472.findAllConcatenatedWordsInADict(new String[]{"cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"}));
-  }
+	
+	private boolean substringExists(String word, int start, Set<String> cache, boolean includeLast) {
+		for (int i = start + 1; i < word.length() + (includeLast ? 1 : 0); i++) {
+			if (cache.contains(word.substring(start, i)) 
+					&& (i == word.length() || substringExists(word, i, cache, true))) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

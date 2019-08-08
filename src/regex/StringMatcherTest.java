@@ -1,17 +1,17 @@
 package regex;
 
 
-import org.junit.Before;
+/*import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;*/
 
 /**
  * Created by ayanc on 2/13/18.
  */
 public class StringMatcherTest {
-  private StringMatcher m;
+  /*private StringMatcher m;
 
   @Before
   public void setup(){
@@ -74,6 +74,6 @@ public class StringMatcherTest {
     assertTrue(m.isLessThenThreeHundred("1"));
     assertTrue(m.isLessThenThreeHundred("99"));
     assertFalse(m.isLessThenThreeHundred("300"));
-  }
+  }*/
 
 }

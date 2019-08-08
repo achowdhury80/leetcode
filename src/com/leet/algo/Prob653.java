@@ -22,10 +22,3 @@ public class Prob653 {
     return findTarget(root.left, k, neededSet) || findTarget(root.right, k, neededSet);
   }
 }
-
-class TreeNode {
-       int val;
-       TreeNode left;
-       TreeNode right;
-       TreeNode(int x) { val = x; }
-}
