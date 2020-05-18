@@ -1,9 +1,5 @@
 package com.leet.algo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.IntStream;
 
 /**
  * Created by ayanc on 2/13/18.
@@ -15,7 +11,8 @@ public class Prob351 {
     skip[1][7] = skip[7][1] = 4;
     skip[3][9] = skip[9][3] = 6;
     skip[7][9] = skip[9][7] = 8;
-    skip[1][9] = skip[9][1] = skip[2][8] = skip[8][2] = skip[3][7] = skip[7][3] = skip[4][6] = skip[6][4] = 5;
+    skip[1][9] = skip[9][1] = skip[2][8] = skip[8][2] = skip[3][7] = skip[7][3] 
+    		= skip[4][6] = skip[6][4] = 5;
     boolean[] vis = new boolean[10];
     int result = 0;
     for (int i = m; i <= n; i++) {
@@ -32,7 +29,8 @@ public class Prob351 {
     vis[cur] = true;
     int res = 0;
     for (int i = 1; i < 10; i++) {
-      if (!vis[i] && (skip[cur][i] == 0 || vis[skip[cur][i]])) res += dfs(vis, skip, i, remain - 1);
+      if (!vis[i] && (skip[cur][i] == 0 || vis[skip[cur][i]])) 
+    	  res += dfs(vis, skip, i, remain - 1);
     }
     vis[cur] = false;
     return res;

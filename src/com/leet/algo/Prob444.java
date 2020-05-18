@@ -1,6 +1,6 @@
 package com.leet.algo;
 
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -15,7 +15,6 @@ import java.util.Set;
  */
 public class Prob444 {
   public boolean sequenceReconstruction(int[] org, List<List<Integer>> seqs) {
-    List<Integer> list = new ArrayList<>();
     Map<Integer, Set<Integer>> graph = new HashMap<>();
     Map<Integer, Integer> inDegree = new HashMap<>();
     for (List<Integer> seq : seqs) {

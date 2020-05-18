@@ -1,30 +1,24 @@
 package com.leet.algo;
-import java.util.*;
 public class Prob955 {
 	public int minDeletionSize(String[] A) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < A.length; i++) list.add(i);
-        int n = A[0].length();
-        int result = 0;
-        for (int i = 0; i < n && list.size() > 1; i++) {
-        	char last = A[list.get(0)].charAt(i);
-        	List<Integer> temp = new ArrayList<>();
-        	boolean delete = false;
-        	for (int j = 1; j < list.size(); j++) {
-        		String s = A[list.get(j)];
-        		if (s.charAt(i) < last) {
-        			result++;
-        			delete = true;
-        			break;
-        		} else if (s.charAt(i) == last) {
-        			if (temp.size() < 1 || temp.get(temp.size() - 1) != list.get(j - 1)) temp.add(list.get(j - 1));
-        			temp.add(list.get(j));
-        		} 
-        		last = s.charAt(i);
-        		
+        int result = 0, n = A[0].length();
+        boolean[] deleted = new boolean[n];
+        while(true) {
+        	boolean restart = false;
+        	for (int i = 0; i < A.length - 1; i++) {
+        		for (int j = 0; j < n; j++) {
+        			if (deleted[j]) continue;
+        			if (A[i].charAt(j) < A[i + 1].charAt(j)) break;
+        			if (A[i].charAt(j) > A[i + 1].charAt(j)) {
+        				result++;
+        				if (result == n) return result;
+        				deleted[j] = true;
+        				restart = true;
+        				break;
+        			}
+        		}
         	}
-        	if(delete) continue;
-        	list = temp;
+        	if(!restart) break;
         }
         return result;
     }

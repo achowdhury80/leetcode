@@ -4,8 +4,14 @@ package com.leet.algo;
  * Created by ayanc on 12/19/17.
  */
 public class Prob309 {
+	
 //  T[i][k][0] = max(T[i-1][k][0], T[i-1][k][1] + prices[i])
 //  T[i][k][1] = max(T[i-1][k][1], T[i-2][k][0] - prices[i])
+	/**
+	 * https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/discuss/108870/most-consistent-ways-of-dealing-with-the-series-of-stock-problems
+	 * @param prices
+	 * @return
+	 */
   public int maxProfit(int[] prices) {
     if(prices == null || prices.length < 2) return 0;
     int t_i0 = 0, t_i1 = Integer.MIN_VALUE, t_i0_pre = 0;

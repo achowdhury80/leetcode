@@ -2,7 +2,7 @@ package com.leet.algo;
 
 public class Prob845 {
 	public int longestMountain(int[] A) {
-        int min = -1;
+        int min = -1; // min is not set
         boolean ascending = true;
         int result = 0;
         for (int i = 1; i < A.length; i++) {
@@ -16,6 +16,7 @@ public class Prob845 {
         	}
         	if (min == -1 && A[i] < A[i - 1]) continue;
         	if (min == -1) {
+        		// min found
         		min = i - 1;
         		ascending = true;
         		continue;

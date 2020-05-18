@@ -1,27 +1,23 @@
 package com.leet.algo;
-import java.util.*;
 public class Prob1140 {
 	public int stoneGameII(int[] piles) {
-		Map<String, Integer> cache = new HashMap<>();
-		int[] presum = new int[piles.length];
-		presum[0] = piles[0];
-		for (int i = 1; i < piles.length; i++) presum[i] = presum[i - 1] + piles[i];
-		return helper(1, 0, piles, cache, presum);
+		int[] postSum = new int[piles.length];
+		postSum[piles.length - 1] = piles[piles.length - 1];
+		for (int i = piles.length - 2; i > -1; i--) postSum[i] = postSum[i + 1] + piles[i];
+		int[][] mem = new int[piles.length][piles.length * 2];
+		return helper(piles, 0, 1, mem, postSum);
     }
 	
-	private int helper(int m, int i, int[] piles, Map<String, Integer> cache, int[] presum) {
-		if (i >= piles.length) return 0;
-		String key = m + " " + i;
-		if (cache.containsKey(key)) return cache.get(key);
-		int max = 0;
-		for (int j = 1; j <= 2 * m && i + j - 1 < piles.length; j++) {
-			max = Math.max(max, piles[i + j - 1] 
-					- (i > 0 ? presum[i - 1] : 0)
-					+ piles[piles.length - 1] - piles[i + j - 1]
-					- helper(Math.max(m, j), i + j, piles, cache, presum));
+	private int helper(int[] piles, int idx, int M, int[][] mem, int[] postSum) {
+		if (idx == piles.length) return 0;
+		if (piles.length - idx <= 2 * M) return postSum[idx];
+		if (mem[idx][M] != 0) return mem[idx][M];
+		int min = Integer.MAX_VALUE;
+		for (int i = 1; i <= 2 * M; i++) {
+			min = Math.min(min, helper(piles, idx + i, Math.max(M, i), mem, postSum));
 		}
-		cache.put(key, max);
-		return max;
+		mem[idx][M] = postSum[idx] - min;
+		return mem[idx][M];
 	}
 	
 	public static void main(String[] args) {

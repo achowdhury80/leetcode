@@ -2,18 +2,18 @@ package com.leet.algo;
 
 public class Prob926 {
 	public int minFlipsMonoIncr(String S) {
-        int prev_zero = 0, prev_one = 0;
+        int flipToZero = 0, flipToOne = 0;
         char[] arr = S.toCharArray();
         for (int i = 0; i < arr.length; i++) {
         	if (arr[i] == '0') {
-        		prev_one = 1 + Math.min(prev_zero, prev_one);
+        		flipToOne = 1 + Math.min(flipToZero, flipToOne);
         	} else {
-        		prev_one = Math.min(prev_zero, prev_one);
-        		prev_zero = 1 + prev_zero;
+        		flipToOne = Math.min(flipToZero, flipToOne);
+        		flipToZero = 1 + flipToZero;
         	}
         }
         
-        return Math.min(prev_zero, prev_one);
+        return Math.min(flipToZero, flipToOne);
     }
 	
 	public static void main(String[] args) {

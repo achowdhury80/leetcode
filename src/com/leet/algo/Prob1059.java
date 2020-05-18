@@ -2,7 +2,7 @@ package com.leet.algo;
 import java.util.*;
 public class Prob1059 {
 	/**
-	 * BFS - with cycle detection O(m + n)
+	 * DFS - with cycle detection O(m + n)
 	 * @param n
 	 * @param edges
 	 * @param source

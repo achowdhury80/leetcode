@@ -2,31 +2,24 @@ package com.leet.algo;
 import java.util.*;
 public class Prob904 {
 	public int totalFruit(int[] tree) {
-        int result = 1;
-        int start = 0;
-        Set<Integer> set = new HashSet<>();
-        set.add(tree[start]);
-        int lastChangeIndex = start;
-        for (int i = 1; i < tree.length; i++) {
-        	if (tree[i] != tree[i - 1]) {
-        		if (!set.contains(tree[i])) {
-        			if (set.size() < 2) {
-        				set.add(tree[i]);
-        				result = Math.max(result, i - start + 1);
-        			}
-        			else {
-        				
-        				set.remove(tree[start]);
-        				start = lastChangeIndex;
-        				result = Math.max(result, i - start + 1);
-        				set.add(tree[i]);
-        			}
-        			lastChangeIndex = i;
-        		} else {
-        			result = Math.max(result, i - start + 1);
+        int result = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        int types = 0;
+        int j = 0;
+        for (int i = 0; i < tree.length; i++) {
+        	if (!map.containsKey(tree[i])) {
+        		types++;
+        	}
+        	map.put(tree[i], map.getOrDefault(tree[i], 0) + 1);
+        	while(types > 2) {
+        		map.put(tree[j], map.get(tree[j]) - 1);
+        		if (map.get(tree[j]) == 0) {
+        			types--;
+        			map.remove(tree[j]);
         		}
-        	} 
-        	else result = Math.max(result, i - start + 1);
+        		j++;
+        	}
+        	result = Math.max(result, i - j + 1);
         }
         return result;
     }

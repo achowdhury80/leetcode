@@ -46,4 +46,9 @@ public class Prob301 {
     }
     return count == 0;
   }
+  
+  public static void main(String[] args) {
+	  Prob301 prob = new Prob301();
+	  System.out.println(prob.removeInvalidParentheses("())"));
+  }
 }

@@ -13,7 +13,7 @@ import java.util.Optional;
 public class Prob734 {
   public boolean areSentencesSimilar(String[] words1, String[] words2, String[][] pairs) {
     if(words1 == null || words2 == null || words1.length != words2.length) return false;
-    if(words1.length == 0 && words1.length == words2.length) return true;
+    if(words1.length == 0) return true;
     Map<String, List<String>> wordMap = new HashMap<>();
     if(pairs != null) Arrays.stream(pairs).forEach(x -> {
       if (!wordMap.containsKey(x[0])) {

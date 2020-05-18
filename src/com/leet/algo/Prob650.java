@@ -8,10 +8,7 @@ public class Prob650 {
 
 
   public int minSteps(int n) {
-    int result = 0;
     if(n == 1) return 0;
-    result++;
-    //if(n < 5) return n;
     int[] steps = new int[n + 1];
     steps[1] = 0;
     for(int i = 2; i <= n; i++){
