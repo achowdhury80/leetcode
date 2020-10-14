@@ -28,5 +28,6 @@ public class Prob1256 {
 	public static void main(String[] args) {
 		Prob1256 prob = new Prob1256();
 		System.out.println(prob.encode(107));
+		//System.out.println(prob.encode(12));
 	}
 }

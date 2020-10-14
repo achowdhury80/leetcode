@@ -1,32 +1,54 @@
 package comp.prep2019;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Stack;
 
 public class Prob772 {
-	public String minWindow(String S, String T) {
-		String result = "";
-        Map<Character, Integer> map = new HashMap<>();
-        for (char c : T.toCharArray()) map.put(c, map.getOrDefault(c, 0) + 1);
-        int start = 0, count = map.keySet().size();
-        for (int i = 0; i < S.length(); i++) {
-        	char c = S.charAt(i);
-        	if (map.containsKey(c)) {
-        		map.put(c, map.get(c) - 1);
-        		if (map.get(c) == 0) count--;
-        	}
-        	while(count == 0) {
-        		if ("".equals(result) || i - start + 1 < result.length()) 
-        			result = S.substring(start, i + 1);
-        		c = S.charAt(start);
-        		if (map.containsKey(c)) {
-        			map.put(c, map.get(c) + 1);
-        			if (map.get(c) > 0) count++; 
+	public int calculate(String s) {
+        if (s == null || s.length() == 0) return 0;
+        Stack<Integer> stack = new Stack<>();
+        int num = 0;
+        char sign = '+';
+        for (int i = 0; i < s.length(); i++) {
+        	char c = s.charAt(i);
+        	if (Character.isDigit(c)) num = num * 10 + (c - '0');
+        	else if (c == '(') {
+        		int j = i + 1, braces = 1;
+        		for (; braces > 0; j++) {
+        			if (s.charAt(j) == '(') ++braces;
+        			else if (s.charAt(j) == ')') --braces;
         		}
-        		start++;
-        	}
-        	
+        		num = calculate(s.substring(i + 1, j - 1));
+        		i = j - 1;
+        		
+        	} 
+        	if (c == '*' || c =='/' || c == '+' || c == '-' || i == s.length() - 1) {
+        		switch (sign) {
+        			case '+':
+        				stack.push(num);
+        				break;
+        			case '-':
+        				stack.push(-num);
+        				break;
+        			case '*':
+        				stack.push(stack.pop() * num);
+        				break;
+        			case '/':
+        				stack.push(stack.pop() / num);
+        				break;
+        			
+        		}
+        		sign = c;
+        		num = 0;
+        	} 
         }
+        int result = 0;
+        while(!stack.isEmpty()) result += stack.pop();
         return result;
     }
+	
+	public static void main(String[] args) {
+		Prob772 prob = new Prob772();
+		//System.out.println(prob.calculate("1 + 1"));
+		System.out.println(prob.calculate(" 6-4 / 2 "));
+	}
 }

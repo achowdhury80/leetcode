@@ -10,6 +10,11 @@ import java.util.Queue;
  * Created by ayanc on 3/16/18.
  */
 public class Prob107 {
+	/**
+	 * O(N) time and space
+	 * @param root
+	 * @return
+	 */
   public List<List<Integer>> levelOrderBottom(TreeNode root) {
     List<List<Integer>> result = new ArrayList<List<Integer>>();
     if(root == null) return result;

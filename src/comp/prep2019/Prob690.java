@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob690 {
+	/**
+	 * O(N) time and space
+	 * @param employees
+	 * @param id
+	 * @return
+	 */
 	public int getImportance(List<Employee> employees, int id) {
         Map<Integer, Employee> map = new HashMap<>();
         for (Employee e : employees) {

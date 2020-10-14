@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob832 {
+	/**
+	 * O(N) time
+	 * @param A
+	 * @return
+	 */
 	public int[][] flipAndInvertImage(int[][] A) {
         for (int i = 0; i < A.length; i++) {
         	int j = 0, k = A[i].length - 1;

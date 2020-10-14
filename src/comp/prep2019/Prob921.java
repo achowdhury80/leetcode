@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob921 {
+	/**
+	 * O(N) time
+	 * @param S
+	 * @return
+	 */
 	public int minAddToMakeValid(String S) {
         if (S.length() < 1) return 0;
         char[] arr = S.toCharArray();

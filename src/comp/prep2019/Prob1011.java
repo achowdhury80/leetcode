@@ -1,6 +1,13 @@
 package comp.prep2019;
 
 public class Prob1011 {
+	/**
+	 * Time complexity: O(n * logSIZE), where SIZE is the size of the search space (sum of weights - max weight).
+Space complexity: O(1)
+	 * @param weights
+	 * @param D
+	 * @return
+	 */
 	public int shipWithinDays(int[] weights, int D) {
         int sum = 0, max = 0;
         for (int w : weights) {

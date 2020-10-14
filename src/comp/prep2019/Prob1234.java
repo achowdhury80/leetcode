@@ -1,40 +1,39 @@
 package comp.prep2019;
+
 import java.util.*;
+
 public class Prob1234 {
 	public int balancedString(String s) {
-        int[] expected = new int[4];
         int n = s.length();
         Map<Character, Integer> map = new HashMap<>();
-        map.put('Q', 0); map.put('W', 1); map.put('E', 2);map.put('R', 3); 
-        for(char c : s.toCharArray()){
-            expected[map.get(c)]++;
+        char[] arr = s.toCharArray();
+        for (char c : arr) map.put(c, map.getOrDefault(c, 0) + 1);
+        int count = 0;
+        for (char c : new char[] {'Q', 'W', 'E', 'R'}) {
+        	if (map.get(c) != null && map.get(c) > n /4) {
+        		map.put(c, map.get(c) - n /4);
+        		count += map.get(c);
+        	} else map.remove(c);
         }
-        boolean allGood = true;
-        for(int i = 0; i < 4; i++){
-            if(expected[i] > (n / 4)) {
-                allGood = false;
-                expected[i] -= (n / 4);
-            }
-            else expected[i] = 0;
+        if (count == 0) return 0;
+        int result = Integer.MAX_VALUE, start = 0;
+        for(int i = 0; i < arr.length; i++) {
+        	if (map.containsKey(arr[i])) {
+        		map.put(arr[i], map.get(arr[i]) - 1);
+        		if (map.get(arr[i]) > -1) {
+        			count--;
+        		}
+        	}
+        	while (count == 0) {
+        		result = Math.min(result, i - start + 1);
+        		char c = arr[start++];
+        		if (map.containsKey(c)) {
+        			map.put(c, map.get(c) + 1);
+        			if (map.get(c) > 0) count++;
+        		}
+        	}
         }
-        if(allGood) return 0;
-        int[] check = new int[4];
-        int j = 0, ans = s.length();
-        for(int i = 0; i < n; i++){
-            check[map.get(s.charAt(i))]++;
-            while(valid(check, expected) && j <= i){
-                ans = Math.min(ans, i + 1 - j);
-                check[map.get(s.charAt(j++))]--;
-            }
-        }
-        return ans;
-    }
-    
-    boolean valid(int[] actual, int[] expected){
-        for(int i = 0; i < 4; i++){
-            if(expected[i] > 0 && expected[i] > actual[i]) return false;
-        }
-        return true;
+        return result;
     }
 	
 	public static void main(String[] args) {

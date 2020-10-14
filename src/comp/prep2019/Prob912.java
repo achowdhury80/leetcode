@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Random;
 
 public class Prob912 {
+	/**
+	 * O(NlogN)
+	 * @param nums
+	 * @return
+	 */
 	public List<Integer> sortArray(int[] nums) {
         shuffle(nums);
         sort(nums, 0, nums.length - 1);

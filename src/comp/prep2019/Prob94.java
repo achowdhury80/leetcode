@@ -1,26 +1,31 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob94 {
+	/**
+	 * O(N) time and o(H) space
+	 * @param root
+	 * @return
+	 */
 	public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        if(root == null) return result;
-        TreeNode cur = root;
+        List<Integer> list = new ArrayList<>();
+        if (root == null) return list;
         Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
         while(cur != null) {
         	stack.push(cur);
         	cur = cur.left;
         }
-        while(!stack.isEmpty()) {
-        	TreeNode node = stack.pop();
-        	result.add(node.val);
-        	if (node.right != null) {
-        		cur = node.right;
-        		while(cur != null) {
+        while (!stack.isEmpty()) {
+        	cur = stack.pop();
+        	list.add(cur.val);
+        	if (cur.right != null) {
+        		cur = cur.right;
+                while(cur != null) {
                 	stack.push(cur);
                 	cur = cur.left;
                 }
         	}
         }
-        return result;
+        return list;
     }
 }

@@ -11,7 +11,7 @@ public class Prob149 {
     if (points == null || points.length < 1) return 0;
     int result = 0;
     Map<Integer, Map<Integer, Integer>> map = new HashMap<>();
-    for (int i = 0; i < points.length; i++) {
+    for (int i = 0; i < points.length - 1; i++) {
       map.clear();
       int samePoint = 0;
       int max = 0;

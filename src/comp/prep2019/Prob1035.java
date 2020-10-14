@@ -1,6 +1,12 @@
 package comp.prep2019;
 
 public class Prob1035 {
+	/**
+	 * O(m*N) time and space
+	 * @param A
+	 * @param B
+	 * @return
+	 */
 	public int maxUncrossedLines(int[] A, int[] B) {
         int[][] dp = new int[A.length + 1][B.length + 1];
       //dp[i][j] stands for the maximum number of connecting lines between A[0:i - 1] and B[0:j - 1]

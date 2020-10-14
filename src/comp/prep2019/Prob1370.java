@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob1370 {
+	/**
+	 * o(N) time and o(1) space
+	 * @param s
+	 * @return
+	 */
 	public String sortString(String s) {
         int[] arr = new int[26];
         int min = 27, max = -1;

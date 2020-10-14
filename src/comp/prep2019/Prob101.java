@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob101 {
+	/**
+	 * O(n) time and O(H) space
+	 * @param root
+	 * @return
+	 */
 	public boolean isSymmetric(TreeNode root) {
         if (root == null) return true;
         return isSymmetric(root.left, root.right);

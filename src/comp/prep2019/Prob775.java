@@ -1,6 +1,13 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob775 {
+	/**
+	 * local inversion is also global inversion
+	 * we need to find if there is any non-local inversion
+	 * https://leetcode.com/problems/global-and-local-inversions/solution/
+	 * @param A
+	 * @return
+	 */
 	public boolean isIdealPermutation(int[] A) {
 	    int max = A[0];
 	    for(int i = 2; i < A.length; i++){

@@ -1,30 +1,28 @@
 package comp.prep2019;
 public class Prob467 {
+	/**
+	 * find max length of substring ending with each character
+	 * answer is the sum of those maximum length
+	 * @param p
+	 * @return
+	 */
 	public int findSubstringInWraproundString(String p) {
-	    if (p == null || p.equals("")) return 0;
+		if (p == null || p.equals("")) return 0;
 	    int n;
 	    if ((n = p.length()) < 2) return 1;
-	    // max number of continuous substring ending with char (index + 'a')
 	    int[] count = new int[26];
-	    int maxSubstringCount = 0;
-	    // at any index find the max substring till that index which is continous
+	    int maxLength = 0;
 	    for (int i = 0; i < p.length(); i++) {
-	      if (i > 0 && (p.charAt(i) - p.charAt(i - 1) == 1 || p.charAt(i - 1) - p.charAt(i) == 25)) maxSubstringCount++;
-	      else maxSubstringCount = 1;
-	      count[p.charAt(i) - 'a'] = Math.max(count[p.charAt(i) - 'a'], maxSubstringCount);
+	    	char c = p.charAt(i);
+	    	if (i > 0  && ((c - p.charAt(i - 1)) == 1 || (c - p.charAt(i - 1)) == -25)) {
+	    		maxLength++;
+	    	} else {
+	    		maxLength = 1;
+	    	}
+	    	count[c - 'a'] = Math.max(count[c - 'a'], maxLength);
 	    }
-
-	    int sum = 0;
-	    //find sum
-	    for (int i = 0; i < 26; i++) sum += count[i];
-	    return sum;
-
-	  }
-	
-	public static void main(String[] args) {
-		Prob467 prob = new Prob467();
-		System.out.println(prob.findSubstringInWraproundString("zab"));
-		System.out.println(prob.findSubstringInWraproundString("abaab"));
-		System.out.println(prob.findSubstringInWraproundString("cofzxdlhnf"));
-	}
+	    int result = 0;
+	    for (int i : count) result += i;
+	    return result;
+    }
 }

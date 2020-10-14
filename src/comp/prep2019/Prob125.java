@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob125 {
+	/**
+	 * O(N)
+	 * @param s
+	 * @return
+	 */
 	public boolean isPalindrome(String s) {
         int l = 0, h = s.length() - 1;
         char[] arr = s.toCharArray();

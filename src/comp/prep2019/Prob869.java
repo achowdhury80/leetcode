@@ -2,20 +2,38 @@ package comp.prep2019;
 
 public class Prob869 {
 	public boolean reorderedPowerOf2(int N) {
-		if (N == 0) return false;
-        return helper("" + N, 0, 0);
-    }
-	
-	private boolean helper(String s, int used, int cur) {
-		if (cur != 0 && (cur + "").length() == s.length()) {
-			if (cur > 0 && (cur & (cur - 1)) == 0) return true;
-			return false;
+		int tens = 1;
+		int temp = N;
+		while(temp > 0) {
+			temp /= 10;
+			tens *= 10;
 		}
-		for (int i = 0; i < s.length(); i++) {
-			if (i == 0 && s.charAt(0) == '0' ||(used & (1 << i)) > 0) continue;
-			if (helper(s, used | (1 << i), cur * 10 + s.charAt(i) - '0')) return true;
+		int prod = 1;
+		int[] arr = findDigitFreq(N);
+		while(prod < tens) {
+			if (prod >= tens / 10) {
+				int[] arr1 = findDigitFreq(prod);
+				boolean found = true;
+				for (int i = 0; i < 10; i++) { 
+					if (arr[i] != arr1[i]) {
+						found = false;
+						break;
+					}
+				}
+				if (found) return true;
+			}
+			prod *= 2;
 		}
 		return false;
+    }
+	
+	private int[] findDigitFreq(int N) {
+		int[] arr = new int[10];
+		while(N > 0) {
+			arr[N % 10]++;
+			N /= 10;
+		}
+		return arr;
 	}
 	
 	public static void main(String[] args) {

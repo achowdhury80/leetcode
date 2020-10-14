@@ -2,7 +2,7 @@ package comp.prep2019;
 
 public class Prob557 {
 	/**
-	 * O(N) time
+	 * O(N) time and space
 	 * 
 	 * @param s
 	 * @return

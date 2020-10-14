@@ -13,14 +13,15 @@ public class Prob1049 {
         int sum = 0;
         for (int i = 0; i < n; i++) sum += stones[i];
         int target = sum / 2;
-        boolean[][] dp = new boolean[n + 1][sum + 1];
-        for (int i = 0; i < n + 1; i++) dp[i][0] = true;
+        boolean[][] dp = new boolean[sum + 1][n + 1];
+        for (int i = 0; i < n + 1; i++) dp[0][i] = true;
         int result = 0;
-        for (int i = 1; i < n + 1; i++) {
-        	for (int j = 1; j <= target; j++) {
-        		if (dp[i - 1][j] || j >= stones[i - 1] && dp[i-1][j - stones[i - 1]]) {
+        for (int i = 1; i <= target; i++) {
+        	for (int j = 1; j < n + 1; j++) {
+        		if (dp[i][j - 1] || 
+        				i >= stones[j - 1] && dp[i - stones[j - 1]][j - 1]) {
         			dp[i][j] = true;
-        			result = Math.max(result, j);
+        			result = Math.max(result, i);
         		}
         	}
         }

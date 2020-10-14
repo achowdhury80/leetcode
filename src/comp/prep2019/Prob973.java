@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob973 {
+	/**
+	 * O(NlogK)
+	 * @param points
+	 * @param K
+	 * @return
+	 */
 	 public int[][] kClosest(int[][] points, int K) {
 	        Queue<int[]> q = new PriorityQueue<>(
 	        		(x, y) -> (y[0] * y[0] + y[1] * y [1]) 

@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1236 {
+	/**
+	 * O(N)
+	 * @param startUrl
+	 * @param htmlParser
+	 * @return
+	 */
 	public List<String> crawl(String startUrl, HtmlParser htmlParser) {
         Set<String> result = new HashSet<>();
         Queue<String> q = new LinkedList<>();

@@ -1,58 +1,41 @@
 package comp.prep2019;
-
+import java.util.*;
 public class Prob449 {
 	public String serialize(TreeNode root) {
-        String result = "";
-        if (root == null) return result;
-        result += root.val;
-        if (root.left != null) {
-        	result += "(" + serialize(root.left) + ")";
-        }
-        if (root.right != null) {
-        	if (root.left == null) {
-        		result += "()";
-        	}
-        	result += "(" + serialize(root.right) + ")";
-        }
-        return result;
+		if (root == null) return "";
+        StringBuilder result = new StringBuilder();
+        result.append("," + root.val);
+        result.append(serialize(root.left));
+        result.append(serialize(root.right));
+        return result.toString();
     }
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        if (data.equals("")) return null;
-        if (data.indexOf("(") < 0) {
-        	TreeNode root = new TreeNode(Integer.valueOf(data));
-        	return root;
-        }
-        int leftParenIndex = -1;
-        TreeNode root = new TreeNode(Integer.valueOf(data.substring(0, (leftParenIndex = data.indexOf("(")))));
-        int rightParenIndex = findClosingBracketIndex(data, leftParenIndex);
-        String leftData = data.substring(leftParenIndex + 1, rightParenIndex);
-        System.out.println(leftData);
-        root.left =  deserialize(leftData);
-        if (data.length() > rightParenIndex + 1) {
-	        data = data.substring(rightParenIndex + 1);
-	        if (data.length() > 0) root.right = deserialize(data.substring(1, data.length() - 1));
+    	if ("".equals(data)) return null;
+        String[] arr = data.substring(1).split(",");
+        Deque<TreeNode> dq = new ArrayDeque<>();
+        TreeNode root = new TreeNode(Integer.valueOf(arr[0]));
+        dq.addLast(root);
+        for (int i = 1; i < arr.length; i++) {
+        	int val = Integer.valueOf(arr[i]);
+        	TreeNode node = new TreeNode(val);
+        	TreeNode parent = null;
+        	while(!dq.isEmpty() && dq.peekLast().val < val) {
+        		parent = dq.pollLast();
+        	}
+        	if (parent == null) {
+        		dq.peekLast().left = node;
+        		dq.addLast(node);
+        	} else {
+        		parent.right = node;
+        		dq.addLast(node);
+        	}
         }
         return root;
     }
     
-    private int findClosingBracketIndex(String data, int start) {
-    	char[] arr = data.toCharArray();
-    	int count = 1;
-    	int i = start + 1;
-    	while(i < data.length()) {
-    		if (arr[i] == '(') count++;
-    		else if (arr[i] == ')') {
-    			count--;
-    			if (count == 0) return i;
-    		}
-    		i++;
-    	}
-    	return -1;
-    }
-    
-    public static void main(String[] args) {
+     public static void main(String[] args) {
     	Prob449 prob = new Prob449();
     	/*TreeNode root = new TreeNode(1);
     	root.right = new TreeNode(2);*/

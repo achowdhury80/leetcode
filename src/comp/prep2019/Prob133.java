@@ -1,7 +1,21 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob133 {
+	private Map<Node, Node> map = new HashMap<>();
 	public Node cloneGraph(Node node) {
+		if (node == null) return null;
+		if (map.containsKey(node)) return map.get(node);
+		Node clonned = new Node(node.val, null);
+		map.put(node, clonned);
+		if (node.neighbors != null) {
+			clonned.neighbors = new ArrayList<>();
+			for (Node child : node.neighbors) {
+				clonned.neighbors.add(cloneGraph(child));
+			}
+		}
+		return clonned;
+	}
+	public Node cloneGraph1(Node node) {
         if (node == null) return null;
         Map<Node, Node> map = new HashMap<>();
         Queue<Node> q = new LinkedList<>();

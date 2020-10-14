@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob1180 {
+	/**
+	 * o(N)
+	 * @param S
+	 * @return
+	 */
 	public int countLetters(String S) {
         int i = 1, j = 0;
         char[] arr = S.toCharArray();

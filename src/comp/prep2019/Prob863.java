@@ -1,6 +1,13 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob863 {
+	/**
+	 * O(N) time space
+	 * @param root
+	 * @param target
+	 * @param K
+	 * @return
+	 */
 	public List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
 		Map<TreeNode, TreeNode> backMap = new HashMap<>();
 		findTarget(root, target, backMap);

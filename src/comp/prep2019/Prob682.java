@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob682 {
+	/**
+	 * O(N) time and space
+	 * @param ops
+	 * @return
+	 */
 	public int calPoints(String[] ops) {
 		int result = 0;
 		Stack<Integer> stack = new Stack<>();

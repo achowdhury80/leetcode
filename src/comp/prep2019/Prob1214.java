@@ -1,6 +1,13 @@
 package comp.prep2019;
 
 public class Prob1214 {
+	/**
+	 * O(MlogN)
+	 * @param root1
+	 * @param root2
+	 * @param target
+	 * @return
+	 */
 	public boolean twoSumBSTs(TreeNode root1, TreeNode root2, int target) {
 		if (found(root2, target - root1.val)) return true;
         if (root1.left != null && twoSumBSTs(root1.left, root2, target)) return true;

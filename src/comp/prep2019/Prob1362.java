@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob1362 {
+	/**
+	 * O(sqrt(num))
+	 * @param num
+	 * @return
+	 */
 	public int[] closestDivisors(int num) {
         int a = 0, b = 0, c = 0, d = 0;
         for (int i = (int)Math.sqrt(num + 1); i > 0; i--) {

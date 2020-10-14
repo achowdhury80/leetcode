@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob1120 {
+	/**
+	 * O(N)
+	 * @param root
+	 * @return
+	 */
 	public double maximumAverageSubtree(TreeNode root) {
 		double[] ans = new double[1];
 		findSumNCount(root, ans);

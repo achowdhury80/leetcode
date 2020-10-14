@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob20 {
+	/**
+	 * O(N)
+	 * @param s
+	 * @return
+	 */
 	public boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
         for (char c : s.toCharArray()) {

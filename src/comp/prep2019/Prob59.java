@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob59 {
+	/**
+	 * O(N)
+	 * @param n
+	 * @return
+	 */
 	public int[][] generateMatrix(int n) {
 		if (n < 1) return new int[0][];
         int[][] result = new int[n][n];

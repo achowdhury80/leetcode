@@ -1,25 +1,33 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob313 {
+	/**
+	 * O(nlogk)
+	 * @param n
+	 * @param primes
+	 * @return
+	 */
 	public int nthSuperUglyNumber(int n, int[] primes) {
-        Queue<int[]> q = new PriorityQueue<>((x, y) -> x[0] - y[0]);
-        for (int i : primes) q.offer(new int[] {i, i, 0});
-        int j = 1;
-        int last = 1;
-        while(j < n) {
-        	int[] arr = q.peek();
-        	last = arr[0];
-        	while(!q.isEmpty() && q.peek()[0] <= last) {
-        		int[] arr2 = q.poll();
-        		if (arr2[2] < primes.length) {
-            		q.offer(new int[] {arr2[1] * primes[arr2[2]], arr2[1], arr2[2] + 1});
-            	}
-        	}
-        	q.offer(new int[] {last * primes[0], last, 1});
-        	j++;
-        }
-        return last;
-    }
+		if (n < 2) return n;
+		int[] dp = new int[n + 1];
+		dp[1] = 1;
+		Queue<int[]> q = new PriorityQueue<>((x, y) -> x[0] - y[0]);
+		for (int p : primes) q.offer(new int[] {p, p, 1});
+		for (int i = 2; i <= n; i++) {
+			int[] cur = q.poll();
+			while(!q.isEmpty() && q.peek()[0] == cur[0]) {
+				int[] arr = q.poll();
+				arr[2]++;
+				arr[0] = arr[1] * dp[arr[2]];
+				q.offer(arr);
+			}
+			dp[i] = cur[0];
+			cur[2]++;
+			cur[0] = cur[1] * dp[cur[2]];
+			q.offer(cur);
+		}
+		return dp[n];
+	}
 	
 	public static void main(String[] args) {
 		Prob313 prob = new Prob313();

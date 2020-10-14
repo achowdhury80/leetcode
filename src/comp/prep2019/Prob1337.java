@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1337 {
+	/**
+	 * O(mlognk) time and o(1) space
+	 * @param mat
+	 * @param k
+	 * @return
+	 */
 	public int[] kWeakestRows(int[][] mat, int k) {
 		Queue<int[]> q = new PriorityQueue<>((x, y) -> x[0] == y[0] ? 
         		y[1] - x[1] : y[0] - x[0]);

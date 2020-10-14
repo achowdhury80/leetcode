@@ -19,4 +19,9 @@ public class Prob1003 {
         }
         return stack.isEmpty();
     }
+	
+	public static void main(String[] args) {
+		Prob1003 prob = new Prob1003();
+		System.out.println(prob.isValid("aabbcc"));
+	}
 }

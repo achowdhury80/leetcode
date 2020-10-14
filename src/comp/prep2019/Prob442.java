@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob442 {
+	/**
+	 * O(N)
+	 * @param nums
+	 * @return
+	 */
 	public List<Integer> findDuplicates(int[] nums) {
 		List<Integer> result = new ArrayList<>();
 		if (nums.length < 2) return result;

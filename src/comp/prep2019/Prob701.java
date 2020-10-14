@@ -1,6 +1,12 @@
 package comp.prep2019;
 
 public class Prob701 {
+	/**
+	 * O(H) or O(Logn) worst case O(N)
+	 * @param root
+	 * @param val
+	 * @return
+	 */
 	public TreeNode insertIntoBST(TreeNode root, int val) {
 		if (root == null) return new TreeNode(val);
         if (val > root.val) {

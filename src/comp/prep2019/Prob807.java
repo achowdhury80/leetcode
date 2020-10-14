@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob807 {
+	/**
+	 * O(M*N) time and O(M + N) space
+	 * @param grid
+	 * @return
+	 */
 	public int maxIncreaseKeepingSkyline(int[][] grid) {
         int m = grid.length, n = grid[0].length;
         int[] maxRow = new int[n];

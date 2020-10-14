@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob338 {
+	/**
+	 * O(N) time & space
+	 * @param num
+	 * @return
+	 */
 	public int[] countBits(int num) {
         int[] result = new int[num + 1];
         if (num < 1) return result;

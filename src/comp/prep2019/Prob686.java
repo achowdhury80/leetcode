@@ -2,6 +2,8 @@ package comp.prep2019;
 
 public class Prob686 {
 	/**
+	 * https://leetcode.com/problems/repeated-string-match/solution/
+	 * O(N*(N + M))
 	 * @param A
 	 * @param B
 	 * @return

@@ -1,6 +1,10 @@
 package comp.prep2019;
 
 public class Prob647 {
+	/*
+	 * 
+	 * O(N^2) time and space
+	 */
 	public int countSubstrings(String s) {
 		char[] arr = s.toCharArray();
 		int n = arr.length;

@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob1221 {
+	/**
+	 * O(N) time
+	 * @param s
+	 * @return
+	 */
 	public int balancedStringSplit(String s) {
         int result = 0;
         // L = +1 and R = -1

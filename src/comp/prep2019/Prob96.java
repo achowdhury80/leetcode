@@ -3,6 +3,11 @@ package comp.prep2019;
 import java.util.*;
 
 public class Prob96 {
+	/**
+	 * O(N^2)
+	 * @param n
+	 * @return
+	 */
 	public int numTrees(int n) {
 		if (n < 1) return 0; 
         int[] arr = new int[n + 1];

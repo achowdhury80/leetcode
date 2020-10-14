@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1161 {
+	/**
+	 * O(N) time and space
+	 * @param root
+	 * @return
+	 */
 	public int maxLevelSum(TreeNode root) {
        if (root == null) return 0;
        Queue<TreeNode> q = new LinkedList<>();

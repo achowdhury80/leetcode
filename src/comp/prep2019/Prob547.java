@@ -1,7 +1,35 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob547 {
+	/**
+	 * O(N^2) time and O(N) space
+	 * @param M
+	 * @return
+	 */
 	public int findCircleNum(int[][] M) {
+		int n = M.length;
+		int result = 0;
+		boolean[] visited = new boolean[n];
+		for (int i = 0; i < n; i++) {
+			if (visited[i]) continue;
+			Queue<Integer> q = new LinkedList<>();
+			q.offer(i);
+			visited[i] = true;
+			result++;
+			while(!q.isEmpty()) {
+				int cur = q.poll();
+				for (int j = 0; j < n; j++) {
+					if (!visited[j] && M[cur][j] == 1) {
+						q.offer(j);
+						visited[j] = true;
+					}
+				}
+			}
+		}
+        return result;
+	}
+	
+	public int findCircleNum1(int[][] M) {
         int n = M.length;
         int[] arr = new int[n];
         for (int i = 0; i < n; i++) arr[i] = i;

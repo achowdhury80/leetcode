@@ -3,7 +3,7 @@ package comp.prep2019;
 import java.util.*;
 
 public class Prob128 {
-	public int longestConsecutive(int[] nums) {
+	public int longestConsecutive1(int[] nums) {
         Set<Integer> set = new HashSet<>();
         for (int num : nums) set.add(num);
         int result = 0;

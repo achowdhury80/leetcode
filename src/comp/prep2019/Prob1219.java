@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob1219 {
+	/**
+	 * O(4^n) time and O(N) space
+	 * @param grid
+	 * @return
+	 */
 	public int getMaximumGold(int[][] grid) {
 		int result = 0;
         for (int i = 0; i < grid.length; i++) {

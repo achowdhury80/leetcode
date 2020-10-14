@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob277 {
+	/**
+	 * celeb do not know anybody. that also need to be checked.
+	 * @param n
+	 * @return
+	 */
 	public int findCelebrity(int n) {
         int probCeleb = 0;
         for (int i = 1; i < n; i++) {

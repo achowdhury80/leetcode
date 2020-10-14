@@ -1,7 +1,38 @@
 package comp.prep2019;
 
 public class Prob838 {
+	
 	public String pushDominoes(String dominoes) {
+        char[] arr = dominoes.toCharArray();
+        int start = 0;
+        int lastRIndex = -1;
+        for (int i = 0; i < dominoes.length(); i++) {
+            char c = dominoes.charAt(i);
+            if (c == 'L') {
+                if (lastRIndex == -1) {
+                    fill(arr, start, i, c);
+                    start = i + 1;
+                } else {
+                    fill(arr, lastRIndex, lastRIndex + (i - lastRIndex - 1) / 2, 'R');
+                    fill(arr, i - (i - lastRIndex - 1) / 2, i, 'L');
+                    start = i + 1;
+                    lastRIndex = -1;
+                }
+            } else if (c == 'R') {
+                if (lastRIndex != -1) fill(arr, lastRIndex, i - 1, 'R');
+                lastRIndex = i;
+            }
+        }
+        if (lastRIndex != -1) fill(arr, lastRIndex, arr.length - 1, 'R');
+        return new String(arr);
+        
+    }
+	
+	private void fill(char[] arr, int i, int j, char c) {
+        for (int k = i; k <= j; k++
+        		) arr[k] = c;
+    }
+	public String pushDominoes1(String dominoes) {
         char[] arr = dominoes.toCharArray();
         for (int i = 0; i < arr.length; i++) {
         	int start = -1;

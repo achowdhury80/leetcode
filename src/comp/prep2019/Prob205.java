@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob205 {
+	/**
+	 * O(N) time and space
+	 * @param s
+	 * @param t
+	 * @return
+	 */
 	public boolean isIsomorphic(String s, String t) {
         if (s.length() != t.length()) return false;
         Map<Character, Character> map = new HashMap<>();

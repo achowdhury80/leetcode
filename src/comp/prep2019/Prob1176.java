@@ -1,6 +1,14 @@
 package comp.prep2019;
 
 public class Prob1176 {
+	/**
+	 * O(N) time
+	 * @param calories
+	 * @param k
+	 * @param lower
+	 * @param upper
+	 * @return
+	 */
 	public int dietPlanPerformance(int[] calories, int k, int lower, int upper) {
         int result = 0;
         int sum = 0;

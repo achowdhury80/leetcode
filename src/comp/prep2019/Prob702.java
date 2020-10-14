@@ -1,6 +1,12 @@
 package comp.prep2019;
 
 public class Prob702 {
+	/**
+	 * log(N)
+	 * @param reader
+	 * @param target
+	 * @return
+	 */
 	public int search(ArrayReader reader, int target) {
         int start = 0, end = 19999;
         while(start <= end) {

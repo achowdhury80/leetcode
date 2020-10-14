@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob463 {
+	/**
+	 * O(MN)time and O(1) space
+	 * @param grid
+	 * @return
+	 */
 	public int islandPerimeter(int[][] grid) {
         int result = 0;
         int m, n;

@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob739 {
+	/**
+	 * O(N)
+	 * @param T
+	 * @return
+	 */
 	public int[] dailyTemperatures(int[] T) {
         int[] result = new int[T.length];
         Stack<Integer> stack = new Stack<>();

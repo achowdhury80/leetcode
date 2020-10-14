@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob1267 {
+	/**
+	 * O(MN)
+	 * @param grid
+	 * @return
+	 */
 	public int countServers(int[][] grid) {
         int m = grid.length, n = grid[0].length;
         int result = 0;

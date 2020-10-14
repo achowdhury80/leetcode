@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob637 {
+	/**
+	 * O(N) time and O(m) space m means max node at any level
+	 * @param root
+	 * @return
+	 */
 	public List<Double> averageOfLevels(TreeNode root) {
 		List<Double> result = new ArrayList<>();
 		Queue<TreeNode> q = new LinkedList<>();

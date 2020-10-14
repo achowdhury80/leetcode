@@ -14,15 +14,14 @@ public class Prob15 {
         		int sum = nums[i] + nums[low] + nums[high];
         		if (sum == 0) {
         			result.add(Arrays.asList(nums[i], nums[low], nums[high]));
-        			while(low < high && nums[low] == nums[low + 1]) low++;
-        			while(high > low && nums[high] == nums[high - 1]) high--;
+        			while (low < high && nums[low] == nums[low + 1]) low++;
+        			while( low < high && nums[high] == nums[high - 1]) high--;
         			low++;
-        			high--;
-        		}
-        		if (sum > 0) {
         			high--;
         		} else if (sum < 0) {
         			low++;
+        		} else {
+        			high--;
         		}
         	}
         }

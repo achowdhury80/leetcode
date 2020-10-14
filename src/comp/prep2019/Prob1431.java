@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1431 {
+	/**
+	 * O(N) time and space
+	 * @param candies
+	 * @param extraCandies
+	 * @return
+	 */
 	public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
         int max = -1;
         for (int candy : candies) {

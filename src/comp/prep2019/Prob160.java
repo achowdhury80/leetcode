@@ -1,6 +1,12 @@
 package comp.prep2019;
 
 public class Prob160 {
+	/**
+	 * O(m + n)
+	 * @param headA
+	 * @param headB
+	 * @return
+	 */
 	public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if (headA == null || headB == null) return null;
         int aLen = findLength(headA), bLen = findLength(headB);

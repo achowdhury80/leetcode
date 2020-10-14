@@ -1,6 +1,12 @@
 package comp.prep2019;
 
 public class Prob1060 {
+	/**
+	 * O(logn)
+	 * @param nums
+	 * @param k
+	 * @return
+	 */
 	public int missingElement(int[] nums, int k) {
        int n = nums.length;
        int numRange = nums[nums.length - 1] - nums[0] + 1;

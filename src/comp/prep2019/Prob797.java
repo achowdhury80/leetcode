@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob797 {
+	/**
+	 * O(pow(2, N)*N) time and space
+	 * @param graph
+	 * @return
+	 */
 	public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
 		 Map<Integer, List<List<Integer>>> map = new HashMap<>();
 		 return pathToEnd(graph, 0, map);

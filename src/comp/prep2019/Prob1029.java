@@ -2,7 +2,7 @@ package comp.prep2019;
 import java.util.*;
 public class Prob1029 {
 	/**
-	 * O(NlogN) & O(N)
+	 * O(NlogN)
 	 * find gain for scheduling for first city by costs[i][0] - costs[i][1]
 	 * order them by max gain. smaller value means more gain
 	 * take first half for city 1 and next half for city 2
@@ -11,16 +11,10 @@ public class Prob1029 {
 	 */
 	public int twoCitySchedCost(int[][] costs) {
 		int n = costs.length;
-        Queue<Integer> q = new PriorityQueue<>((x, y) -> costs[x][0] - costs[x][1] 
-        		- costs[y][0] + costs[y][1]);
-        for (int i = 0; i < n; i++) q.offer(i);
+		Arrays.sort(costs, (x, y) -> x[0] - x[1] - y[0] + y[1]);
         int result = 0;
-        int count = 0;
-        while(!q.isEmpty()) {
-        	if (count < n / 2) result += costs[q.poll()][0];
-        	else result += costs[q.poll()][1];
-        	count++;
-        }
+        for (int i = 0; i < n / 2; i++) result += costs[i][0];
+        for (int i = n / 2; i < n; i++) result += costs[i][1];
         return result;
     }
 }

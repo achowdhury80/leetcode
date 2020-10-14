@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob847 {
+	/**
+	 * load all nodes to queue
+	 * maintain a status state which shows which are the nodes connected
+	 * @param graph
+	 * @return
+	 */
 	public int shortestPathLength(int[][] graph) {
 		int n = graph.length;
 		int mask = (1 << n) - 1;

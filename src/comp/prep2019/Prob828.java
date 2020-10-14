@@ -4,7 +4,7 @@ public class Prob828 {
 	/**
 	 * O(N) time and O(N) space
 	 * In one sentence:
-instead of find the unique characters in every substring, go find all substring of every unique character.
+instead of finding the unique characters in every substring, go find all substring of every unique character.
 
 what do you mean "every unique character"?
 For each character, find the longest substring, in which the character is unique. Then this longest substring has the left and right boundary of that unique character.

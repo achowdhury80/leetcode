@@ -4,6 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Prob447 {
+	/**
+	 * O(N^2) time and space
+	 * @param points
+	 * @return
+	 */
 	public int numberOfBoomerangs(int[][] points) {
 	    if(points == null || points.length < 3) return 0;
 	    int result = 0;

@@ -23,22 +23,25 @@ public class Prob1059 {
 			map.put(edge[0], nodes);
 		}
 		if(map.get(destination) != null) return false;
-		int[] visited = new int[n];
-		return dfs(source, map, visited, destination);
-    }
+		return helper(source, new int[n], destination, map);
+	}
 	
-	private boolean dfs(int node, Map<Integer, Set<Integer>> map, int[] visited, 
-			int dst) {
-		if (visited[node] == 1) return false; 
-		if (node == dst) return true;
-		visited[node] = 1;
-		Set<Integer> nexts = map.get(node);
-		if (nexts == null) return false;
-		for (int next : nexts) {
-			if (visited[next] == 2) continue;
-			if (!dfs(next, map, visited, dst)) return false;
+	private boolean helper(int node, int[] dp, int dst, 
+			Map<Integer, Set<Integer>> map) {
+		if (dp[node] == 2) return true;
+		if (dp[node] == 1) return false;
+		dp[node] = 1;
+		if (!map.containsKey(node)) {
+			if (node == dst) {
+				dp[node] = 2;
+				return true;
+			}
+			return false;
 		}
-		visited[node] = 2;
+		for (int next : map.get(node)) {
+			if (!helper(next, dp, dst, map)) return false;
+		}
+		dp[node] = 2;
 		return true;
 	}
 }

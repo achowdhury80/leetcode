@@ -7,7 +7,7 @@ public class Prob42 {
 	 * @return
 	 */
 	public int trap(int[] height) {
-        Stack<Integer> stack = new Stack<>();
+		Stack<Integer> stack = new Stack<>();
         int result = 0;
         for (int i = 0; i < height.length; i++) {
         	int curHeight = 0;

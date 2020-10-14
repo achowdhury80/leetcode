@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob387 {
+	/**
+	 * O(N)
+	 * @param s
+	 * @return
+	 */
 	public int firstUniqChar(String s) {
         int[] arr = new int[26];
         for (int i = 0; i < 26; i++) arr[i] = -1;

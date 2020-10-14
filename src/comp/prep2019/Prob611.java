@@ -3,6 +3,11 @@ package comp.prep2019;
 import java.util.Arrays;
 
 public class Prob611 {
+	/**
+	 * O(N^2 logn)
+	 * @param nums
+	 * @return
+	 */
 	public int triangleNumber(int[] nums) {
 		int n = nums.length;
 		if (n < 3) return 0;

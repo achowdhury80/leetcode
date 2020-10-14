@@ -1,5 +1,5 @@
 package comp.prep2019;
-
+import java.util.*;
 public class Prob1295 {
 	/**
 	 * O(N)

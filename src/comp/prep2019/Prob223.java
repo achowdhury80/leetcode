@@ -3,6 +3,19 @@ package comp.prep2019;
 import java.util.Arrays;
 
 public class Prob223 {
+	/**
+	 * find total area - common area
+	 * common area = x interval intersection * y interval intersection
+	 * @param A
+	 * @param B
+	 * @param C
+	 * @param D
+	 * @param E
+	 * @param F
+	 * @param G
+	 * @param H
+	 * @return
+	 */
 	public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
 	    int rect1Area = Math.abs(A - C) * Math.abs(B - D);
 	    int rect2Area = Math.abs(E - G) * Math.abs(F - H);
@@ -17,4 +30,16 @@ public class Prob223 {
 	    if(arr[0] == a1 && arr[1] == a2 || arr[0] == b1 && arr[1] == b2) return 0;
 	    return arr[2] - arr[1];
 	  }
+	
+	public static void main(String[] args) {
+		Prob223 prob = new Prob223();
+		System.out.println(prob.computeArea(-1500000001,
+				0,
+				-1500000000,
+				1,
+				1500000000,
+				0,
+				1500000001,
+				1));
+	}
 }

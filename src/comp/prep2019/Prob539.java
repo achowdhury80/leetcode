@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob539 {
+	/**
+	 * O(N^2)
+	 * @param timePoints
+	 * @return
+	 */
 	public int findMinDifference(List<String> timePoints) {
 		if(timePoints == null || timePoints.size() < 2 || timePoints.size() > 24 * 60) return 0;
 	    int result = Integer.MAX_VALUE;

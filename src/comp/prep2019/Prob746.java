@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob746 {
+	/**
+	 * O(N)
+	 * @param cost
+	 * @return
+	 */
 	public int minCostClimbingStairs(int[] cost) {
 		int n;
 	    if(cost == null || (n = cost.length) < 2) return 0;

@@ -5,16 +5,21 @@ public class Prob373 {
 		List<List<Integer>> result = new ArrayList<>();
 		if (nums1.length < 1 || nums2.length < 1) return result;
         Queue<int[]> q = new PriorityQueue<>((x, y) -> nums1[x[0]] + nums2[x[1]] - nums1[y[0]] - nums2[y[1]]);
-        for (int i = 0; i < Math.min(nums1.length,  k); i++) {
-        	for (int j = 0; j < Math.min(nums2.length, k); j++) q.offer(new int[] {i, j});
-        }
+        q.offer(new int[] {0, 0});
+        boolean[][] visited = new boolean[nums1.length][nums2.length];
+        visited[0][0] = true;
         while(!q.isEmpty() && k > 0) {
         	int[] cur = q.poll();
-        	List<Integer> list = new ArrayList<>();
-        	list.add(nums1[cur[0]]);
-        	list.add(nums2[cur[1]]);
-        	result.add(list);
+        	result.add(Arrays.asList(nums1[cur[0]], nums2[cur[1]]));
         	k--;
+        	if (cur[0] < nums1.length - 1 && !visited[cur[0] + 1][cur[1]]) {
+        		q.offer(new int[] {cur[0] + 1, cur[1]});
+        		visited[cur[0] + 1][cur[1]] = true;
+        	}
+        	if (cur[1] < nums2.length - 1 && !visited[cur[0]][cur[1] + 1]) {
+        		q.offer(new int[] {cur[0], cur[1] + 1});
+        		visited[cur[0]][cur[1] + 1] = true;
+        	}
         }
         return result;
     }

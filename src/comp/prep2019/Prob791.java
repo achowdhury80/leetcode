@@ -1,6 +1,12 @@
 package comp.prep2019;
 
 public class Prob791 {
+	/**
+	 * O(m + n) time and space
+	 * @param S
+	 * @param T
+	 * @return
+	 */
 	public String customSortString(String S, String T) {
         char[] arr = T.toCharArray();
         String[] map = new String[26];

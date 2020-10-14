@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob204 {
+	/**
+	 * O(nlogn)
+	 * @param n
+	 * @return
+	 */
 	public int countPrimes(int n) {
         boolean[] notPrime = new boolean[n];
         int result = 0;

@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1104 {
+	/**
+	 * O(H)
+	 * @param label
+	 * @return
+	 */
 	public List<Integer> pathInZigZagTree(int label) {
 		int i = 1;
         while(Math.pow(2, i) - 1 < label) i++;

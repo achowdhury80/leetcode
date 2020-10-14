@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1306 {
+	/**
+	 * O(N) time and space
+	 * @param arr
+	 * @param start
+	 * @return
+	 */
 	public boolean canReach(int[] arr, int start) {
         if (arr[start] == 0) return true;
         Queue<Integer> q = new LinkedList<>();

@@ -1,6 +1,9 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1166 {
+	/**
+	 * O(1) time and O(N) space
+	 */
 	private Map<String, Integer> map;
 	public Prob1166() {
         map = new HashMap<>();

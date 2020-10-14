@@ -30,7 +30,6 @@ public class Prob1000 {
 				int right = left + span - 1; // since width is 1 based 
 				
 				dp[left][right] = Integer.MAX_VALUE;
-				
 				for(int split = left; split < right; split += (K-1)) { // since K is 1 based and we can merge only K piles. 
 					dp[left][right] = Math.min(dp[left][right], dp[left][split] + dp[split + 1][right]);
 				}

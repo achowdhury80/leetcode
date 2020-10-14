@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob872 {
+	/**
+	 * O(max(m, n)) time and o(max(h1 , h2)) space
+	 * @param root1
+	 * @param root2
+	 * @return
+	 */
 	public boolean leafSimilar(TreeNode root1, TreeNode root2) {
 		List<Integer> list1 = new ArrayList<>();
 		findLeaves(root1, list1);

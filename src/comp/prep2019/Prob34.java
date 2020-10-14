@@ -1,35 +1,48 @@
 package comp.prep2019;
 
 public class Prob34 {
+	/**
+	 * O(logN)
+	 * @param nums
+	 * @param target
+	 * @return
+	 */
 	public int[] searchRange(int[] nums, int target) {
-		if (nums.length == 0) return new int[] {-1, -1};
-        int minIndex = minIndex(nums, target);
-        if (minIndex == -1) return new int[] {-1, -1};
-        int maxIndex = maxIndex(nums, target, minIndex);
-        return new int[] {minIndex, maxIndex};
-    }
-	
-	private int minIndex(int[] nums, int target) {
-		int l = 0, h = nums.length - 1;
-		while(l < h) {
-			int mid = l + (h - l) / 2;
-			if (nums[mid] == target) h = mid;
-			else if (nums[mid] > target) h = mid - 1;
-			else l = mid + 1;
+		int low = 0, high = nums.length - 1;
+		int[] result = new int[] {-1, -1};
+		while (low <= high) {
+			int mid = low + (high - low) / 2;
+			if (nums[mid] == target) {
+				result[0] = findMinIndex(nums, low, mid);
+				result[1] = findMaxIndex(nums, mid, high);
+				break;
+			} else if (nums[mid] < target) low = mid + 1;
+			else high = mid - 1;
 		}
-		if (nums[l] == target) return l;
-		return -1;
+		return result;
 	}
 	
-	private int maxIndex(int[] nums, int target, int minIndex) {
-		int l = minIndex, h = nums.length - 1;
-		while(l + 1 < h) {
-			int mid = l + (h - l) / 2;
-			if (nums[mid] == target) l = mid;
-			else if (nums[mid] > target) h = mid - 1;
-			else l = mid + 1;
+	private int findMinIndex(int[] nums, int low, int high) {
+		int num = nums[high];
+		while (low < high) {
+			int mid = low + (high - low) / 2;
+			if (nums[mid] == num) high = mid;
+			else low = mid + 1;
 		}
-		return l + 1 < nums.length && nums[l + 1] == target ? l + 1 : l;
+		return high;
+	}
+	
+	private int findMaxIndex(int[] nums, int low, int high) {
+		int num = nums[low], result = low;
+		while (low <= high) {
+			int mid = low + (high - low) / 2;
+			if (nums[mid] == num) {
+				result = mid;
+				low = mid + 1;
+			}
+			else high = mid - 1;
+		}
+		return result;
 	}
 	
 	public static void main(String[] args) {

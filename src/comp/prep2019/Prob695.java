@@ -4,6 +4,11 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Prob695 {
+	/**
+	 * O(N)
+	 * @param grid
+	 * @return
+	 */
 	public int maxAreaOfIsland(int[][] grid) {
 		int m = grid.length, n = grid[0].length;
         int result = 0;

@@ -2,28 +2,29 @@ package comp.prep2019;
 
 
 public class Prob777 {
+	/**
+	 * https://leetcode.com/problems/swap-adjacent-in-lr-string/solution/
+	 * O(N) and O(1)
+	 * @param start
+	 * @param end
+	 * @return
+	 */
 	public boolean canTransform(String start, String end) {
-	    int i = 0, j = 0, n = Math.min(start.length(), end.length());
-	    while (i < n && j < n) {
-	      while (i < n && start.charAt(i) == 'X') i++;
-	      while (j < n && end.charAt(j) == 'X') j++;
-	      if (i == n && j == n) break;
-	      // start[i] != X and end[j] != X. meaning they have to be equal
-	      if (i == n || j == n || start.charAt(i) != end.charAt(j)) return false;
-	      // start[i] = R, meaning it can go right but not left
-	      if (start.charAt(i) == 'R' && i > j) return false;
-	   // start[i] = L, meaning it can go left but not right
-	      if (start.charAt(i) == 'L' && j > i) return false;
-	      i++;
-	      j++;
-	    }
-	    return true;
-	  }
-
-	  public static void main(String[] args) {
-	    Prob777 prob777 = new Prob777();
-	    System.out.println(prob777.canTransform("RXXLRXRXL", "XRLXXRRLX"));
-	    System.out.println(prob777.canTransform("XRXXLXLXXXXRXXXXLXXL", "XXRXLXXLXXRLXXXLXXXX"));
-
-	  }
+		if (!start.replaceAll("X", "").equals(end.replaceAll("X", ""))) return false;
+		int t = 0;
+		for (int i = 0; i < start.length(); i++) {
+			if (start.charAt(i) == 'L') {
+				while(end.charAt(t) != 'L') t++;
+				if (t++ > i) return false;
+			}
+		}
+		t = 0;
+		for (int i = 0; i < start.length(); i++) {
+			if (start.charAt(i) == 'R') {
+				while(end.charAt(t) != 'R') t++;
+				if (t++ < i) return false;
+			}
+		}
+		return true;
+	}
 }

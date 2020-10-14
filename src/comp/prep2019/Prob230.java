@@ -3,6 +3,9 @@ package comp.prep2019;
 import java.util.Arrays;
 
 public class Prob230 {
+	/*
+	 * O(N)
+	 */
 	public int kthSmallest(TreeNode root, int k) {
         return (int)kthSmallestNSize(root, k)[0];
     }

@@ -1,6 +1,12 @@
 package comp.prep2019;
 
 public class Prob889 {
+	/**
+	 * O(N^2)
+	 * @param pre
+	 * @param post
+	 * @return
+	 */
 	public TreeNode constructFromPrePost(int[] pre, int[] post) {
         return constructFromPrePost(pre, post, 0, 0, pre.length);
     }

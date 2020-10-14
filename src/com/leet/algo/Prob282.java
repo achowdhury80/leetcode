@@ -14,7 +14,8 @@ public class Prob282 {
     return result;
   }
 
-  public void helper(String num, int pos, long eval, long mult, List<String> result, String path, int target) {
+  public void helper(String num, int pos, long eval, long mult, 
+		  List<String> result, String path, int target) {
     if (pos == num.length()) {
       if (target == eval) result.add(path);
       return;
@@ -26,7 +27,8 @@ public class Prob282 {
       else {
         helper(num, i + 1, eval + cur, cur, result, path + "+" + cur, target);
         helper(num, i + 1, eval - cur, -cur, result, path + "-" + cur, target);
-        helper(num, i + 1, eval - mult + mult * cur, mult * cur, result, path + "*" + cur, target);
+        helper(num, i + 1, eval - mult + mult * cur, mult * cur, result, path 
+        		+ "*" + cur, target);
       }
     }
   }

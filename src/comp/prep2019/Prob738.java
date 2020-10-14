@@ -2,39 +2,35 @@ package comp.prep2019;
 
 public class Prob738 {
 	public int monotoneIncreasingDigits(int N) {
-        if (N < 10) return N;
+		if (N < 10) return N;
         String s = "" + N;
-        String prefix = "";
         for (int i = 1; i < s.length(); i++) {
         	if (s.charAt(i) < s.charAt(i - 1)) {
-        		for (int j = 0; j < i; j++) {
-        			if (s.charAt(j) > s.charAt(i)) {
-        				if (j > 0) prefix = s.substring(0, j);
-        				String st = helper(s.substring(j), prefix, i - j);
-                		return Integer.parseInt(st);
-        			}
+        		int start = i - 1;
+        		for (int j = i - 2; j > -1; j--) {
+        			if (s.charAt(j) != s.charAt(i - 1)) break;
+        			start = j;
         		}
-         	}
+        		String prefix = s.substring(0, start);
+        		String retVal = helper(s, start);
+        		return Integer.parseInt(prefix + retVal);
+        	}
         }
         return N;
     }
 	
-	private String helper(String s, String prefix, int idx) {
-		StringBuilder sb = new StringBuilder();
-		int pos = 0;
-		for (int i = 1; i < idx; i++) {
-			if (s.charAt(i) > s.charAt(i - 1)) pos = i;
-		}
-		if (pos > 0) prefix += s.substring(0, pos);
-		sb.append((char)(s.charAt(pos) - 1));
-		for (int i = pos + 1; i < s.length(); i++) sb.append('9');
-		if (!"".equals(prefix)) return prefix + sb.toString();
-		while(sb.charAt(0) == '0') sb = sb.deleteCharAt(0);
-		return sb.toString();
+	private String helper(String s, int start) {
+		int lenOf9 = s.length() - start - 1;
+		String nines = "";
+		for (int i = 0; i < lenOf9; i++) nines += "9";
+		if (start == 0 && s.charAt(start) == '0') return nines;
+		return "" + (char)((int)s.charAt(start) - 1) + nines;
+		
 	}
 	
 	public static void main(String[] args) {
 		Prob738 prob = new Prob738();
+		//System.out.println(prob.monotoneIncreasingDigits(332));
 		System.out.println(prob.monotoneIncreasingDigits(120));
 	}
 }

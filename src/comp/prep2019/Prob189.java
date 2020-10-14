@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob189 {
+	/**
+	 * O(N) time
+	 * @param nums
+	 * @param k
+	 */
 	public void rotate(int[] nums, int k) {
         int n = nums.length;
         if (n < 2) return;

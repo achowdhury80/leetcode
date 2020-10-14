@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob986 {
+	/**
+	 * O(M + N) time 
+	 * @param A
+	 * @param B
+	 * @return
+	 */
 	public int[][] intervalIntersection(int[][] A, int[][] B) {
         int i = 0, j = 0;
         List<int[]> list = new ArrayList<>();

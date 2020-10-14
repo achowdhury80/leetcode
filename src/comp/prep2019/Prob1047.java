@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1047 {
+	/**
+	 * O(N) time and space
+	 * @param S
+	 * @return
+	 */
 	public String removeDuplicates(String S) {
 		Stack<Character> stack = new Stack<>();
         for (char c : S.toCharArray()) {

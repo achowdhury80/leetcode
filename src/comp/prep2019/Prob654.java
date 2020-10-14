@@ -1,6 +1,12 @@
 package comp.prep2019;
 
 public class Prob654 {
+	/**
+	 * O(N^2) - worst. O(NlogN) average
+	 * O(N) space worst
+	 * @param nums
+	 * @return
+	 */
 	public TreeNode constructMaximumBinaryTree(int[] nums) {
         if (nums.length < 1) return null;
         return constructMaximumBinaryTree(nums, 0, nums.length - 1);

@@ -5,8 +5,8 @@ public class Prob877 {
         return stoneGame(piles, 0, piles.length - 1, new HashMap<>()) > 0;
     }
 	
-	private int stoneGame(int[] piles, int start, int end, Map<String, Integer> map) {
-		String key = start + "-" + end;
+	private int stoneGame(int[] piles, int start, int end, Map<Integer, Integer> map) {
+		int key = (start << 9) | end;
         if (map.containsKey(key)) return map.get(key);
         if (start == end) {
         	map.put(key, piles[start]);

@@ -1,6 +1,9 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob173 {
+	/**
+	 * O(1) amortized
+	 */
 	private Stack<TreeNode> stack;
 	public Prob173(TreeNode root) {
         TreeNode cur = root;

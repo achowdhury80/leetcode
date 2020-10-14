@@ -1,6 +1,12 @@
 package comp.prep2019;
 
 public class Prob21 {
+	/**
+	 * O(n + m)
+	 * @param l1
+	 * @param l2
+	 * @return
+	 */
 	public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(-1);
         ListNode cur = dummy;

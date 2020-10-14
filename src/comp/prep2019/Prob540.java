@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob540 {
+	/**
+	 * O(logN)
+	 * @param nums
+	 * @return
+	 */
 	public int singleNonDuplicate(int[] nums) {
         int left = 0, right = nums.length - 1;
         while(left < right) {

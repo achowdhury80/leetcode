@@ -1,57 +1,48 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1172 {
-	private int capacity, popIndex;
-	List<Stack<Integer>> stacks;
-	Queue<Integer> pq = new PriorityQueue<>();
+	private int capacity;
+	private List<Deque<Integer>> stacks; 
+	private int leftMost;
 	public Prob1172(int capacity) {
         this.capacity = capacity;
         stacks = new ArrayList<>();
     }
     
     public void push(int val) {
-        if (stacks.isEmpty()) {
-        	stacks.add(new Stack<>());
-        	pq.offer(0);
-        	popIndex = 0;
+        if (leftMost == stacks.size()) {
+        	Deque<Integer> dq;
+        	stacks.add((dq = new ArrayDeque<>(capacity)));
+        	dq.addLast(val);
+        	return;
         }
-        int pushIndex = -1;
-        while(!pq.isEmpty() && (pushIndex = pq.peek()) > popIndex 
-        		|| stacks.get(pushIndex).size() == capacity) {
-        	pq.poll();
+        if (stacks.get(leftMost).size() == capacity) {
+        	leftMost++;
+        	push(val);
+        	return;
         }
-        if (!pq.isEmpty()) {
-        	stacks.get(pushIndex).add(val);
-        } else {
-        	stacks.add(new Stack<>());
-        	popIndex = stacks.size() - 1;
-        	pq.offer(stacks.size() - 1);
-        	stacks.get(stacks.size() - 1).add(val);
-        }
+        stacks.get(leftMost).addLast(val);
     }
     
     public int pop() {
-    	int result = -1;
-    	adjustPopIndex();
-        if (popIndex > -1) {
-        	result = stacks.get(popIndex).pop();
-        	pq.offer(popIndex);
+        while(!stacks.isEmpty() && stacks.get(stacks.size() - 1).isEmpty()) {
+        	stacks.remove(stacks.size() - 1);
         }
-        adjustPopIndex();
-        return result;
-    }
-    
-    private void adjustPopIndex() {
-    	while (popIndex > -1 && stacks.get(popIndex).isEmpty()) {
-        	stacks.remove(popIndex);
-        	popIndex--;
+        if (stacks.isEmpty()) return -1;
+        int idx = stacks.size() - 1;
+        int val = stacks.get(idx).removeLast();
+        while(!stacks.isEmpty() && stacks.get(stacks.size() - 1).isEmpty()) {
+        	stacks.remove(stacks.size() - 1);
         }
+        leftMost = Math.max(0, Math.min(leftMost, stacks.size() - 1));
+        return val;
     }
     
     public int popAtStack(int index) {
-        if(stacks.isEmpty() || stacks.get(index).isEmpty()) return -1;
-        int result = stacks.get(index).pop();
-        pq.offer(index);
-        return result;
+        if (index >= stacks.size()) return -1;
+        Deque<Integer> dq = stacks.get(index);
+        if (dq.isEmpty()) return -1;
+        leftMost = Math.min(leftMost, index);
+        return dq.removeLast();
     }
 }

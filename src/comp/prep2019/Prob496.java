@@ -2,6 +2,7 @@ package comp.prep2019;
 import java.util.*;
 public class Prob496 {
 	/**
+	 * O(N) time and space
     find next greater elements of all element in the bigger arry - main trick
     put the info in a map
     use the map to find the answer

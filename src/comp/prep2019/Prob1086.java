@@ -1,7 +1,9 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1086 {
-	
+	/*
+	 * O(N) time and space
+	 */
 	public int[][] highFive(int[][] items) {
         Map<Integer, Queue<Integer>> map = new HashMap<>();
         for (int[] item : items) {

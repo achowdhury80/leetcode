@@ -9,6 +9,14 @@ public class Prob1290 {
 	 * @return
 	 */
 	public int getDecimalValue(ListNode head) {
+		int result = 0;
+		while(head != null) {
+			result = (result << 1) | head.val;
+			head = head.next;
+		}
+		return result;
+	}
+	public int getDecimalValue1(ListNode head) {
 		ListNode rev = reverse(head);
 		int result = 0, pow = 1; 
 		while(rev != null) {

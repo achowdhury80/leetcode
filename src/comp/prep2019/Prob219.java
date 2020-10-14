@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob219 {
+	/**
+	 * O(N)
+	 * @param nums
+	 * @param k
+	 * @return
+	 */
 	public boolean containsNearbyDuplicate(int[] nums, int k) {
 		if (k < 1) return false;
         Set<Integer> set = new HashSet<>();

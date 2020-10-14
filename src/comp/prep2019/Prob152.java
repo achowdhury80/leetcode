@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob152 {
+	/**
+	 * O(N) time
+	 * @param nums
+	 * @return
+	 */
 	public int maxProduct(int[] nums) {
         int result = Integer.MIN_VALUE;
         long prod = 1;

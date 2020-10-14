@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob26 {
+	/**
+	 * O(N)
+	 * @param nums
+	 * @return
+	 */
 	public int removeDuplicates(int[] nums) {
 		if(nums.length < 2) return nums.length;
         int idx = 1;

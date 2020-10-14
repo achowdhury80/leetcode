@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob78 {
+	/**
+	 * O(N * 2^N) time and space
+	 * @param nums
+	 * @return
+	 */
 	public List<List<Integer>> subsets(int[] nums) {
 		List<List<Integer>> result = new ArrayList<>();
 		int n;

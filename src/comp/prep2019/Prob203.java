@@ -1,6 +1,9 @@
 package comp.prep2019;
 
 public class Prob203 {
+	/*
+	 * O(N)
+	 */
 	public ListNode removeElements(ListNode head, int val) {
         ListNode dummy = new ListNode(-1);
         dummy.next = head;

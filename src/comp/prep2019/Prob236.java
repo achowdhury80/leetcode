@@ -2,11 +2,12 @@ package comp.prep2019;
 
 public class Prob236 {
 	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null || p == null || q == null) return null;
-        if (root == p || root == q) return  root;
-        TreeNode leftAncestor = lowestCommonAncestor(root.left, p, q);
-        TreeNode rightAncestor = lowestCommonAncestor(root.right, p, q);
-        if (leftAncestor != null && rightAncestor != null) return root;
-        return leftAncestor== null ? rightAncestor : leftAncestor;
+		if (root == null) return null;
+        if (p == root || q == root) return root;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left != null && right != null) return root;
+        if (left != null) return left;
+        return right;
     }
 }

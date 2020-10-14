@@ -1,6 +1,14 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1361 {
+	/**
+	 * check for multiple parent
+	 * check for multiple root
+	 * @param n
+	 * @param leftChild
+	 * @param rightChild
+	 * @return
+	 */
 	public boolean validateBinaryTreeNodes(int n, int[] leftChild, int[] rightChild) {
         boolean[] isRoot = new boolean[n];
         for (int i = 0; i < n; i++) isRoot[i] = true;

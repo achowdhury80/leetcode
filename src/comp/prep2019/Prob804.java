@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob804 {
+	/**
+	 * O(N) time and space
+	 * @param words
+	 * @return
+	 */
 	public int uniqueMorseRepresentations(String[] words) {
         String[] arr = new String[] {".-","-...","-.-.","-..",".","..-.","--.","....",
         		"..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...",

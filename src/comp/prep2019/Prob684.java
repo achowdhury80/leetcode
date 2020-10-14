@@ -18,4 +18,6 @@ public class Prob684 {
 		while (arr[node] != node) node = arr[node];
 		return node;
 	}
+	
+	
 }

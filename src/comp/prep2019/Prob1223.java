@@ -1,25 +1,32 @@
 package comp.prep2019;
 
 public class Prob1223 {
+	/**
+	 * https://leetcode.com/problems/dice-roll-simulation/discuss/403756/Java-Share-my-DP-solution
+	 * @param n
+	 * @param rollMax
+	 * @return
+	 */
 	public int dieSimulator(int n, int[] rollMax) {
-		int mod = (int)(1e9 + 7);
-        long[][] dp = new long[16][7];
-        for (int i = 1; i < 7; i++) dp[1][i] = 1;
+		long mod = (long)(1e9 + 7);
+        long[][] dp = new long[n][7];
+        for (int i = 0; i < 6; i++) dp[0][i] = 1;
+        dp[0][6] = 6;
         for (int i = 1; i < n; i++) {
-        	for (int j = 1; j < 7; j++) {
-        		long[] temp = new long[Math.min(n, rollMax[j])];
-        		for (int k = 1; k <= temp.length; k++) {
-        			if (k > 1) temp[k] = dp[k - 1][j];
-        			else {
-        				long sum = 0;
-        				for (int l = 1; l < 7; l++) {
-        					if (j == l) continue;
-        				}
-        			}
+        	long sum = 0;
+        	for (int j = 0; j < 6; j++) {
+        		dp[i][j] = dp[i - 1][6];
+        		if (i - rollMax[j] < 0) sum = (sum + dp[i][j]) % mod;
+        		else {
+        			if (i - rollMax[j] - 1 >= 0) 
+        				dp[i][j] = (dp[i][j] - (dp[i - rollMax[j] - 1][6] 
+        						- dp[i - rollMax[j] - 1][j])) % mod + mod;
+        			else dp[i][j] = (dp[i][j] - 1) % mod;
+        			sum = (sum + dp[i][j]) % mod;
         		}
         	}
+        	dp[i][6] = sum;
         }
-        long result = 0;
-        return 0;
+        return (int)dp[n - 1][6];
     }
 }

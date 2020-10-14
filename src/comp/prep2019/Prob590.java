@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob590 {
+	/**
+	 * O(N) time and space - worst when the tree is skewed
+	 * @param root
+	 * @return
+	 */
 	public List<Integer> postorder(Node root) {
 		List<Integer> result = new ArrayList<>();
 		if (root == null) return result;

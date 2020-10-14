@@ -2,6 +2,7 @@ package comp.prep2019;
 
 public class Prob776 {
 	/**
+	 * O(N) time and o(H) space
 	 * returns array of smaller subtree first and then the other
 	 * @param root
 	 * @param V

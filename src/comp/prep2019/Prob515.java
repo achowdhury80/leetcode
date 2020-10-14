@@ -2,6 +2,11 @@ package comp.prep2019;
 import java.util.*;
 
 public class Prob515 {
+	/**
+	 * O(N) time and space
+	 * @param root
+	 * @return
+	 */
 	public List<Integer> largestValues(TreeNode root) {
 		List<Integer> result = new ArrayList<>();
 		if(root == null) return result;

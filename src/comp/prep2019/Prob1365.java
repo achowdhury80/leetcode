@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob1365 {
+	/**
+	 * O(N) time and O(1) space
+	 * @param nums
+	 * @return
+	 */
 	public int[] smallerNumbersThanCurrent(int[] nums) {
         int[] freq = new int[101];
         int count = 0;

@@ -3,6 +3,11 @@ package comp.prep2019;
 import java.util.*;
 
 public class Prob1167 {
+	/**
+	 * O(NlogN)
+	 * @param sticks
+	 * @return
+	 */
 	public int connectSticks(int[] sticks) {
         Queue<Integer> q = new PriorityQueue<>();
         int result = 0;

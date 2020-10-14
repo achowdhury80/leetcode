@@ -3,22 +3,27 @@ package comp.prep2019;
 public class Prob430 {
 	public Node flatten(Node head) {
 		if (head == null) return head;
-		Node temp = flatten(head.next);
-		if (head.child != null) {
-			Node childHead = flatten(head.child);
-			head.child = null;
-			head.next = childHead;
-			childHead.prev = head;
-			Node cur = head;
-			while(cur.next != null) cur = cur.next;
-			cur.next = temp;
-			if(temp != null) temp.prev = cur;
-		} else {
-			head.next = temp;
-			if(temp != null) temp.prev = head;
-		}
-		return head;
+		return helper(head)[0];
     }
+	
+	private Node[] helper(Node node) {
+		Node[] result = new Node[] {node, node};
+		Node next = node.next;
+		if (node.child != null) {
+			Node[] childFlattern = helper(node.child);
+			node.child = null;
+			result[1].next = childFlattern[0];
+			childFlattern[0].prev = result[1];
+			result[1] = childFlattern[1];
+		}
+		if (next != null) {
+			Node[] nextFlatterned = helper(next);
+			result[1].next = nextFlatterned[0];
+			nextFlatterned[0].prev = result[1];
+			result[1] = nextFlatterned[1];
+		}
+		return result;
+	}
 	
 	class Node {
 	    public int val;

@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1382 {
+	/**
+	 * O(N) time and space
+	 * @param root
+	 * @return
+	 */
 	public TreeNode balanceBST(TreeNode root) {
 		if (root == null) return null;
         List<TreeNode> list = new ArrayList<>();

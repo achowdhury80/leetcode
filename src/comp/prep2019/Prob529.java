@@ -3,57 +3,29 @@ import java.util.*;
 
 public class Prob529 {
 	public char[][] updateBoard(char[][] board, int[] click) {
-	    if(board[click[0]][click[1]] == 'M'){
-	      board[click[0]][click[1]] = 'X';
-	      return board;
-	    }
-	    int adjacentMineCount = mineCountInNeighborhood(board, new Position(click[0], click[1]));
-	    if(adjacentMineCount > 0){
-	      board[click[0]][click[1]] = (char)(adjacentMineCount + '0');
-	      return board;
-	    }
-	    List<Position> adjacents = findAdjacent(board, new Position(click[0], click[1]));
-	    board[click[0]][click[1]] = 'B';
-	    for(Position position : adjacents){
-	      if(board[position.getX()][position.getY()] == 'E') board = updateBoard(board, new int[]{position.getX(), position.getY()});
-	    }
-	    return board;
-	  }
-
-	  private List<Position> findAdjacent(char[][] board, Position position){
-	    List<Position> list = new ArrayList<>();
-	    for(int i = position.getX() - 1; i < position.getX() + 2; i++){
-	      if(i < 0 || i == board.length) continue;
-	      for(int j = position.getY() - 1; j < position.getY() + 2; j++){
-	        if(j < 0 || j == board[i].length || (i == position.getX() && j == position.getY())) continue;
-	        list.add(new Position(i, j));
-	      }
-	    }
-	    return list;
-	  }
-
-	  private int mineCountInNeighborhood(char[][] board, Position position){
-	    List<Position> adjacents = findAdjacent(board, position);
-	    int result = 0;
-	    for(Position pos : adjacents){
-	      if(board[pos.getX()][pos.getY()] == 'M') result++;
-	    }
-	    return result;
-	  }
-
-	  class Position {
-	    int x, y;
-	    public Position(int x, int y){
-	      this.x = x;
-	      this.y = y;
-	    }
-
-	    public int getX(){
-	      return x;
-	    }
-
-	    public int getY(){
-	      return y;
-	    }
-	  }
+		if (board[click[0]][click[1]] == 'B') return board;
+        if (board[click[0]][click[1]] == 'M') {
+        	board[click[0]][click[1]] = 'X';
+        	return board;
+        }
+        int mines = 0;
+        int[][] dirs = new int[][] {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1},
+        	{1, -1}, {1, 0}, {1, 1}};
+        List<int[]> nexts = new ArrayList<>();
+        for (int[] dir : dirs) {
+        	int[] next = new int[] {click[0] + dir[0], click[1] + dir[1]};
+        	if (next[0] > -1 &&  next[0] < board.length && next[1] > -1 
+        			&& next[1] < board[0].length) {
+        		if (board[next[0]][next[1]] == 'M') {
+        			mines++;
+        		} else if (board[next[0]][next[1]] == 'E') nexts.add(next);
+        	}
+        }
+        if (mines > 0) board[click[0]][click[1]] = (char)(mines + '0');
+        else {
+        	board[click[0]][click[1]] = 'B';
+        	for(int[] c : nexts) updateBoard(board, c);
+        }
+        return board;
+    }
 }

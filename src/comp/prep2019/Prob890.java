@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob890 {
+	/**
+	 * O(NW) time and O(W) space
+	 * @param words
+	 * @param pattern
+	 * @return
+	 */
 	public List<String> findAndReplacePattern(String[] words, String pattern) {
         List<String> result = new ArrayList<>();
         char[] p = pattern.toCharArray();

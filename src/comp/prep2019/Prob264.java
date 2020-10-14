@@ -1,4 +1,7 @@
 package comp.prep2019;
+
+import java.util.*;
+
 public class Prob264 {
 	/**
 	 * O(N) time and space
@@ -28,4 +31,9 @@ public class Prob264 {
 	    }
 	    return dp[n];
 	  }
+	
+	public static void main(String[] args) {
+		Prob264 prob = new Prob264();
+		System.out.println(prob.nthUglyNumber(10));
+	}
 }

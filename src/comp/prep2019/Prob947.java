@@ -1,6 +1,12 @@
 package comp.prep2019;
 
 public class Prob947 {
+	/**
+	 * find number of islands
+	 * ans is stone.length -count of islands
+	 * @param stones
+	 * @return
+	 */
 	public int removeStones(int[][] stones) {
         int[] parents = new int[stones.length];
         for (int i = 0; i < parents.length; i++) parents[i] = i;

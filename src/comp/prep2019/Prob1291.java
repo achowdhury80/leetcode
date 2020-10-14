@@ -26,5 +26,6 @@ public class Prob1291 {
 	public static void main(String[] args) {
 		Prob1291 prob = new Prob1291();
 		System.out.println(prob.sequentialDigits(10,1000000000));
+		System.out.println(prob.sequentialDigits(22,24));
 	}
 }

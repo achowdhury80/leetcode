@@ -1,7 +1,11 @@
 package comp.prep2019;
 
 public class Prob1323 {
-	
+	/**
+	 * O(logn)
+	 * @param num
+	 * @return
+	 */
 	public int maximum69Number (int num) {
         int msb = (int)Math.pow(10, ((int) Math.log10(num)));
         int result = 0;

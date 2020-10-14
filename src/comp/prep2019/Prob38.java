@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob38 {
+	/**
+	 * O(2^n) time and space O(2^(n - 1))
+	 * @param n
+	 * @return
+	 */
 	public String countAndSay(int n) {
         if (n == 1) return "1";
         String s = "1";

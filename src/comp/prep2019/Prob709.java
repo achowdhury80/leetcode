@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob709 {
+	/**
+	 * O(n) time
+	 * @param str
+	 * @return
+	 */
 	public String toLowerCase(String str) {
         StringBuilder sb = new StringBuilder();
         for (char c : str.toCharArray()) {

@@ -1,6 +1,9 @@
 package comp.prep2019;
 
 public class Prob14 {
+	/*
+	 * O(NW) time
+	 */
 	public String longestCommonPrefix(String[] strs) {
 		if(strs.length < 1) return "";
         int i = 0;

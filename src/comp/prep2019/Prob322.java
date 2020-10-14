@@ -8,16 +8,11 @@ public class Prob322 {
         int[] dp = new int[amount + 1];
         for (int i = 1; i <= amount; i++) dp[i] = Integer.MAX_VALUE;
         for (int i = 1; i <= amount; i++) {
-        	for (int j = coins.length - 1; j > -1; j--) {
-        		if (i == coins[j]) {
-        			dp[i] = 1;
-        			break;
-        		}
-        		if (coins[j] < i) {
-        			if (dp[i - coins[j]] != Integer.MAX_VALUE) {
-        				dp[i] = Math.min(dp[i], 1 + dp[i - coins[j]]);
-        			}
-        		}
+        	for (int j = 0; j < coins.length; j++) {
+        		if (coins[j] > i) break;
+        		if (dp[i - coins[j]] == Integer.MAX_VALUE) continue;
+        		dp[i] = Math.min(dp[i], 1 + dp[i - coins[j]]);
+        		
         	}
         }
         return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];

@@ -3,7 +3,6 @@ package comp.prep2019;
 public class Prob11 {
 	/**
 	 * O(N)
-	 * 
 	 * @param height
 	 * @return
 	 */
@@ -11,9 +10,10 @@ public class Prob11 {
        int low = 0, high = height.length - 1;
        int result = 0;
        while(low < high) {
-    	   result = Math.max(result, (high -low) * Math.min(height[low], height[high]));
-    	   if (height[low] < height[high]) low++;
-    	   else high--;
+    	   result = Math.max(result, 
+    			   (high - low) * Math.min(height[high], height[low]));
+    	   if (height[low] >= height[high]) high--;
+    	   else low++;
        }
        return result;
     }

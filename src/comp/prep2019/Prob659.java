@@ -16,7 +16,6 @@ public class Prob659 {
         	}
         	arr = q.poll();
         	arr[0] = i;
-        	if (arr[0] - arr[1] > 4) arr[1] = arr[0] - 2;
         	q.offer(arr);
         }
         while(!q.isEmpty()) {

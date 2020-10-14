@@ -15,21 +15,39 @@ public class Prob315 {
         return Arrays.asList(result);
     }*/
 	
-	public List countSmaller(int[] nums) {
-		ArrayList res = new ArrayList();
-
-		    int count = 0;
-		    for(int i=0;i<nums.length;i++){
-		        for(int j=i+1;j<nums.length;j++){
-		            if(nums[i] > nums[j]){
-		                count += 1;
-		            }
-		        }
-		        res.add(count);
-		        count = 0 ;
-		    }
-		    return res;
-		}
+	public List<Integer> countSmaller1(int[] nums) {
+		List<Integer> res = new ArrayList<>();
+	    int count = 0;
+	    for(int i=0;i<nums.length;i++){
+	        for(int j=i+1;j<nums.length;j++){
+	            if(nums[i] > nums[j]){
+	                count += 1;
+	            }
+	        }
+	        res.add(count);
+	        count = 0 ;
+	    }
+	    return res;
+	}
+	
+	public List<Integer> countSmaller(int[] nums) {
+		List<Integer> res = new ArrayList<>();
+		List<Integer> sortedData = new ArrayList<>();
+	    for (int i = nums.length - 1; i > -1; i--) {
+	    	int index = Collections.binarySearch(sortedData, nums[i]);
+	    	if (index > -1) {
+	    		int j = index - 1;
+	    		while(j > -1 && sortedData.get(j) == nums[i]) j--;
+	    		sortedData.add(index, nums[i]);
+	    		res.add(0, j + 1);
+	    	} else {
+	    		index = -(index + 1);
+	    		res.add(0, index);
+	    		sortedData.add(index, nums[i]);
+	    	}
+	    }
+	    return res;
+	}
 	
 	public static void main(String[] args) {
 		Prob315 prob = new Prob315();

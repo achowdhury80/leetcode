@@ -7,6 +7,11 @@ import java.util.List;
  * Created by ayanc on 12/28/17.
  */
 public class Prob539 {
+	/**
+	 * 
+	 * @param timePoints
+	 * @return
+	 */
   public int findMinDifference(List<String> timePoints) {
     if(timePoints == null || timePoints.size() < 2 || timePoints.size() > 24 * 60) return 0;
     int result = Integer.MAX_VALUE;

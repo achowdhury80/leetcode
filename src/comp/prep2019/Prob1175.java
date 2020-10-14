@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob1175 {
+	/**
+	 * O(N^2)
+	 * @param n
+	 * @return
+	 */
 	public int numPrimeArrangements(int n) {
         boolean[] notPrime = new boolean[n + 1];
         int count = 0;

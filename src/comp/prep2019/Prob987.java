@@ -3,7 +3,8 @@ import java.util.*;
 public class Prob987 {
 	public List<List<Integer>> verticalTraversal(TreeNode root) {
 		List<List<Integer>> result = new ArrayList<>();
-		Queue<int[]> pq = new PriorityQueue<>((x, y) -> (x[0] != y[0]) ? (x[0] - y[0]) : ((x[1] != y[1]) ? (x[1] - y[1]) : (x[2] - y[2])));
+		Queue<int[]> pq = new PriorityQueue<>((x, y) -> (x[0] != y[0]) ? 
+				(x[0] - y[0]) : ((x[1] != y[1]) ? (x[1] - y[1]) : (x[2] - y[2])));
 		populate(root, new int[] {0, 0}, pq);
 		int listIndex = 1001;
 		while(!pq.isEmpty()) {
@@ -23,8 +24,10 @@ public class Prob987 {
 	
 	private void populate(TreeNode root, int[] pos, Queue<int[]> pq) {
 		pq.offer(new int[] {pos[0], pos[1], root.val});
-		if (root.left != null) populate(root.left, new int[] {pos[0] - 1, pos[1] + 1}, pq);
-		if (root.right != null) populate(root.right, new int[] {pos[0] + 1, pos[1] + 1}, pq);
+		if (root.left != null) 
+			populate(root.left, new int[] {pos[0] - 1, pos[1] + 1}, pq);
+		if (root.right != null) 
+			populate(root.right, new int[] {pos[0] + 1, pos[1] + 1}, pq);
 	}
 	
 	public static void main(String[] args) {

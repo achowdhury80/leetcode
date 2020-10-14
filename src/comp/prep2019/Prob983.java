@@ -1,6 +1,12 @@
 package comp.prep2019;
 
 public class Prob983 {
+	/**
+	 * O(N) time and space
+	 * @param days
+	 * @param costs
+	 * @return
+	 */
 	public int mincostTickets(int[] days, int[] costs) {
         int[] dp = new int[366];
         int idx = 0;

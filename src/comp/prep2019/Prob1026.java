@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob1026 {
+	/**
+	 * O(N) time and O(H) space
+	 * @param root
+	 * @return
+	 */
 	public int maxAncestorDiff(TreeNode root) {
         int[] result = new int[] {0};
         helper(root, result);

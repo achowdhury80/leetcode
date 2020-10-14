@@ -2,6 +2,26 @@ package comp.prep2019;
 import java.util.*;
 public class Prob494 {
 	public int findTargetSumWays(int[] nums, int S) {
+		return helper(nums, 0, S, new HashMap<>());
+	}
+	
+	private int helper(int[] nums, int start, int target, 
+			Map<Integer, Integer> cache) {
+		int key = (start << 11) | (target + 1000);
+		if (cache.containsKey(key)) return cache.get(key);
+		int ways = 0;
+		if (start == nums.length - 1) {
+			if (target == nums[start]) ways++;
+			if (target + nums[start] == 0) ways++;
+		} else {
+			ways = helper(nums, start + 1, target - nums[start], cache) 
+				+ helper(nums, start + 1, target + nums[start], cache);
+		}
+		cache.put(key, ways);
+		return ways;
+		
+	}
+	public int findTargetSumWays1(int[] nums, int S) {
         Map<Integer, Integer> map = new HashMap<>();
         map.put(nums[0], 1);
         map.put(-nums[0], 1);

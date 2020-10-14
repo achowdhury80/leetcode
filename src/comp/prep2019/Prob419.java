@@ -1,6 +1,11 @@
 package comp.prep2019;
 
-public class Pro419 {
+public class Prob419 {
+	/**
+	 * O(M*N)
+	 * @param board
+	 * @return
+	 */
 	public int countBattleships(char[][] board) {
         int result = 0;
         for (int i = 0; i < board.length; i++) {

@@ -3,7 +3,40 @@ import java.util.*;
 
 
 public class Prob314 {
+	
 	public List<List<Integer>> verticalOrder(TreeNode root) {
+		List<List<Integer>> fwdResult = new ArrayList<>();
+		List<List<Integer>> bkwdResult = new ArrayList<>();
+		helper(root, 0, fwdResult, bkwdResult);
+		for (List<Integer> list : bkwdResult) fwdResult.add(0, list);
+		return fwdResult;
+	}
+	
+	private void helper(TreeNode root, int curCol, List<List<Integer>> fwdResult, 
+			List<List<Integer>> bkwdResult) {
+		if (root == null) return;
+		if (curCol >= 0) {
+			List<Integer> list = null;
+			if (fwdResult.size() == curCol) {
+				list = new ArrayList<>();
+				fwdResult.add(list);
+			}
+			list = fwdResult.get(curCol);
+			list.add(root.val);
+		} else {
+			List<Integer> list = null;
+			int idx = -curCol - 1;
+			if (bkwdResult.size() == idx) {
+				list = new ArrayList<>();
+				bkwdResult.add(list);
+			}
+			list = bkwdResult.get(idx);
+			list.add(root.val);
+		}
+		helper(root.left, curCol - 1, fwdResult, bkwdResult);
+		helper(root.right, curCol + 1, fwdResult, bkwdResult);
+	}
+	public List<List<Integer>> verticalOrder1(TreeNode root) {
 	    List<List<Integer>> result = new ArrayList<>();
 	    if (root == null) return result;
 	    TreeMap<Integer, List<Integer>> treeMap = new TreeMap<>();

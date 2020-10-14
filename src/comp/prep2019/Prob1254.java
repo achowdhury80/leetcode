@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1254 {
+	/**
+	 * O(MN) time
+	 * @param grid
+	 * @return
+	 */
 	public int closedIsland(int[][] grid) {
         int m = grid.length, n = grid[0].length;
         int result = 0;

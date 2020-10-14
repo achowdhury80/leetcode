@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob199 {
+	/**
+	 * O(N)
+	 * @param root
+	 * @return
+	 */
 	public List<Integer> rightSideView(TreeNode root) {
 		List<Integer> result = new ArrayList<>();
 		if(root == null) return result;

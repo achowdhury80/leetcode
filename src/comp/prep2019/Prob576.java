@@ -1,5 +1,4 @@
 package comp.prep2019;
-import java.util.*;
 public class Prob576 {
 	// O(Nmn) O(mn)
 	public int findPaths(int m, int n, int N, int i, int j) {

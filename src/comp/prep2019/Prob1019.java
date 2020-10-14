@@ -2,6 +2,7 @@ package comp.prep2019;
 import java.util.*;
 public class Prob1019 {
 	/**
+	 * O(N) time and spce
 	 * reverse the list
 	 * maintain a stack of bigger numbers
 	 * @param head

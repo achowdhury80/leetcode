@@ -1,27 +1,36 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob457 {
+	/**
+	 * remove all single length elements
+	 * start from an index, 
+	 * @param nums
+	 * @return
+	 */
 	public boolean circularArrayLoop(int[] nums) {
 		if (nums.length < 2) return false;
         boolean[] arr = new boolean[nums.length];
+        // remove single length loop
+        for (int i = 0; i < nums.length; i++) {
+        	int next = ((i + nums[i]) % nums.length + nums.length) % nums.length;
+        	if (next == i) arr[i] = true;
+        }
         for (int i = 0; i < nums.length; i++) {
         	if (arr[i]) continue;
         	int cur = i;
         	boolean pos = nums[i] > 0;
         	Set<Integer> visited = new HashSet<>();
         	visited.add(cur);
-        	int len = 1;
         	while(true) {
         		cur = ((cur + nums[cur]) % nums.length + nums.length) % nums.length;
+        		// an element changes the direction does not mean the element can 
+        		//not be part of other loop
         		if (nums[cur] > 0 != pos || arr[cur]) break;
-        		if (visited.contains(cur)) {
-        			if (cur == i && len > 1) return true;
-        			else break;
-        		}
+        		// loop found
+        		if (visited.contains(cur)) return true;
         		visited.add(cur);
-        		len++;
         	}
-        	arr[i] = true;
+        	for (int j : visited) arr[j] = true;
         }
         return false;
     }

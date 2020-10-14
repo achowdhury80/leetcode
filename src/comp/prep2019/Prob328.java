@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob328 {
+	/**
+	 * O(N) time
+	 * @param head
+	 * @return
+	 */
 	public ListNode oddEvenList(ListNode head) {
 		if(head == null || head.next == null) return head;
         ListNode oddHead = new ListNode(-1);

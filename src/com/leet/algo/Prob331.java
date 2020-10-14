@@ -8,7 +8,13 @@ import java.util.Stack;
  */
 public class Prob331 {
 
-  public boolean isValidSerialization(String preorder) {
+	public boolean isValidSerialization(String preorder) {
+	    if(preorder == null || preorder.length() == 0) return true;
+	    String[] arr = preorder.split(",");
+	    int[] cur = new int[] {0};
+	    return helper(arr, cur) && cur[0] == arr.length;
+	  }
+  public boolean isValidSerialization1(String preorder) {
     if(preorder == null || preorder.length() == 0) return true;
     String[] arr = preorder.split(",");
     Integer result = validate(arr, 0);
@@ -21,6 +27,16 @@ public class Prob331 {
     Integer newStart = validate(arr, start + 1);
     if(newStart == null) return null;
     return validate(arr, newStart);
+  }
+  
+  public boolean helper(String[] arr, int[] cur) {
+	    if (cur[0] == arr.length) return false;
+	    if (arr[cur[0]].equals("#")) {
+	    	cur[0]++;
+	    	return true;
+	    }
+	    cur[0]++;
+	    return helper(arr, cur) && helper(arr, cur);
   }
 
   public static void main(String[] args){

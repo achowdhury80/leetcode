@@ -3,6 +3,11 @@ package comp.prep2019;
 import java.util.*;
 
 public class Prob451 {
+	/**
+	 * O(NLogN)
+	 * @param s
+	 * @return
+	 */
 	public String frequencySort(String s) {
 	    if(s == null || s.length() == 0) return s;
 	    Map<Character, StringBuilder> map = new HashMap<>();

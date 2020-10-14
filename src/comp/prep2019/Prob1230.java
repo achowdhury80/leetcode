@@ -1,6 +1,16 @@
 package comp.prep2019;
 
 public class Prob1230 {
+	/**
+	 * dp[i][j] = getting i heads using first j coins ... 1 based
+	 * dp[i][j] = dp[i][j - 1] + dp[i - 1][j - 1] * prob(j - 1)
+	 * dp[0][0] = 1
+	 * dp[i][0] = 0
+	 * dp[0][1] = 1 - prob[0]
+	 * @param prob
+	 * @param target
+	 * @return
+	 */
 	public double probabilityOfHeads(double[] prob, 
 			int target) {
         if (target > prob.length || target < 0) return 0;

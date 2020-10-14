@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob884 {
+	/**
+	 * O(M + N) time & space
+	 * @param A
+	 * @param B
+	 * @return
+	 */
 	public String[] uncommonFromSentences(String A, String B) {
         Map<String, Boolean> map = new HashMap<>(); 
         for (String s : A.split(" ")) {

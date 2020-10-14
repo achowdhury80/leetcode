@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1305 {
+	/**
+	 * O(M + N) time and space O(H1 + H2) - worst case O(M + N)
+	 * @param root1
+	 * @param root2
+	 * @return
+	 */
 	public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
 		Queue<InOrderItr> q = new PriorityQueue<>((x, y) -> x.peek() - y.peek());
 		if (root1 != null) q.offer(new InOrderItr(root1));

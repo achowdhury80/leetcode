@@ -1,29 +1,28 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob662 {
-	public int widthOfBinaryTree(TreeNode root) {
-        if (root == null) return 0;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        int result = 1;
-        while(!q.isEmpty()) {
-        	int size = q.size();
-        	List<TreeNode> list = new ArrayList<>();
-        	for (int i = 0; i < size; i++) {
-        		TreeNode node = q.poll();
-        		if (node == null) {
-        			list.add(null);
-        			list.add(null);
-        		} else {
-	        		list.add(node.left);
-	        		list.add(node.right);
-        		}
-        	}
-        	while(!list.isEmpty() && list.get(0) == null) list.remove(0);
-        	while(!list.isEmpty() && list.get(list.size() - 1) == null) list.remove(list.size() - 1);
-        	result = Math.max(result, list.size());
-        	q.addAll(list);
-        }
-        return result;
-    }
+	 public int widthOfBinaryTree(TreeNode root) {
+		    if(root == null) return 0;
+		    List<TreeNode> list = new ArrayList<>();
+		    list.add(root);
+		    int result = 0;
+		    Map<TreeNode, Integer> map = new HashMap<>();
+		    map.put(root, 0);
+		    while (!list.isEmpty()){
+		      List<TreeNode> temp = new ArrayList<>();
+		      for(TreeNode node : list){
+		        if(node.left != null) {
+		          temp.add(node.left);
+		          map.put(node.left, 2 * map.get(node) + 1);
+		        }
+		        if(node.right != null) {
+		          temp.add(node.right);
+		          map.put(node.right, 2 * map.get(node) + 2);
+		        }
+		      }
+		      result = Math.max(result, map.get(list.get(list.size() - 1)) - map.get(list.get(0)) + 1);
+		      list = temp;
+		    }
+		    return result;
+		  }
 }

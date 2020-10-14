@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob69 {
+	/**
+	 * O(logn)
+	 * @param x
+	 * @return
+	 */
 	public int mySqrt(int x) {
         if (x < 2) return x;
         int l = 1, h = x / 2;

@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob841 {
+	/**
+	 * O(N) time and space
+	 * @param rooms
+	 * @return
+	 */
 	public boolean canVisitAllRooms(List<List<Integer>> rooms) {
 		// arr[i] true means ith room is accessible
         boolean[] arr = new boolean[1001];

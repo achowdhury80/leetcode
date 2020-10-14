@@ -1,32 +1,39 @@
 package comp.prep2019;
 
 public class Prob1139 {
+	/**
+	 * https://leetcode.com/problems/largest-1-bordered-square/discuss/345265/c%2B%2B-beats-100-(both-time-and-memory)-concise-with-algorithm-and-image
+	 * @param grid
+	 * @return
+	 */
 	public int largest1BorderedSquare(int[][] grid) {
         int m = grid.length, n = grid[0].length;
-        int result = 0;
+        int[][] hor = new int[m][n], ver = new int[m][n];
         for (int i = 0; i < m; i++) {
         	for (int j = 0; j < n; j++) {
         		if (grid[i][j] == 1) {
-        			int hCount = 1, vCount = 1;
-        			if (j > 0) hCount += (grid[i][j - 1] >> 1) & ((1 << 7) - 1);
-        			if (i > 0) vCount += (grid[i - 1][j] >> 8) & ((1 << 7) - 1);
-        			grid[i][j] ^= (hCount << 1);
-        			grid[i][j] ^= (vCount << 8);
-        			int d = Math.min(hCount, vCount);
-        			result = Math.max(result, 1);
-        			for (int k = d; k > 1; k--) {
-        				if (
-        						((grid[i - k + 1][j] >> 1) & ((1 << 7) - 1)) >= k &&
-        						((grid[i][j - k + 1] >> 8) & ((1 << 7) - 1)) >= k
-        				) {
-        					result = Math.max(result, k * k);
-        					break;
-        				}
-        			}
+	        		hor[i][j] = (j > 0 ? hor[i][j - 1] : 0) + grid[i][j];
+	        		ver[i][j] = (i > 0 ? ver[i - 1][j] : 0) + grid[i][j];
         		}
         	}
         }
-        return result;
+        int result = 0;
+        for (int i = m - 1; i > -1; i--) {
+        	for (int j = n - 1; j > -1; j--) {
+        		if (grid[i][j] == 1) {
+        			int small = Math.min(hor[i][j], ver[i][j]);
+        			while(small > result) {
+        				if (ver[i][j - small + 1] >= small && hor[i - small + 1][j] >= small) {
+        					result = small;
+        					break;
+        				}
+        				small--;
+        			}
+        			
+        		}
+        	}
+        }
+        return result * result;
     }
 	
 	public static void main(String[] args) {

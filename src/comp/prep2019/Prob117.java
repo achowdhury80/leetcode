@@ -10,19 +10,18 @@ public class Prob117 {
         	start = new Node();
         	Node curTemp = start;
         	while(cur != null) {
-            	if (cur.left != null) {
-            		curTemp.next = cur.left;
-            		curTemp = curTemp.next;
-            	}
-            	if (cur.right != null) {
-            		curTemp.next = cur.right;
-            		curTemp = curTemp.next;
-            	}
-            	cur = cur.next;
-            }
+        		if (cur.left != null) {
+        			curTemp.next = cur.left;
+        			curTemp = curTemp.next;
+        		}
+        		if (cur.right != null) {
+        			curTemp.next = cur.right;
+        			curTemp = curTemp.next;
+        		}
+        		cur = cur.next;
+        	}
         }
         return root;
-        
     }
 	
 	class Node {

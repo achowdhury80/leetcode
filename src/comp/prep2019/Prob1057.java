@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1057 {
+	/**
+	 * O(MN)logMN time and o(MN) space
+	 * @param workers
+	 * @param bikes
+	 * @return
+	 */
 	public int[] assignBikes(int[][] workers, int[][] bikes) {
         Queue<int[]> q = new PriorityQueue<>((x, y) -> (x[2] == y[2]) ? ((x[0] == y[0]) ? x[1] - y[1] : x[0] - y[0]) : (x[2] - y[2]));
         for (int i = 0; i < workers.length; i++) {

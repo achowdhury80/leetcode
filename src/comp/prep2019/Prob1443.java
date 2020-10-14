@@ -11,28 +11,29 @@ public class Prob1443 {
         	list.add(edge[0]);
         	map.put(edge[1], list);
         }
-    	int[] result = new int[] {0};
-    	boolean[] visited = new boolean[n];
-    	visited[0] = true;
-    	collectApple(0, hasApple, result, map, visited);
-    	return result[0];
+    	return helper(0, map, new boolean[n], hasApple)[1];
     }
 	
-	private boolean collectApple(int vertex, List<Boolean> hasApple, int[] time, 
-			Map<Integer, List<Integer>> map, boolean[] visited) {
-		boolean result = false;
-		if (hasApple.get(vertex)) result = true;
-		if (map.containsKey(vertex)) {
-			for (int v : map.get(vertex)) {
-				if (!visited[v]) {
-					visited[v] = true;
-					if (collectApple(v, hasApple, time, map, visited)) {
-						time[0] += 2;
-						result = true;
-					}
-				}
-			}
+	/**
+	 * 0th element signifies(apple - 1, no apple - 0}, 1st element total walk 
+	 * starting from the node
+	 * @param root
+	 * @param map
+	 * @param visited
+	 * @return
+	 */
+	private int[] helper(int root, Map<Integer, List<Integer>> map, 
+			boolean[] visited, List<Boolean> hasApple) {
+		visited[root] = true;
+		int[] result = new int[2];
+		for (int node : map.getOrDefault(root, new ArrayList<>())) {
+			if (visited[node]) continue;
+			int[] temp = helper(node, map, visited, hasApple);
+			if (temp[0] == 0) continue;
+			result[0] = 1;
+			result[1] += temp[1] + 2;
 		}
+		if (result[0] == 0 && hasApple.get(root)) result[0] = 1;
 		return result;
 	}
 }

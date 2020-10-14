@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob763 {
+	/**
+	 * O(NlogN)
+	 * @param S
+	 * @return
+	 */
 	public List<Integer> partitionLabels(String S) {
         int[][] arr = new int[26][];
         char[] chars = S.toCharArray();

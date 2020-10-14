@@ -1,6 +1,6 @@
 package comp.prep2019;
 
-public class Pob538 {
+public class Prob538 {
 	/**
 	 * O(N) time O(H) space
 	 * @param root

@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1245 {
+	/**
+	 * O(N)
+	 * @param edges
+	 * @return
+	 */
 	public int treeDiameter(int[][] edges) {
 		if (edges.length == 0) return 0;
         boolean[] visited = new boolean[edges.length + 1];
@@ -14,16 +19,13 @@ public class Prob1245 {
         	map.put(edge[1], vertices2);
         }
         int[] diameter = new int[1];
-        for (int i = 0; i < visited.length; i++) {
-        	if (!visited[i]) findMaxDepth(i, map, diameter, visited);
-        }
+        findMaxDepth(0, map, diameter, visited);
         return diameter[0];
     }
 	
 	private int findMaxDepth(int vertex, Map<Integer, List<Integer>> map, 
 			int[] diameter, boolean[] visited) {
 		visited[vertex] = true;
-		if (!map.containsKey(vertex)) return 0;
 		Queue<Integer> q = new PriorityQueue<>();
 		for (int node : map.get(vertex)) {
 			if (visited[node]) continue;

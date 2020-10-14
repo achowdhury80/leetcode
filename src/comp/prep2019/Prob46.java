@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob46 {
+	/**
+	 * O(N!) time and space
+	 * @param nums
+	 * @return
+	 */
 	public List<List<Integer>> permute(int[] nums) {
 		List<List<Integer>> result = new ArrayList<>();
 		if (nums.length < 1) return result;

@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob429 {
+	/**
+	 * O(N) time and space
+	 * @param root
+	 * @return
+	 */
 	public List<List<Integer>> levelOrder(Node root) {
 		List<List<Integer>> result = new ArrayList<>();
 		if(root == null) return result;

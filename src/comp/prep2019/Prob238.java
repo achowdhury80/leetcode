@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob238 {
+	/**
+	 * O(N) time and space
+	 * @param nums
+	 * @return
+	 */
 	public int[] productExceptSelf(int[] nums) {
         int[] result = new int[nums.length];
         int left = 1, right = 1;

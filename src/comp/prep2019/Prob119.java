@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob119 {
+	/**
+	 * O(N^2) time and O(N) space
+	 * @param rowIndex
+	 * @return
+	 */
 	public List<Integer> getRow(int rowIndex) {
 		List<Integer> list = new ArrayList<>();
 		if (rowIndex < 0) return list;

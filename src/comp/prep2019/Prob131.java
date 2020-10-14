@@ -1,6 +1,14 @@
 package comp.prep2019;
+
 import java.util.*;
+
 public class Prob131 {
+	/**
+	 * caching did not give better performance
+	 * O(N*(2^n)) time and O(N) space
+	 * @param s
+	 * @return
+	 */
 	public List<List<String>> partition(String s) {
 	    List<List<String>> result = new ArrayList<>();
 	    if (s == null || s.length() < 1) return result;

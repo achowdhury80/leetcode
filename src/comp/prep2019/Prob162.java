@@ -1,18 +1,23 @@
 package comp.prep2019;
 
 public class Prob162 {
+	/**
+	 * O(logn)
+	 * nums[i] and nums[i + 1] not equal
+	 * @param nums
+	 * @return
+	 */
 	public int findPeakElement(int[] nums) {
-        if (nums.length < 2) return 0;
-        int l = 0, r = nums.length - 1;
-        while(l < r - 1) {
-        	int mid = l + (r - l) / 2;
-        	if (nums[mid] <= nums[l]) r = mid - 1;
-        	else if (nums[mid] <= nums[r]) l = mid + 1;
+        int low = 0, high = nums.length - 1;
+        while(low + 1 < high) {
+        	int mid = low + (high -low) / 2;
+        	if (nums[mid] <= nums[low]) high = mid - 1;
+        	else if (nums[mid] <= nums[high]) low = mid + 1;
         	else {
-        		if (nums[mid + 1] > nums[mid]) l = mid + 1;
-        		else r = mid;
+        		if (nums[mid + 1] > nums[mid]) low = mid + 1;
+        		else high = mid;
         	}
         }
-        return nums[l] > nums[r] ? l : r;
+        return nums[low] < nums[high] ? high : low;
     }
 }

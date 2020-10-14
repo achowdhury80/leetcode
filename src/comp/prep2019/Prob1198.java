@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1198 {
+	/**
+	 * o(nmlogn) time and o(N) space
+	 * @param mat
+	 * @return
+	 */
 	public int smallestCommonElement(int[][] mat) {
 		int m = mat.length, n = mat[0].length;
         int max = 0;

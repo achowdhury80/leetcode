@@ -1,7 +1,14 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1213 {
-	public List<Integer> arraysIntersection(int[] arr1, int[] arr2, int[] arr3) {
+	/**
+	 * o(min(n1, n2, n3)) time
+	 * @param arr1
+	 * @param arr2
+	 * @param arr3
+	 * @return
+	 */
+	public List<Integer> arraysIntersection1(int[] arr1, int[] arr2, int[] arr3) {
 		List<Integer> result = new ArrayList<>();
 		int i = 0, j = 0, k = 0;
 		while(i < arr1.length && j < arr2.length && k < arr3.length) {

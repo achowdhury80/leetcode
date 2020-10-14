@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob1436 {
+	/**
+	 * o(N) time and space
+	 * @param paths
+	 * @return
+	 */
 	public String destCity(List<List<String>> paths) {
         Set<String> destSet = new HashSet<>();
         Set<String> nonDestSet = new HashSet<>();

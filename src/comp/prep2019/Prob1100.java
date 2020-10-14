@@ -1,6 +1,12 @@
 package comp.prep2019;
 
 public class Prob1100 {
+	/**
+	 * O(N)
+	 * @param S
+	 * @param K
+	 * @return
+	 */
 	public int numKLenSubstrNoRepeats(String S, int K) {
         int[] arr = new int[26];
         char[] chars = S.toCharArray();

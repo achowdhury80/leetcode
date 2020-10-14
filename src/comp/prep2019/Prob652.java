@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob652 {
+	/**
+	 * https://leetcode.com/problems/find-duplicate-subtrees/solution/
+	 * @param root
+	 * @return
+	 */
 	public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
 		List<TreeNode> result = new ArrayList<>();
 		lookupId(root, new HashMap<>(), new HashMap<>(), new int[]{1}, result);

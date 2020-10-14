@@ -1,5 +1,10 @@
 package comp.prep2019;
 import java.util.*;
+/**
+ * 
+ * @author aychowdh
+ *
+ */
 public class Prob346 {
 	private List<Integer> list;
 	private int size, sum;
@@ -10,6 +15,11 @@ public class Prob346 {
         sum = 0;
     }
     
+   /**
+    * O(1)
+    * @param val
+    * @return
+    */
     public double next(int val) {
         sum += val;
         list.add(val);

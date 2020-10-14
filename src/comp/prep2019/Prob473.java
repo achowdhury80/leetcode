@@ -10,21 +10,19 @@ public class Prob473 {
         }
         if (sum % 4 != 0) return false;
         if (max > (sum / 4)) return false;
-        return helper(nums, new int[] {0, 0, 0, 0}, sum / 4, 0);
+        return helper(nums, new int[] {0, 0, 0, 0}, 0, sum / 4);
     }
 	
-	private boolean helper(int[] nums, int[] subsetSum, int sum, int start) {
+	private boolean helper(int[] nums, int[] subsetSums, int start, int sum) {
 		if (start == nums.length) {
-			for (int sub : subsetSum) {
-				if (sub != sum) return false;
-			}
+			for (int subsetSum : subsetSums) if (subsetSum != sum) return false;
 			return true;
 		}
-		for (int j = 0; j < subsetSum.length; j++) {
-			if (subsetSum[j] + nums[start] > sum) continue;
-			subsetSum[j] += nums[start];
-			if (helper(nums, subsetSum, sum, start + 1)) return true;
-			subsetSum[j] -= nums[start];
+		for (int i = 0; i < 4; i++) {
+			if (subsetSums[i] + nums[start] > sum) continue;
+			subsetSums[i] += nums[start];
+			if (helper(nums, subsetSums, start + 1, sum)) return true;
+			subsetSums[i] -= nums[start];
 		}
 		return false;
 	}

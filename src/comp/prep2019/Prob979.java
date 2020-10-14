@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob979 {
+	/**
+	 * O(N) time and O(H) space
+	 * @param root
+	 * @return
+	 */
 	public int distributeCoins(TreeNode root) {
         int[] move = new int[1];
         findNeeded(root, move);

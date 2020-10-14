@@ -1,6 +1,12 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob347 {
+	/**
+	 * NlogK
+	 * @param nums
+	 * @param k
+	 * @return
+	 */
 	public List<Integer> topKFrequent(int[] nums, int k) {
 		Map<Integer, Integer> map = new HashMap<>();
         for (int num : nums) {

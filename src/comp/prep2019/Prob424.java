@@ -8,7 +8,8 @@ public class Prob424 {
 	    int maxCount = 0, maxLength = 0;
 	    for(end = 0; end < len; end++){
 	      maxCount = Math.max(maxCount, ++count[s.charAt(end) - 'A']);
-	      while (end - start + 1 - maxCount > k){
+	      if (end - start + 1 - maxCount > k){
+	    	  // this is tricky
 	        count[s.charAt(start) - 'A']--;
 	        start++;
 	      }

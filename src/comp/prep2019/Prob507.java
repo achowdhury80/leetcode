@@ -1,6 +1,11 @@
 package comp.prep2019;
 
 public class Prob507 {
+	/**
+	 * O(sqrt(N)) time
+	 * @param num
+	 * @return
+	 */
 	public boolean checkPerfectNumber(int num) {
 		if(num < 2) return false;
 		int sum = 1;

@@ -1,6 +1,10 @@
 package comp.prep2019;
 
 public class Prob114 {
+	/**
+	 * O(N)
+	 * @param root
+	 */
 	public void flatten(TreeNode root) {
         helper(root);
     }

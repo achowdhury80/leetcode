@@ -1,36 +1,38 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob621 {
+	/**
+	 * O(N_total)
+	 * @param tasks
+	 * @param n
+	 * @return
+	 */
 	public int leastInterval(char[] tasks, int n) {
 		if (n == 0) return tasks.length;
-        int result = 0;
-        Map<Character, Integer> map = new HashMap<>();
-        for (char c : tasks) map.put(c, map.getOrDefault(c, 0) + 1);
-        // int[] of 3 elements, 1st -> task name, 2nd count, 3rd blocked interval
-        Queue<int[]> pq = new PriorityQueue<int[]>((x, y) -> y[1] - x[1]);
-        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
-        	pq.offer(new int[] {entry.getKey(), entry.getValue(), 0});
+        int[] arr = new int[26];
+        for (char c : tasks) {
+        	arr[c - 'A']++;
         }
-        List<int[]> blocked = new ArrayList<>();
-        while(!pq.isEmpty() || !blocked.isEmpty()) {
-        	if (!pq.isEmpty()) {
-        		int[] arr = pq.poll();
-        		arr[1]--;
-        		if (arr[1] != 0) {
-        			arr[2] = n + 1;
-        			blocked.add(arr);
-        		}
-        	}
-        	List<int[]> temp = new ArrayList<>();
-        	for (int[] a : blocked) {
-        		a[2]--;
-        		if (a[2] == 0) pq.offer(a);
-        		else temp.add(a);
-        	}
-        	blocked = temp;
-        	result++;
+        Queue<int[]> q = new PriorityQueue<>((x, y) -> y[1] - x[1]);
+        for (int i= 0; i < arr.length; i++) {
+        	if (arr[i] != 0) q.offer(new int[] {i, arr[i], -1});
         }
-        return result;
+        int time = 0;
+        Queue<int[]> blocked = new LinkedList<>();
+        while(!q.isEmpty() || !blocked.isEmpty()) {
+        	time++;
+        	if (!q.isEmpty()) {
+	        	int[] cur = q.poll();
+	        	cur[1]--;
+	        	cur[2] = time;
+	        	if (cur[1] != 0) blocked.offer(cur);
+        	}
+        	if (!blocked.isEmpty()) {
+        		int[] peek = blocked.peek();
+        		if (time - peek[2] >= n) q.offer(blocked.poll());
+        	}
+        }
+        return time;
     }
 	
 	public static void main(String[] args) {

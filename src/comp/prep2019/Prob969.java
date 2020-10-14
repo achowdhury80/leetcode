@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob969 {
+	/**
+	 * O(N^2)
+	 * @param A
+	 * @return
+	 */
 	public List<Integer> pancakeSort(int[] A) {
 		List<Integer> result = new ArrayList<>();
 		int i = A.length - 1;

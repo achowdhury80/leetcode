@@ -1,6 +1,11 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob144 {
+	/**
+	 * O(N) time and space
+	 * @param root
+	 * @return
+	 */
 	public List<Integer> preorderTraversal(TreeNode root) {
 		List<Integer> result = new ArrayList<>();
 		if (root == null) return result;

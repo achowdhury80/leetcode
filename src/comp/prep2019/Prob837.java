@@ -22,4 +22,10 @@ public class Prob837 {
         }
         return result;
     }
+	
+	public static void main(String[] args) {
+		Prob837 prob = new Prob837();
+		System.out.println(prob.new21Game(10, 1, 10));
+		System.out.println(prob.new21Game(6, 1, 10));
+	}
 }

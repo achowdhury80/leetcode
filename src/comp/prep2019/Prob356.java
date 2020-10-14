@@ -13,19 +13,17 @@ public class Prob356 {
 	 */
 	public boolean isReflected(int[][] points) {
 		if (points.length < 2) return true;
-	    int min = Integer.MAX_VALUE;
-	    int max = Integer.MIN_VALUE;
-	    Set<String> set = new HashSet<>();
-	    for (int[] p : points) {
-	    	min = Math.min(min, p[0]);
-	    	max = Math.max(max, p[0]);
-	    	set.add(p[0] + ":" + p[1]);
-	    }
-	    int sum = max + min;
-	    for(int[] p : points) {
-	    	if (!set.contains( (sum - p[0])+ ":" + p[1])) return false;
-	    }
-	    
-	    return true;
+		int minX = Integer.MAX_VALUE, maxX= Integer.MIN_VALUE;
+		Set<String> set = new HashSet<>();
+		for (int[] p : points) {
+			minX = Math.min(minX, p[0]);
+			maxX = Math.max(maxX, p[0]);
+			set.add(p[0] + ":" + p[1]);
+		}
+		int mirrorX = minX + maxX;
+		for (int[] p : points) {
+			if (!set.contains((mirrorX - p[0]) + ":" + p[1])) return false;
+		}
+		return true;
     }
 }

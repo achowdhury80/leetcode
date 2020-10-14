@@ -9,12 +9,15 @@ public class Prob1287 {
 	 * @return
 	 */
 	public int findSpecialInteger(int[] arr) {
-		int n;
-        if ((n = arr.length) < 4) return arr[0];
-        int count = n % 4 == 0 ? n / 4 + 1 : (n + 3) / 4;
-        for (int i = 0; i + count - 1< arr.length; i++) {
-        	if (arr[i + count - 1] == arr[i]) return arr[i];
+        int count = (arr.length + 4) % 4;
+        for (int i = 0; i + count <= arr.length; i++) {
+            if (arr[i] == arr[i + count - 1]) return arr[i];
         }
         return -1;
     }
+	
+	public static void main(String[] args) {
+		Prob1287 prob = new Prob1287();
+		System.out.println(prob.findSpecialInteger(new int[] {1,2,2,6,6,6,6,7,10}));
+	}
 }

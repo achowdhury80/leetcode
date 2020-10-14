@@ -1,6 +1,13 @@
 package comp.prep2019;
 import java.util.*;
 public class Prob692 {
+	/**
+	 * O(NlogK) time
+	 * O(N) space
+	 * @param words
+	 * @param k
+	 * @return
+	 */
 	public List<String> topKFrequent(String[] words, int k) {
         Map<String, Integer> map = new HashMap<>();
         for (String w : words) {

@@ -3,6 +3,7 @@ package comp.prep2019;
 public class Prob1281 {
 	/**
 	 * super simple
+	 * O(K) - k is the number of digits
 	 * @param n
 	 * @return
 	 */

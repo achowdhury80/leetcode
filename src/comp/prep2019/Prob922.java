@@ -14,6 +14,7 @@ public class Prob922 {
         	while(i < A.length && A[i] % 2 == 0) {
             	i += 2;
             }
+        	if (i > A.length) return A;
         	while(j < A.length && A[j] % 2 == 1) {
             	j += 2;
             }

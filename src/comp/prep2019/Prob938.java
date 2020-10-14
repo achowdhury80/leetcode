@@ -1,6 +1,13 @@
 package comp.prep2019;
 
 public class Prob938 {
+	/**
+	 * O(N)
+	 * @param root
+	 * @param L
+	 * @param R
+	 * @return
+	 */
 	public int rangeSumBST(TreeNode root, int L, int R) {
         if (root == null) return 0;
         int result = 0;

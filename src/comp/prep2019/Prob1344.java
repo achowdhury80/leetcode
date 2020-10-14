@@ -2,6 +2,7 @@ package comp.prep2019;
 
 public class Prob1344 {
 	/**
+	 * O(1)
 	 * consider rotation from 12 o'clock
 	 * @param hour
 	 * @param minutes

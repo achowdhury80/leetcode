@@ -1,6 +1,12 @@
 package comp.prep2019;
 
 public class Prob167 {
+	/**
+	 * O(N)
+	 * @param numbers
+	 * @param target
+	 * @return
+	 */
 	public int[] twoSum(int[] numbers, int target) {
         int i = 0, j = numbers.length - 1;
         while(i < j) {

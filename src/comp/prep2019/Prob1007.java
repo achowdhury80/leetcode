@@ -41,4 +41,10 @@ public class Prob1007 {
         }
         return flip1;
 	}
+	
+	public static void main(String[] args) {
+		Prob1007 prob = new Prob1007();
+		System.out.println(prob.minDominoRotations(new int[] {1,2,1,1,1,2,2,2},
+				new int[] {2,1,2,2,2,2,2,2}));
+	}
 }

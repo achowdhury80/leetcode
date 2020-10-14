@@ -14,7 +14,7 @@ public class Prob802 {
 	 * @param graph
 	 * @return
 	 */
-	public List<Integer> eventualSafeNodes(int[][] graph) {
+	public List<Integer> eventualSafeNodes1(int[][] graph) {
         int n = graph.length;
         Set<Integer>[] indegree = new Set[n];
         int[] outdegreeCount = new int[n];
@@ -42,4 +42,26 @@ public class Prob802 {
         for (int i = 0; i < n; i++) if (safe[i]) result.add(i);
         return result;
     }
+	
+	public List<Integer> eventualSafeNodes(int[][] graph) {
+		int[] arr = new int[graph.length];
+		List<Integer> result = new ArrayList<>();
+		for (int i = 0; i < graph.length; i++) {
+			if (!hasCycle(graph, i, arr)) result.add(i);
+		}
+		return result;
+	}
+	
+	private boolean hasCycle(int[][] graph, int start, int[] arr) {
+		if (arr[start] == 2) return false;
+		if (arr[start] == 1) return true;
+		arr[start] = 1;
+		if (graph[start] != null) {
+			for (int next : graph[start]) {
+				if (hasCycle(graph, next, arr)) return true; 
+			}
+		}
+		arr[start] = 2;
+		return false;
+	}
 }
