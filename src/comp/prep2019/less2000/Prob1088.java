@@ -1,7 +1,7 @@
 package comp.prep2019.less2000;
 import java.util.*;
 public class Prob1088 {
-	public int confusingNumberII(int N) {
+	/*public int confusingNumberII(int N) {
 		Map<Integer, Integer> map = new HashMap<>() {{
             put(0, 0);
             put(1, 1);
@@ -21,5 +21,5 @@ public class Prob1088 {
             res += dfs(num, base * entry.getValue() + reverse, base * 10, map, n);
         }
         return res;
-    }
+    }*/
 }

@@ -28,5 +28,6 @@ public class Prob42 {
 		Prob42 prob = new Prob42();
 		System.out.println(prob.trap(new int[] {0,1,0,2,1,0,1,3,2,1,2,1}));
 		System.out.println(prob.trap(new int[] {2, 0, 2}));
+		System.out.println(prob.trap(new int[] {0, 1}));
 	}
 }

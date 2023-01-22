@@ -1,8 +1,5 @@
 package comp.prep2019.less1000;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 import comp.prep2019.TreeNode;
 
 public class Prob99 {

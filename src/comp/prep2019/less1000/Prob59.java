@@ -2,40 +2,30 @@ package comp.prep2019.less1000;
 
 public class Prob59 {
 	/**
-	 * O(N)
+	 * O(n*n)
 	 * @param n
 	 * @return
 	 */
 	public int[][] generateMatrix(int n) {
-		if (n < 1) return new int[0][];
-        int[][] result = new int[n][n];
-        int[] start = new int[] {0, 0};
-        int w = n, cur = 1;
+		int[][] result = new int[n][n];
+		int w = n, val = 1;
+		int[] cur = new int[] {0, 0};
+		int[][] dirs = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
         while(w > 0) {
         	if (w == 1) {
-        		result[start[0]][start[1]] = cur;
-        		cur++;
-        	} else {
+        		result[cur[0]][cur[1]] = val;
+        		break;
+        	}
+        	for (int[] dir : dirs) {
         		for (int i = 0; i < w - 1; i++) {
-        			result[start[0]][start[1] + i] = cur;
-        			cur++;
-        		}
-        		for (int i = 0; i < w - 1; i++) {
-        			result[start[0] + i][start[1] + w - 1] = cur;
-        			cur++;
-        		}
-        		for (int i = 0; i < w - 1; i++) {
-        			result[start[0] + w - 1][start[1] + w - 1 - i] = cur;
-        			cur++;
-        		}
-        		for (int i = 0; i < w - 1; i++) {
-        			result[start[0] + w - 1 - i][start[1]] = cur;
-        			cur++;
+        			result[cur[0]][cur[1]] = val++;
+        			cur[0] += dir[0];
+        			cur[1] += dir[1];
         		}
         	}
+        	cur[0]++;
+        	cur[1]++;
         	w -= 2;
-        	start[0]++;
-        	start[1]++;
         }
         return result;
     }
